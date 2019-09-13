@@ -90,10 +90,10 @@ export default class Contactos extends Component {
                       <Input placeholder="Nombre" value='Alonso' />
                     </Item>
                     <Item last>
-                      <Input placeholder="Apellido Paterno" />
+                      <Input placeholder="Apellido Paterno" value='Alonso' />
                     </Item>
                     <Item>
-                      <Input placeholder="Apellido Materno" />
+                      <Input placeholder="Apellido Materno" value='Alonso' />
                     </Item>
                     
                     <Item>
@@ -103,22 +103,22 @@ export default class Contactos extends Component {
                       </Button>
                     </Item>
                     <Item last>
-                      <Input placeholder="Nº de Documento" />
+                      <Input placeholder="Nº de Documento" value='Alonso' />
                     </Item>
                     <Item>
-                      <Input placeholder="Correo Electrónico" />
+                      <Input placeholder="Correo Electrónico" value='Alonso' />
                     </Item>
                     <Item last>
-                      <Input placeholder="Cargo" />
+                      <Input placeholder="Cargo" value='Alonso' />
                     </Item>
                     <Item>
-                      <Input placeholder="Nº de Celular" />
+                      <Input placeholder="Nº de Celular" value='Alonso' />
                     </Item>
                     <Item last>
-                      <Input placeholder="Nº de Telefono" />
+                      <Input placeholder="Nº de Telefono" value='Alonso' />
                     </Item>
                     <Item last>
-                      <Input placeholder="Cuenta Skype" />
+                      <Input placeholder="Cuenta Skype" value='Alonso' />
                     </Item>
                   </Form>
                 </View>

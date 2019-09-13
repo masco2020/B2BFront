@@ -196,6 +196,23 @@ export default{
         width: '100%',
         backgroundColor: '#98c',
     },
+    modalLeyendaV: {
+        flex: 0,
+    },
+    modalLeyendaV: {
+        marginBottom: 50,
+        marginLeft: 16,
+        marginTop: 50,
+        marginRight: 16,
+        width: '90%',
+        borderRadius: 10,
+        backgroundColor: 'white',
+        height: 'auto',
+        flex: 1,
+        justifyContent: 'center',
+        padding: 25,
+        paddingBottom: 5, 
+    },
     /* RESULTADOS */
     circulSector: {
         margin: 2,
