@@ -15,7 +15,7 @@ export default class ModulTabs extends Component {
     const empresasHData = this.props.empresasHData
     return (
           <Grid>
-            <Tabs>
+            <Tabs locked={true} >
               <Tab heading="Ficha">
                 <Tabficha empresasHData={empresasHData} />
               </Tab>

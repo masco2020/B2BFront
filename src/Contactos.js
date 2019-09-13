@@ -5,7 +5,8 @@ import { Container, Root, Text, Form, Item, Label, Input, Button, View, Icon, Pi
 import IconF from 'react-native-vector-icons/dist/FontAwesome';
 import ModalC from "react-native-modal";
 import { Actions } from 'react-native-router-flux';
-import ModalNuevoContacto from './NuevoContacto'
+import ModalNuevoContacto from './NuevoContacto';
+import ContactoList from './ContactoList';
 
 export default class Contactos extends Component {
   
@@ -36,7 +37,7 @@ export default class Contactos extends Component {
 
   render() {
       const empresasHData = this.props.empresasHData
-      const contactoInfo = this.props.contacts
+      const contact = this.props.contact
     return (
         <View style={[styles.containerFicha]} >
           <Content style={[styles.content, styles.contentContactos]} >
@@ -50,46 +51,10 @@ export default class Contactos extends Component {
                 <Text style={[styles.textEmpresarialContacto]} >{empresasHData.telefonoEmpresarial}</Text>
               </Button>
             </View>
-            <View style={{borderBottomWidth: 1,borderBottomColor: '#7e7e7d',margin:15,}} />
-            <View>
-              <Card style={[styles.contactoCards]} >
-                <CardItem style={[styles.contactoCardsItems]}>
-                  <Body style={[styles.contactoCardsBody]}>
-                    <TouchableNativeFeedback  onPress={() => {this.setEditContactVisible(true);}}>
-                      <View style={[styles.contactoCardTop]} >
-                      <View style={[styles.contactNombre, styles.contactDato]} >
-                        <Icon type="FontAwesome" name='user' style={[styles.iconEmpresarialContacto, styles.iconContact]} />
-                        <Text style={[styles.contactText]}>
-                          Raul Alonso
-                        </Text>
-                      </View>
-                      <View style={[styles.contactCargo, styles.contactDato]} >
-                        <Text style={[styles.contactText]}>
-                            Gerente General
-                        </Text>
-                      </View>
-                    </View>
-                    </TouchableNativeFeedback>
-                    <View style={[styles.contactoCardBot]} >
-                      <View style={[styles.contactllamar, styles.contactDato]} >
-                        <Icon type="FontAwesome" name='phone' style={[styles.iconEmpresarialContacto, styles.iconContact]} />
-                        <Text style={[styles.contactText]}>
-                          Llamar
-                        </Text>
-                      </View>
-                      <View style={[styles.contactMail, styles.contactDato]} >
-                        <Icon type="FontAwesome" name='envelope' style={[styles.iconEmpresarialContacto, styles.iconContact]} />
-                        <Text style={[styles.contactText]}>
-                          Correo
-                        </Text>
-                      </View>
-                    </View>
-                  </Body>
-                </CardItem>
-              </Card>
-            </View>
-            <View>
-              <Button style={[styles.iniciarSesionBtn]} onPress={() => {this.setNewContactVisible(true);}}>
+            <View style={{borderBottomWidth: 1,borderBottomColor: '#7e7e7d',marginTop: 15, marginBottom: 15,}} />
+            <ContactoList/>
+            <View style={[styles.boxBtnNewContact]}>
+              <Button style={[styles.iniciarSesionBtn]} onPress={() => {this.setEditContactVisible(true);}}>
                 <Text style={[styles.iniciarSesionBtnText, styles.textBtnNewContact]}>Nuevo Contacto</Text>
               </Button>
             </View>
@@ -122,7 +87,7 @@ export default class Contactos extends Component {
                 <View style={{padding: 30}}>
                   <Form style={[styles.formFicha]}>
                     <Item>
-                      <Input placeholder="Nombre" />
+                      <Input placeholder="Nombre" value='Alonso' />
                     </Item>
                     <Item last>
                       <Input placeholder="Apellido Paterno" />

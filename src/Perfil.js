@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Platform, StyleSheet, TouchableNativeFeedback, } from 'react-native';
+import { Platform, StyleSheet, TouchableHighlight, } from 'react-native';
 import { Container, Drawer, StyleProvider, Root, Text, View, Content, Card, CardItem, Body, Header, Left, Button, Icon, Title, Right } from 'native-base';
 import styles from './Style.js';
 import getTheme from '../native-base-theme/components';
@@ -60,7 +60,7 @@ export default class Perfil extends Component {
                       </CardItem>
                   </Card>
                   <Card style={[styles.perfilCards, {marginTop: 35,}]}>
-                    <TouchableNativeFeedback onPress={()=> this.goHome()} >
+                    <TouchableHighlight onPress={()=> this.goHome()} >
                       <CardItem style={[styles.perfilCardsItems]}>
                         <Body style={[styles.perfilCardsItemsBody]}>
                             <Text style={[styles.perfilCardsItemsText]}>
@@ -68,7 +68,7 @@ export default class Perfil extends Component {
                             </Text>
                         </Body>
                         </CardItem>
-                    </TouchableNativeFeedback>
+                    </TouchableHighlight>
                   </Card>
               </View>
             </Container>

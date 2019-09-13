@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Platform, StyleSheet, TouchableNativeFeedback, Modal, Keyboard } from 'react-native';
+import { Platform, StyleSheet, TouchableHighlight, Modal, Keyboard } from 'react-native';
 import styles from './Style.js';
 import { Container, Drawer, StyleProvider, Root, Text, Form, Item, Label, Input, Button, View, Icon, Picker, Header, Left, Body, Title, Right } from 'native-base';
 import IconF from 'react-native-vector-icons/dist/FontAwesome';
@@ -100,11 +100,11 @@ export default class Login extends Component {
               <View style={[styles.espaceLogin]} />
               <View style={[styles.pieLoginGestionUser]}  onSubmitEditing={Keyboard.dismiss} >
                 <View style={{borderBottomWidth: 1,borderBottomColor: '#ddd',margin:15, marginTop: 30,}} />
-                <TouchableNativeFeedback style={[styles.gestionLogin]} onPress={() => {this.setModalVisible(true);}}>
+                <TouchableHighlight style={[styles.gestionLogin]} onPress={() => {this.setModalVisible(true);}}>
                   <Text style={[styles.gestionTextLogin]}>
                       Gestiona tu acceso <Text style={{color: '#D80212'}}>aquí.</Text>
                   </Text>
-                </TouchableNativeFeedback>
+                </TouchableHighlight>
               </View>
 
 
