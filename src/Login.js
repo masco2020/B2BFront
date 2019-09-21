@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Platform, StyleSheet, TouchableHighlight, Modal, Keyboard } from 'react-native';
 import styles from './Style.js';
-import { Container, Drawer, StyleProvider, Root, Text, Form, Item, Label, Input, Button, View, Icon, Picker, Header, Left, Body, Title, Right } from 'native-base';
+import { Container, Drawer, StyleProvider, Root, Text, Form, Item, Label, Input, Button, View, Icon, Picker, Header, Left, Body, Title, Right, List, ListItem } from 'native-base';
 import IconF from 'react-native-vector-icons/dist/FontAwesome';
 import getTheme from '../native-base-theme/components';
 import material from '../native-base-theme/variables/material';
@@ -81,59 +81,67 @@ export default class Login extends Component {
             <Container>
               <AppHeader openDrawer={this.openDrawer.bind(this)} Titulo={Titulo} noLeftView={noLeftView} styleLogin={styleLogin} />
               <View style={[styles.screenLogin]}>
-              <View style={[styles.espaceLogin]} />
-              <Form style={[styles.formIniciar]} >
-                <Item floatingLabel last style={[styles.itemLogin]} >
-                    <Icon active name='person' />
-                    <Label>Usuario</Label>
-                    <Input />
-                </Item>
-                <Item floatingLabel last style={[styles.itemLogin]} >
-                    <Icon active name='lock' />
-                    <Label>Contraseña</Label>
-                    <Input />
-                </Item>
-                <Button small style={[styles.iniciarSesionBtn]} onPress={()=> this.goPerfil()} >
-                  <Text style={[styles.iniciarSesionBtnText]}>Iniciar</Text>
-                </Button>
-              </Form>
-              <View style={[styles.espaceLogin]} />
-              <View style={[styles.pieLoginGestionUser]}  onSubmitEditing={Keyboard.dismiss} >
-                <View style={{borderBottomWidth: 1,borderBottomColor: '#ddd',margin:15, marginTop: 30,}} />
-                <TouchableHighlight style={[styles.gestionLogin]} onPress={() => {this.setModalVisible(true);}}>
-                  <Text style={[styles.gestionTextLogin]}>
-                      Gestiona tu acceso <Text style={{color: '#D80212'}}>aquí.</Text>
-                  </Text>
-                </TouchableHighlight>
-              </View>
-
-
-              <Modal
-                animationType="slide"
-                transparent={false}
-                visible={this.state.modalVisible}
-                onRequestClose={() => {
-                  Alert.alert('Modal has been closed.');
-              }}>
-                <Header>
-                  <Left>
-                    <Button transparent onPress={() => {this.setModalVisible(!this.state.modalVisible);}} >
-                        <Icon name='arrow-back' />
-                    </Button>
-                  </Left>
-                  <Body>
-                    <Title>Gestiona accesos</Title>
-                  </Body>
-                  <Right />
-                </Header>
-                <View style={{padding: 30}}>
-                    <Text>A trave de estos canales, solicita tú usuario y contraseña aquí.</Text>
-                    <Text></Text>
-                    <Text></Text>
-                    <Text>+51 555 555</Text>
-                    <Text>promperu@promperu.pe</Text>
+                <View style={[styles.espaceLogin]} />
+                <Form style={[styles.formIniciar]} >
+                  <Item floatingLabel last style={[styles.itemLogin]} >
+                      <Icon active name='person' />
+                      <Label>Usuario</Label>
+                      <Input />
+                  </Item>
+                  <Item floatingLabel last style={[styles.itemLogin]} >
+                      <Icon active name='lock' />
+                      <Label>Contraseña</Label>
+                      <Input />
+                  </Item>
+                  <Button small style={[styles.iniciarSesionBtn]} onPress={()=> this.goPerfil()} >
+                    <Text style={[styles.iniciarSesionBtnText]}>Iniciar</Text>
+                  </Button>
+                </Form>
+                <View style={[styles.espaceLogin]} />
+                <View style={[styles.pieLoginGestionUser]}  onSubmitEditing={Keyboard.dismiss} >
+                  <View style={{borderBottomWidth: 1,borderBottomColor: '#ddd',margin:15, marginTop: 30,}} />
+                  <TouchableHighlight style={[styles.gestionLogin]} onPress={() => {this.setModalVisible(true);}}>
+                    <Text style={[styles.gestionTextLogin]}>
+                        Gestiona tu acceso <Text style={{color: '#D80212', fontSize: 18,}}>aquí.</Text>
+                    </Text>
+                  </TouchableHighlight>
                 </View>
-              </Modal>
+
+
+                <Modal
+                  animationType="slide"
+                  transparent={false}
+                  visible={this.state.modalVisible}
+                  onRequestClose={() => {
+                    Alert.alert('Modal has been closed.');
+                }}>
+                  <Header>
+                    <Left>
+                      <Button transparent onPress={() => {this.setModalVisible(!this.state.modalVisible);}} >
+                          <Icon name='arrow-back' />
+                      </Button>
+                    </Left>
+                    <Body>
+                      <Title>Gestiona accesos</Title>
+                    </Body>
+                    <Right />
+                  </Header>
+                  <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center',}}>
+                      <List>
+                        <ListItem style={[styles.msgGestionLogin]} icon>
+                          <Left style={[styles.msgGestionL]} ><Icon type="FontAwesome" name="envelope" style={{color: '#D80212',}} /></Left>
+                          <Right style={[styles.msgGestionR]} ><Text style={[styles.gestionTxtMsg]} >Enviar correo a</Text></Right>
+                        </ListItem>
+                        <ListItem style={[styles.mailGestion]} >
+                          <Body>
+                            <Button bordered style={[styles.gestionEmailBtn]}>
+                              <Text style={[styles.gestionEmailTxt]}>Hola@b2b.com</Text>
+                            </Button>
+                          </Body>
+                        </ListItem>
+                      </List>
+                  </View>
+                </Modal>
 
               
               </View>

@@ -1,4 +1,7 @@
 export default{
+    colorRojo:{
+        color: '#D80212',
+    },
     /* APPFOOTER */
     iconFA: {
         color: '#fff',
@@ -25,7 +28,7 @@ export default{
         backgroundColor: '#F5FCFF',
     },
     imgSideBar: {
-        backgroundColor: '#800',
+        backgroundColor: '#D80212',
         height: 160,
         width: '100%',
         justifyContent: 'center',
@@ -46,7 +49,8 @@ export default{
     },
     iniciarSesionBtnText:{
         textTransform: 'capitalize',
-        fontSize: 16,
+        fontSize: 18,
+        fontWeight: 'bold',
     },
     espaceLogin:{
         flex: 1,
@@ -64,6 +68,36 @@ export default{
         padding: 10,
         textAlign: 'center',
         marginBottom: 16,
+        fontSize: 18,
+    },
+    gestionEmailBtn:{
+        borderColor: '#7e7e7d',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    gestionEmailTxt:{
+        color: '#7e7e7d',
+        fontWeight: 'bold',
+        textTransform: 'lowercase',
+        fontSize: 18,
+    },
+    msgGestionLogin:{
+        alignItems: 'center',
+        borderBottomWidth: 0,
+        borderBottomColor: undefined,
+    },
+    mailGestion:{
+        borderBottomWidth: 0,
+        borderBottomColor: undefined,
+    },
+    msgGestionR:{
+        borderBottomWidth: 0,
+        borderBottomColor: undefined,
+        borderColor: undefined,
+    },
+    gestionTxtMsg:{
+        color: '#D80212',
+        fontSize: 20,
     },
     /* PERFIL */
     perfilView:{
@@ -76,9 +110,10 @@ export default{
     },
     text1Perfil:{
         fontWeight: 'bold',
-        borderBottomWidth: 2, 
-        borderBottomColor: '#D80212', 
-        paddingBottom: 5,
+        fontSize:24,
+        color: '#7e7e7d',
+        textAlign: 'center',
+        marginBottom: 16,
     },
     perfilOptions:{
         flex: 6,
@@ -88,17 +123,30 @@ export default{
     },
     perfilCards: {
         width: '100%',
+        backgroundColor: '#D80212',
+        borderRadius: 19,
     },
     perfilCardsItems:{
-        backgroundColor: '#D80212',
+        backgroundColor: 'transparent',
+    },
+    iconPerfilItem:{
+        paddingBottom: 0,
+    },
+    txtPerfilItem:{
+        paddingTop: 0,
     },
     perfilCardsItemsBody:{
         alignItems: 'center',
     },
     perfilCardsItemsText:{
-        fontSize: 16,
+        fontSize: 20,
         color: '#fff',
-        fontWeight: 'bold',
+    },
+    perfilIcon:{
+        height: 95,
+        width: 95,
+        marginLeft: 18,
+        marginRight: 18,
     },
     /* HOME */
     segmentsFilters:{
@@ -194,24 +242,98 @@ export default{
     },
     empresaTouch:{
         width: '100%',
-        backgroundColor: '#98c',
     },
-    modalLeyendaV: {
-        flex: 0,
+    /* Filtros */
+    masFiltrosBtn:{
+        justifyContent: 'center',
+        alignItems: 'center',
     },
-    modalLeyendaV: {
-        marginBottom: 50,
+    masFiltrosBtnText:{
+        color:'#D80212',
+        fontWeight: 'bold',
+        textTransform: 'capitalize',
+        fontSize: 18,
+    },
+    listItem:{
+        borderBottomWidth: 0,
+        borderBottomColor: undefined,
+        marginLeft: 0,
+        paddingBottom: 4,
+        paddingTop: 4,
+    },
+    textItem:{
+        fontSize: 18,
+    },
+    itemTitle:{
+        color: '#D80212',
+        marginLeft: 0,
+        fontWeight: 'bold',
+        paddingBottom: 10,
+    },
+    filtrarBtn: {
+        marginTop: 45,
+        alignSelf: 'center',
+        justifyContent: 'center',
+    },
+    filtrarBtnText:{
+        textTransform: 'capitalize',
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
+    /* Leyenda */
+    modalLeyendaBox: {
+        marginBottom: 35,
+        marginTop: 10,
         marginLeft: 16,
-        marginTop: 50,
         marginRight: 16,
-        width: '90%',
+        height: '100%',
+        maxWidth: '100%',
         borderRadius: 10,
         backgroundColor: 'white',
         height: 'auto',
         flex: 1,
         justifyContent: 'center',
         padding: 25,
+        paddingTop: 20,
         paddingBottom: 5, 
+    },
+    LeyendaTitel:{
+        color: '#7e7e7d',
+        fontSize: 24,
+        fontWeight: 'bold',
+    },
+    leyendaText:{
+        color: '#7e7e7d',
+        fontSize: 16,
+    },
+    leyendaSector:{
+        marginLeft: 0,
+        alignItems: 'center',
+        borderBottomWidth: 0,
+        borderBottomColor: undefined,
+        marginBottom: 0,
+        marginTop: 0,
+        paddingBottom: 0,
+        paddingTop: 5,
+        paddingLeft: 0,
+    },
+    circulLeyenda:{
+        margin: 4,
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 40,
+        width: 40,
+        paddingBottom: 0,
+        paddingLeft: 0,
+        paddingRight: 0,
+        paddingTop: 5,
+        borderRadius: 30,
+    },
+    textcirculLeyenda:{
+        fontSize: 24,
+        paddingBottom: 0,
+        paddingLeft: 0,
+        paddingRight: 0,
     },
     /* RESULTADOS */
     circulSector: {
@@ -316,7 +438,7 @@ export default{
     },
     btnVerLocationFicha:{
         height: 35,
-
+        
     },
     textBtnVerLocationFicha:{
         textTransform: 'capitalize',
@@ -423,6 +545,67 @@ export default{
     },
     itemNewContact:{
         marginLeft: 0,
+    },
+    /* SIDEBAR */
+    userBox:{
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        marginLeft: 5,
+    },
+    inicialUserBox:{
+        borderRadius: 50,
+        borderColor: '#fff',
+        borderWidth: 5,
+        height: 45,
+        width: 45,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    inicialUserTxt:{
+        color: '#fff',
+        fontSize: 35,
+        fontWeight: 'bold',
+        textAlign: 'center',
+    },
+    userNameBox:{
+
+    },
+    userName:{
+        color: '#fff',
+        fontSize: 20,
+        fontWeight: 'bold',
+        paddingBottom: 0,
+        marginBottom: 0,
+
+    },
+    userCargo:{
+        color: '#fff',
+        fontSize: 18,
+        fontWeight: 'bold',
+
+    },
+    sideListPerfil:{
+        marginTop: 50,
+    },
+    sideListSoport:{
+
+    },
+    sidebarTxtItem:{
+        fontSize: 22,
+        color: '#D80212',
+    },
+    itemNoBorde:{
+        borderBottomWidth: 0,
+        borderBottomColor: undefined,
+    },
+    itemBodyNoBorde:{
+        borderBottomWidth: 0,
+        borderBottomColor: undefined,
+    },
+    txtSideBCerrarS:{
+        marginTop: 5,
+        fontWeight: 'bold',
     },
     /* HISTORICO */
 

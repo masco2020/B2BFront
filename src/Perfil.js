@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Platform, StyleSheet, TouchableHighlight, } from 'react-native';
-import { Container, Drawer, StyleProvider, Root, Text, View, Content, Card, CardItem, Body, Header, Left, Button, Icon, Title, Right } from 'native-base';
+import { Platform, StyleSheet, TouchableHighlight, Image, } from 'react-native';
+import { Container, Drawer, StyleProvider, Root, Text, View, Content, Card, CardItem, Body, Header, Left, Button, Icon, Title, Right, } from 'native-base';
 import styles from './Style.js';
 import getTheme from '../native-base-theme/components';
 import material from '../native-base-theme/variables/material';
@@ -38,39 +38,50 @@ export default class Perfil extends Component {
                       <Icon name='menu' />
                   </Button>
                 </Left>
-                <Body >
+                <Body>
                   <Title>{Titulo}</Title>
                 </Body>
                 <Right>
                 </Right>
               </Header>
-              <View style={[styles.perfilView]} >
-                  <Text style={[styles.text1Perfil]} >
-                      ¿Que perfil quieres asesorar?
-                  </Text>
-              </View>
-              <View style={[styles.perfilOptions]} >
-                  <Card style={[styles.perfilCards]} >
-                      <CardItem style={[styles.perfilCardsItems]}>
-                          <Body style={[styles.perfilCardsItemsBody]}>
-                              <Text style={[styles.perfilCardsItemsText]}>
-                                  Compradores
-                              </Text>
-                          </Body>
-                      </CardItem>
-                  </Card>
-                  <Card style={[styles.perfilCards, {marginTop: 35,}]}>
-                    <TouchableHighlight onPress={()=> this.goHome()} >
-                      <CardItem style={[styles.perfilCardsItems]}>
-                        <Body style={[styles.perfilCardsItemsBody]}>
-                            <Text style={[styles.perfilCardsItemsText]}>
-                                Exportadores
-                            </Text>
-                        </Body>
-                        </CardItem>
-                    </TouchableHighlight>
-                  </Card>
-              </View>
+              <Content>
+                <View style={{flex: 1, flexDirection: 'column', alignItems: 'center', paddingBottom: 30,}}>
+                    <View style={[styles.perfilView]} >
+                        <Text style={[styles.text1Perfil]} >
+                          Elige el tipo de{"\n"}empresa de tu interés
+                        </Text>
+                    </View>
+                    <View style={[styles.perfilOptions]} >
+                        <Card style={[styles.perfilCards]} >
+                            <CardItem style={[styles.perfilCardsItems, styles.iconPerfilItem]} header>
+                              <Image source={require('./assets/compradores.png')}  style={[styles.perfilIcon]} />
+                            </CardItem>
+                            <CardItem style={[styles.perfilCardsItems, styles.txtPerfilItem]}>
+                                <Body style={[styles.perfilCardsItemsBody]}>
+                                    <Text numberOfLines={1} style={[styles.perfilCardsItemsText]}>
+                                        Compradores
+                                    </Text>
+                                </Body>
+                            </CardItem>
+                        </Card>
+                        <TouchableHighlight onPress={()=> this.goHome()} style={{width: '100%',}}>
+                          <Card style={[styles.perfilCards, {marginTop: 35,}]}>
+                            <CardItem style={[styles.perfilCardsItems, styles.iconPerfilItem]} header>
+                              <Image source={require('./assets/exportadores.png')}  style={[styles.perfilIcon]} />
+                            </CardItem>
+                            <CardItem style={[styles.perfilCardsItems, styles.txtPerfilItem]}>
+                              <Body style={[styles.perfilCardsItemsBody]}>
+                                  <Text numberOfLines={1} style={[styles.perfilCardsItemsText]}>
+                                      Exportadores
+                                  </Text>
+                              </Body>
+                              </CardItem>
+                          </Card>
+                        </TouchableHighlight>
+                    </View>
+                </View>
+              </Content>
+              
             </Container>
           </Root>
         </Drawer>

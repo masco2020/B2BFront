@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {Router,Scene} from 'react-native-router-flux';
+import IntroApp from './IntroApp';
 import Login from './Login';
 import Perfil from './Perfil';
 import Home from './Home';
@@ -11,6 +12,7 @@ export default class AppB2B extends Component {
     return ( 
     <Router hideNavBar="true" >
       <Scene key="root" >
+          <Scene key="IntroApp" component={IntroApp} title="IntroApp" hideNavBar/>
           <Scene key="Login" component={Login} title="Login" initial={true} hideNavBar/>
           <Scene key="Perfil" component={Perfil} title="Login" hideNavBar/>
           <Scene key="Home" component={Home} title="Login" hideNavBar/>
