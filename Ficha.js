@@ -3,12 +3,12 @@ import { Platform, StyleSheet, TouchableNativeFeedback } from 'react-native';
 import styles from './Style.js';
 import { Container, Drawer, StyleProvider, Root, Text, Form, Item, Label, Input, Button, View, Icon, Picker, Header, Tab, Tabs, Left, Body, Title, Right, Content, Grid, List, ListItem } from 'native-base';
 import Modal from "react-native-modal";
-import IconF from 'react-native-vector-icons/dist/FontAwesome';
-import { Actions } from 'react-native-router-flux';
+// import IconF from 'react-native-vector-icons/dist/FontAwesome';
+// import { Actions } from 'react-native-router-flux';
 
 
 export default class Ficha extends Component {
-  
+
     state = {
         isModalVisible: false,
         sectorIsModalVisible: false
@@ -110,9 +110,9 @@ export default class Ficha extends Component {
                 </List>
               </Form>
           </Content>
-        
-          <Modal 
-          isVisible={this.state.sectorIsModalVisible} 
+
+          <Modal
+          isVisible={this.state.sectorIsModalVisible}
           onBackdropPress={() => this.setState({ sectorIsModalVisible: false })}
           style={[styles.modalFicha]} >
             <View style={{ flex: 1 }}>
@@ -125,20 +125,20 @@ export default class Ficha extends Component {
                                 <Body style={[styles.itemBodyFicha]} >
                                     <Text style={[styles.dateFicha]}>{sector.nombre}</Text>
                                 </Body>
-                            </ListItem> 
+                            </ListItem>
                         )
                         })
-                    } 
+                    }
                 </List>
             </View>
           </Modal>
-        
+
           <Modal isVisible={this.state.isModalVisible} style={{
-          margin: 0, 
-          backgroundColor: 'white', 
-          height: 'auto', 
-          flex:0 , 
-          bottom: 0, 
+          margin: 0,
+          backgroundColor: 'white',
+          height: 'auto',
+          flex:0 ,
+          bottom: 0,
           position: 'absolute',
           width: '100%'
           }} >
@@ -152,10 +152,10 @@ export default class Ficha extends Component {
                                 <Body style={[styles.itemBodyFicha]} >
                                     <Text style={[styles.dateFicha]}>{producto.nombre}</Text>
                                 </Body>
-                            </ListItem> 
+                            </ListItem>
                         )
                         })
-                    } 
+                    }
                 </List> */}
               <Button title="Hide modal" onPress={this.toggleModal} />
             </View>

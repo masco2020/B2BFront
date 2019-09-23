@@ -3,22 +3,22 @@ import { Modal } from 'react-native';
 import { Container, Drawer, StyleProvider, Root, Text, View, Content, Card, CardItem, Header, Item, Icon, Input, Button, Left, Right, Segment, Picker, Form, Title, Badge, List, ListItem, Body, CheckBox } from 'native-base';
 import styles from './Style.js';
 import IconF from 'react-native-vector-icons/FontAwesome';
-import getTheme from '../native-base-theme/components';
-import material from '../native-base-theme/variables/material';
+import getTheme from './native-base-theme/components';
+import material from './native-base-theme/variables/material';
 import SideBar from './SideBar';
 import AppFooter from './AppFooter';
 import EmpresaHList from './EmpresaHList';
 import ModalC from "react-native-modal";
 
 export default class Home extends Component {
-  
+
   closeDrawer = () => {
     this.drawer._root.close()
   };
   openDrawer = () => {
     this.drawer._root.open()
   };
-  
+
  /*  constructor(props) {
     super(props);
     this.state = {
@@ -48,7 +48,7 @@ export default class Home extends Component {
     this.setState({
       leyendaModalVisible: !this.state.leyendaModalVisible
     });
-  }; 
+  };
 
   sectorModal = () => {
     this.setState({
@@ -97,7 +97,7 @@ export default class Home extends Component {
                 </Button>
 
               </Segment>
-              
+
                 <Form style={[styles.formFilterHome]} >
                   <View style={[styles.searchBarH]}>
                     <Item style={{borderBottomWidth: 0,}}>
@@ -106,7 +106,7 @@ export default class Home extends Component {
                     </Item>
                   </View>
                   <View style={[styles.btnBoxFilter]}>
-                    <Button style={[styles.btnFilter]} onPress={this.sectorModal} > 
+                    <Button style={[styles.btnFilter]} onPress={this.sectorModal} >
                     {/* onPress={() => {this.setMasFiltros(true);}} */}
                     {/* onPress={this.leyendaModal}  */}
                       <Icon style={[styles.iconFilterH]} type="FontAwesome" name="sliders" />
@@ -117,15 +117,15 @@ export default class Home extends Component {
                 <Content >
                 <EmpresaHList />
 
-                <ModalC 
-                isVisible={this.state.sectorModalVisible} 
+                <ModalC
+                isVisible={this.state.sectorModalVisible}
                 onBackdropPress={() => this.setState({ sectorModalVisible: false })}
                 style={{
-                margin: 0, 
-                backgroundColor: 'white', 
-                height: 'auto', 
-                flex:0 , 
-                bottom: 0, 
+                margin: 0,
+                backgroundColor: 'white',
+                height: 'auto',
+                flex:0 ,
+                bottom: 0,
                 position: 'absolute',
                 width: '100%'
                 }} >
@@ -303,8 +303,8 @@ export default class Home extends Component {
                   </Content>
                 </Modal>
 
-                <ModalC 
-                isVisible={this.state.leyendaModalVisible} 
+                <ModalC
+                isVisible={this.state.leyendaModalVisible}
                 onBackdropPress={() => this.setState({ leyendaModalVisible: false })}
                 style={[styles.modalLeyenda]} >
                   <View style={[styles.modalLeyendaBox]}>
@@ -345,14 +345,14 @@ export default class Home extends Component {
                       </List>
                   </View>
                 </ModalC>
-              
+
               </Content>
               <AppFooter/>
             </Container>
           </Root>
         </Drawer>
       </StyleProvider>
-    ); 
+    );
   }
 }
 

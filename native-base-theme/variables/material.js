@@ -1,7 +1,11 @@
 // @flow
 
 import color from 'color';
-import { Platform, Dimensions, PixelRatio } from 'react-native';
+import {
+  Platform,
+  Dimensions,
+  PixelRatio
+} from 'react-native';
 
 import { PLATFORM } from './commonColor';
 
@@ -52,7 +56,8 @@ export default {
   badgePadding: 0,
 
   // Button
-  buttonFontFamily: 'Roboto',
+  buttonFontFamily:
+    platform === PLATFORM.ANDROID ? 'Roboto' : 'System',
   buttonDisabledBg: '#b5b5b5',
   buttonPadding: 6,
   get buttonPrimaryBg() {
@@ -143,7 +148,8 @@ export default {
 
   // Font
   DefaultFontSize: 16,
-  fontFamily: 'Roboto',
+  fontFamily:
+    platform === PLATFORM.ANDROID ? 'Roboto' : 'System',
   fontSizeBase: 15,
   get fontSizeH1() {
     return this.fontSizeBase * 1.8;
@@ -269,7 +275,8 @@ export default {
   },
 
   // Title
-  titleFontfamily: 'Roboto',
+  titleFontfamily:
+    platform === PLATFORM.ANDROID ? 'Roboto' : 'System',
   titleFontSize: 19,
   subTitleFontSize: 14,
   subtitleColor: '#FFF',

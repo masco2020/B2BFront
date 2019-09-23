@@ -2,14 +2,14 @@ import React, { Component } from "react";
 import { Platform, StyleSheet, TouchableHighlight, Image, } from 'react-native';
 import { Container, Drawer, StyleProvider, Root, Text, View, Content, Card, CardItem, Body, Header, Left, Button, Icon, Title, Right, } from 'native-base';
 import styles from './Style.js';
-import getTheme from '../native-base-theme/components';
-import material from '../native-base-theme/variables/material';
+import getTheme from './native-base-theme/components';
+import material from './native-base-theme/variables/material';
 import { Actions } from 'react-native-router-flux';
 import SideBar from './SideBar';
 import AppHeader from './AppHeader';
 
 export default class Perfil extends Component {
-  
+
   closeDrawer = () => {
     this.drawer._root.close()
   };
@@ -19,7 +19,7 @@ export default class Perfil extends Component {
   goHome = () => {
     Actions.Home()
   };
-  
+
   render() {
     const Titulo = 'Perfil';
     const styleLogin = styles
@@ -81,7 +81,7 @@ export default class Perfil extends Component {
                     </View>
                 </View>
               </Content>
-              
+
             </Container>
           </Root>
         </Drawer>
