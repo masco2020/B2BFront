@@ -97,7 +97,7 @@ export default class Contactos extends Component {
               <Text
                 style={[styles.textEmpresarialContacto]}
               >
-                {empresasHData.telefonoEmpresarial}
+                {empresasHData.correoEmpresarial}
               </Text>
             </Button>
           </View>
@@ -109,10 +109,10 @@ export default class Contactos extends Component {
               marginBottom: 15
             }}
           />
-          <ContactoList/>
+          <ContactoList />
           <View style={[styles.boxBtnNewContact]}>
             <Button
-              style={[styles.iniciarSesionBtn]}
+              style={[styles.iniciarSesionBtn, styles.borderBtn]}
               onPress={() => {
                 this.setEditContactVisible(true);
               }}

@@ -1,11 +1,6 @@
 import React from 'react';
 import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  ImageBackground
-} from 'react-native';
+  StyleSheet, Text, View, Image, ImageBackground, } from 'react-native';
 import {
   Button,
 } from 'native-base';
@@ -18,12 +13,14 @@ const slides = [
     imageBackground: require('./assets/intro1.png')
   },
   {
+    subtitle: null,
     title: 'Contacta',
     text: 'con empresas expotadoras\ny compradoras rapidamente.',
     image: require('./assets/compradores.png'),
     imageBackground: require('./assets/intro2.png')
   },
   {
+    subtitle: null,
     title: 'Elige',
     text: 'empresas de diversos\nsectores como Agronegocios,\nIndustria de la Vestimenta y\ndecoración, entre otras.',
     image: require('./assets/exportadores.png'),
@@ -48,6 +45,11 @@ export default class IntroApp extends React.Component {
     showRealApp: false
   };
   _renderItem = ({ item }) => {
+    if(item.subtitle != null){
+      none = {display: 'flex',}
+    }else{
+      none = {display: 'none',}
+    }
     return (
       <View
         style={{
@@ -71,7 +73,7 @@ export default class IntroApp extends React.Component {
                 <Image style={[styles.welcome]}  source={item.welcome} />
               </View>
               <Image  style={[styles.image]}  source={item.image} />
-              <Text  style={[styles.subtitle, styles.whiteText]} >{item.subtitle}</Text>
+              <Text  style={[styles.subtitle, styles.whiteText, none]} >{item.subtitle}</Text>
               <Text  style={[styles.title, styles.whiteText]} >{item.title}</Text>
               <Text  style={[styles.text, styles.whiteText]} >{item.text}</Text>
             </View>
@@ -96,6 +98,10 @@ export default class IntroApp extends React.Component {
           renderItem={this._renderItem}
           slides={slides}
           onDone={this._onDone}
+          showNextButton={false}
+          showDoneButton={false}
+          dotStyle={{backgroundColor:'transparent', borderWidth: 1.5, borderColor: '#fff', height:20,width:20,borderRadius:50,}}
+          activeDotStyle={{backgroundColor:'#fff', borderWidth: 1.5, borderColor: '#fff', height:20,width:20,borderRadius:50,}}
         />
       );
     }
@@ -117,6 +123,9 @@ const styles = StyleSheet.create({
   },
   whiteText:{
     color: '#fff',
+    textShadowColor: 'rgba(0, 0, 0, 0.1)',
+    textShadowOffset: {width: -1, height: 1},
+    textShadowRadius: 10
   },
   welcomeBox:{
     alignContent: 'center',
@@ -130,19 +139,20 @@ const styles = StyleSheet.create({
   },
   image:{
     marginLeft:2,
-    marginBottom: 5,
+    height: 140,
+    width: 140,
   },
   subtitle:{
-    fontSize:20,
-    marginBottom: 5,
+    fontSize:24,
+    marginBottom: 3,
   },
   title:{
-    fontSize:38,
+    fontSize:42,
     marginBottom: 5,
     fontWeight: 'bold',
   },
   text:{
-    fontSize:20,
+    fontSize:24,
   },
 });
 

@@ -286,7 +286,7 @@ export default {
   tabDefaultBg:
     platform === PLATFORM.IOS ? '#F8F8F8' : '#3F51B5',
   topTabBarTextColor:
-    platform === PLATFORM.IOS ? '#6b6b6b' : '#b3c7f9',
+    platform === PLATFORM.IOS ? '#6b6b6b' : '#fff',
   topTabBarActiveTextColor:
     platform === PLATFORM.IOS ? '#007aff' : '#fff',
   topTabBarBorderColor:

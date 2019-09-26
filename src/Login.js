@@ -8,27 +8,7 @@ import {
 } from 'react-native';
 import styles from './Style.js';
 import {
-  Container,
-  Drawer,
-  StyleProvider,
-  Root,
-  Text,
-  Form,
-  Item,
-  Label,
-  Input,
-  Button,
-  View,
-  Icon,
-  Picker,
-  Header,
-  Left,
-  Body,
-  Title,
-  Right,
-  List,
-  ListItem
-} from 'native-base';
+  Container, Drawer, StyleProvider, Root, Text, Form, Item, Label, Input, Button, View, Icon, Picker, Header, Left, Body, Title, Right, List, ListItem, } from 'native-base';
 // import IconF from 'react-native-vector-icons/dist/FontAwesome';
 import getTheme from '../native-base-theme/components';
 import material from '../native-base-theme/variables/material';
@@ -111,7 +91,7 @@ export default class Login extends Component {
                 noLeftView={noLeftView}
                 styleLogin={styleLogin}
               />
-              <View style={[styles.screenLogin]}>
+              <View style={[styles.screenLogin, {backgroundColor: '#EFEFEF',}]}>
                 <View style={[styles.espaceLogin]} />
                 <Form style={[styles.formIniciar]}>
                   <Item
@@ -134,7 +114,7 @@ export default class Login extends Component {
                   </Item>
                   <Button
                     small
-                    style={[styles.iniciarSesionBtn]}
+                    style={[styles.iniciarSesionBtn, styles.borderBtn]}
                     onPress={() => this.goPerfil()}
                   >
                     <Text
@@ -237,7 +217,7 @@ export default class Login extends Component {
                         <Body>
                           <Button
                             bordered
-                            style={[styles.gestionEmailBtn]}
+                            style={[styles.gestionEmailBtn, styles.borderBtn]}
                           >
                             <Text
                               style={[

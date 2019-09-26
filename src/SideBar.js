@@ -14,11 +14,11 @@ export default class SideBar extends Component {
   goSoporte = () =>{
     Actions.Soporte()
   };
-  goAyuda = () =>{
-    Actions.Ayuda()
+  goIntroApp = (closed) =>{
+    Actions.IntroApp(closed)
   };
-  goTerminos = () =>{
-    Actions.Terminos()
+  goLogin = () =>{
+    Actions.Login()
   };
     render() {
         
@@ -68,12 +68,12 @@ export default class SideBar extends Component {
             <List style={[styles.sideListSoport]}>
               <ListItem icon>
                 <Left>
-                  <TouchableOpacity onPress={()=> this.goSoporte()} >
+                  <TouchableOpacity onPress={()=> this.goIntroApp(closed)} >
                     <Icon style={[styles.colorRojo]} active name="help" />
                   </TouchableOpacity>
                 </Left>
                 <Body style={[styles.itemBodyNoBorde]}>
-                  <TouchableOpacity onPress={()=> this.goSoporte()} >
+                  <TouchableOpacity onPress={()=> this.goIntroApp(closed)} >
                     <Text style={[styles.sidebarTxtItem]} >Ayuda</Text>
                   </TouchableOpacity>
                 </Body>
@@ -95,7 +95,7 @@ export default class SideBar extends Component {
             <List style={{flex: 2}}>
               <ListItem style={[styles.itemNoBorde]}>
                 <Body>
-                  <TouchableOpacity onPress={()=> this.goTerminos()} >
+                  <TouchableOpacity onPress={()=> this.goLogin()} >
                   <Text style={[styles.sidebarTxtItem, styles.txtSideBCerrarS]} >Cerrar Sesión</Text>
                   </TouchableOpacity>
                 </Body>

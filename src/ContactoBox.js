@@ -8,29 +8,7 @@ import {
 } from 'react-native';
 import styles from './Style.js';
 import {
-  Container,
-  Root,
-  Text,
-  Form,
-  Item,
-  Label,
-  Input,
-  Button,
-  View,
-  Icon,
-  Picker,
-  Left,
-  Card,
-  CardItem,
-  Body,
-  Title,
-  Content,
-  Grid,
-  Header,
-  Right,
-  List,
-  ListItem
-} from 'native-base';
+  Container, Root, Text, Form, Item, Label, Input, Button, View, Icon, Picker, Left, Card, CardItem, Body, Title, Content, Grid, Header, Right, List, ListItem, } from 'native-base';
 // import IconF from 'react-native-vector-icons/dist/FontAwesome';
 import ModalC from 'react-native-modal';
 import { Actions } from 'react-native-router-flux';
@@ -42,7 +20,7 @@ export default class ContactoBox extends Component {
       <Card style={[styles.contactoCards]}>
         <CardItem style={[styles.contactoCardsItems]}>
           <Body style={[styles.contactoCardsBody]}>
-            <TouchableHighlight>
+            <TouchableHighlight >
               <View style={[styles.contactoCardTop]}>
                 <View
                   style={[

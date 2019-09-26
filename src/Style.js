@@ -2,6 +2,9 @@ export default{
     colorRojo:{
         color: '#D80212',
     },
+    borderBtn:{
+        borderRadius: 8,
+    },
     /* APPFOOTER */
     iconFA: {
         color: '#fff',
@@ -457,13 +460,17 @@ export default{
         borderRadius: 8,
         backgroundColor: '#fff',
         marginBottom: 10,
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
     },
     iconEmpresarialContacto:{
         color: '#D80212'
     },
     textEmpresarialContacto:{
         color: '#7e7e7d',
-        fontSize: 18,
+        fontSize: 16,
+        textTransform: 'capitalize',
         fontWeight: 'bold',
     },
     contactoCards:{

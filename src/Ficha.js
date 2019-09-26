@@ -10,19 +10,12 @@ import Modal from "react-native-modal";
 export default class Ficha extends Component {
 
     state = {
-        isModalVisible: false,
         sectorIsModalVisible: false
     };
 
     sectoresModal = () => {
         this.setState({
             sectorIsModalVisible: !this.state.sectorIsModalVisible
-        });
-    };
-
-    toggleModal = () => {
-        this.setState({
-            isModalVisible: !this.state.isModalVisible
         });
     };
 
@@ -60,7 +53,7 @@ export default class Ficha extends Component {
                     <ListItem style={[styles.listItemFicha]}>
                         <Body style={[styles.itemBodyFicha]}>
                             <Text style={[styles.tittleFicha]} note>Sectores</Text>
-                            <Button bordered iconRight style={[styles.btnPicker]} onPress={this.sectoresModal} >
+                            <Button bordered iconRight style={[styles.btnPicker, styles.borderBtn]} onPress={this.sectoresModal} >
                                 <Text style={[styles.dateFicha, styles.btnListFicha, styles.dateBtnListFichaSectores]} >Ver Sectores</Text>
                                 <Icon type="FontAwesome" name='caret-down' />
                             </Button>
@@ -71,7 +64,7 @@ export default class Ficha extends Component {
                     <ListItem style={[styles.listItemFicha]} >
                         <Body style={[styles.itemBodyFicha]} >
                             <Text style={[styles.tittleFicha]} note>Productos</Text>
-                            <Button bordered iconRight style={[styles.btnPicker]} onPress={this.toggleModal} >
+                            <Button bordered iconRight style={[styles.btnPicker, styles.borderBtn]} onPress={this.sectoresModal} >
                                 <Text style={[styles.dateFicha, styles.btnListFicha, styles.dateBtnListFichaProducts]} >Ver Productos</Text>
                                 <Icon type="FontAwesome" name='caret-down' />
                             </Button>
@@ -84,10 +77,10 @@ export default class Ficha extends Component {
                             <Text style={[styles.tittleFicha]} note>Dirección</Text>
                             <Text style={[styles.dateFicha]}>{empresasHData.tipoCliente}</Text>
                             <View style={[styles.boxBtnLocationFicha]} >
-                                <Button bordered style={[styles.btnAddLocationFicha]} >
+                                <Button bordered style={[styles.btnAddLocationFicha, styles.borderBtn]} >
                                     <Text style={[styles.dateFicha, styles.textBtnAddLocationFicha]} >Ingresar Ubicación</Text>
                                 </Button>
-                                <Button style={[styles.btnVerLocationFicha]} >
+                                <Button style={[styles.btnVerLocationFicha, styles.borderBtn]} >
                                     <Text style={[styles.dateFicha, styles.textBtnVerLocationFicha]} >Ver Mapa</Text>
                                 </Button>
                             </View>
@@ -133,33 +126,6 @@ export default class Ficha extends Component {
             </View>
           </Modal>
 
-          <Modal isVisible={this.state.isModalVisible} style={{
-          margin: 0,
-          backgroundColor: 'white',
-          height: 'auto',
-          flex:0 ,
-          bottom: 0,
-          position: 'absolute',
-          width: '100%'
-          }} >
-            <View style={{ flex: 1 }}>
-              <Text>I am the modal content!</Text>
-              {/* <List style={[styles.listFicha]} >
-                    {
-                        empresasHData.listaSectores.listaProducto.map(function (producto, index) {
-                        return (
-                            <ListItem style={[styles.listItemFicha, styles.listItemFichaSector]} >
-                                <Body style={[styles.itemBodyFicha]} >
-                                    <Text style={[styles.dateFicha]}>{producto.nombre}</Text>
-                                </Body>
-                            </ListItem>
-                        )
-                        })
-                    }
-                </List> */}
-              <Button title="Hide modal" onPress={this.toggleModal} />
-            </View>
-          </Modal>
       </View>
     );
   }
