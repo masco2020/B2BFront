@@ -139,9 +139,7 @@ export default class Login extends Component {
                   />
                   <TouchableHighlight
                     style={[styles.gestionLogin]}
-                    onPress={() => {
-                      this.setModalVisible(true);
-                    }}
+                    onPress={() => { this.setModalVisible(true); }}
                   >
                     <Text style={[styles.gestionTextLogin]}>
                       Gestiona tu acceso{' '}

@@ -6,12 +6,14 @@ import { Actions } from 'react-native-router-flux';
 export default class AppHeader extends Component {
   
   state = {
-    noLeft: this.props.noLeftView
+    noLeft: this.props.noLeftView,
+    noRight: this.props.noRight
   }
 
   render() {
     const Titulo = this.props.Titulo
     const noLeft = this.state.noLeft
+    const noRight = this.state.noRight
     const styleLogin = this.props.styleLogin
     return (
         <Header noLeft={noLeft} >
@@ -24,7 +26,7 @@ export default class AppHeader extends Component {
             <Title>{Titulo}</Title>
             </Body>
             <Right style={[styleLogin.rightBtn]}>
-              <Button transparent onPress={()=> this.props.openDrawer()}>
+              <Button style={[styles.borderBtn]} transparent onPress={()=> this.props.openDrawer()}>
                   <Icon name='menu' />
               </Button>
             </Right>

@@ -49,6 +49,7 @@ export default class EmpresasModule extends Component {
     const Titulo = empresasHData.nombre;
     const styleLogin = styles;
     const noLeftView = false;
+    const noRight = false;
     return (
       <StyleProvider style={getTheme(material)}>
         <Drawer
@@ -65,6 +66,7 @@ export default class EmpresasModule extends Component {
                 openDrawer={this.openDrawer.bind(this)}
                 Titulo={Titulo}
                 noLeftView={noLeftView}
+                noRight={noRight}
                 styleLogin={styleLogin}
               />
               <ModulTabs empresasHData={empresasHData} />

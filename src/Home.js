@@ -296,7 +296,7 @@ export default class Home extends Component {
                           </View>
                         </ListItem>
                       </List>
-                      <Button block small style={[styles.filtrarBtn]}>
+                      <Button block small style={[styles.filtrarBtn, styles.borderBtn]}>
                         <Text style={[styles.filtrarBtnText]}>Filtrar</Text>
                       </Button>
                     </View>
