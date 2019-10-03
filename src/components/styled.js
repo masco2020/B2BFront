@@ -31,6 +31,7 @@ export const Badge = styled.View(({ size = 30, color }) => ({
   alignSelf: 'center',
   backgroundColor: color,
   borderRadius: size / 2,
+  margin: 2,
   width: size,
   height: size,
 }))

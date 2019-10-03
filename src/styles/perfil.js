@@ -8,9 +8,10 @@ export default {
   },
   text1Perfil: {
     fontWeight: 'bold',
-    borderBottomWidth: 2,
-    borderBottomColor: '#D80212',
-    paddingBottom: 5,
+    fontSize:24,
+    color: '#7e7e7d',
+    textAlign: 'center',
+    paddingBottom: 16,
   },
   perfilOptions: {
     // flex: 6,

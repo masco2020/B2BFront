@@ -58,7 +58,7 @@ const PerfilStack = createStackNavigator(
   {
     Perfil: {
       screen: Perfil,
-      navigationOptions: getHeaderOptions({ title: 'Perfil' }),
+      navigationOptions: getHeaderOptions({ title: 'B2B' }),
     },
   },
   defaultStackConfig
