@@ -1,23 +1,8 @@
 import React, { Component } from 'react'
 import { Modal } from 'react-native'
 import styles from 'styles/contactos'
-import {
-  Text,
-  Form,
-  Item,
-  Input,
-  Button,
-  View,
-  Icon,
-  Left,
-  Body,
-  Title,
-  Content,
-  Header,
-  Right,
-  List,
-  ListItem,
-} from 'native-base'
+import estilo from 'styles/styles'
+import { Text, Form, Item, Input, Button, View, Icon, Left, Body, Title, Content, Header, Right, List, ListItem, } from 'native-base'
 import ModalC from 'react-native-modal'
 import ContactoList from 'screens/Contacto/List'
 import Block from 'components/Block'
@@ -59,75 +44,141 @@ export default class Contactos extends Component {
         animationType="slide"
         transparent={false}
         visible={this.state.editContactVisible}
-        // onRequestClose={() => {
-        //   Alert.alert('Modal has been closed.')
-        // }}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+        }}
       >
         <Header>
           <Left>
             <Button
               transparent
               onPress={() => {
-                this.setEditContactVisible(!this.state.editContactVisible)
-              }}>
+                this.setEditContactVisible(
+                  !this.state.editContactVisible
+                );
+              }}
+            >
               <Icon name="arrow-back" />
             </Button>
           </Left>
           <Body>
-            <Title>Nuevo Contacto</Title>
+            <Title>Editar Contacto</Title>
           </Body>
           <Right />
         </Header>
         <Content>
-          <Form style={[styles.formFicha]}>
-            <Item>
-              <Input placeholder="Nombre" />
-            </Item>
-            <Item>
-              <Input placeholder="Apellido Paterno" />
-            </Item>
-            <Item>
-              <Input placeholder="Apellido Materno" />
-            </Item>
-
-            <Item>
-              <Button
-                transparent
-                iconRight
-                style={[styles.btnPickProductsFicha]}
-                onPress={this.dniModal}>
-                <Text
-                  style={[
-                    styles.dateFicha,
-                    styles.btnListFicha,
-                    styles.dateBtnListFichaProducts,
-                  ]}>
-                  Tipo de Documento
-                </Text>
-                <Icon type="FontAwesome" name="caret-down" />
-              </Button>
-            </Item>
-            <Item>
-              <Input placeholder="Nº de Documento" />
-            </Item>
-            <Item>
-              <Input placeholder="Correo Electrónico" />
-            </Item>
-            <Item>
-              <Input placeholder="Cargo" />
-            </Item>
-            <Item>
-              <Input placeholder="Nº de Celular" />
-            </Item>
-            <Item>
-              <Input placeholder="Nº de Telefono" />
-            </Item>
-            <Item>
-              <Input placeholder="Cuenta Skype" />
-            </Item>
-          </Form>
+          <View style={{ padding: 30 }}>
+          <Form style={[estilo.formFicha]}>
+                <Item style={[estilo.itemNewContact]} >
+                  <Input placeholder="Nombre" />
+                </Item>
+                <Item  style={[estilo.itemNewContact]} >
+                  <Input placeholder="Apellido Paterno" />
+                </Item>
+                <Item style={[estilo.itemNewContact]} >
+                  <Input placeholder="Apellido Materno" />
+                </Item>
+                
+                <Item style={[estilo.itemNewContact]} >
+                  <Button transparent iconRight style={[estilo.btnPickProductsFicha]} onPress={this.dniModal} >
+                    <Text style={[estilo.tipoDocumentBtnText]} >Tipo de Documento</Text>
+                    <Icon type="FontAwesome" name='caret-down' />
+                  </Button>
+                </Item>
+                <Item style={[estilo.itemNewContact]} >
+                  <Input placeholder="Nº de Documento" />
+                </Item>
+                <Item style={[estilo.itemNewContact]} >
+                  <Input placeholder="Correo Electrónico" />
+                </Item>
+                <Item style={[estilo.itemNewContact]} >
+                  <Input placeholder="Cargo" />
+                </Item>
+                <Item style={[estilo.itemNewContact]} >
+                  <Input placeholder="Nº de Celular" />
+                </Item>
+                <Item style={[estilo.itemNewContact]} >
+                  <Input placeholder="Nº de Telefono" />
+                </Item>
+                <Item style={[estilo.itemNewContact]} last>
+                  <Input placeholder="Cuenta Skype" />
+                </Item>
+              </Form>
+          </View>
         </Content>
       </Modal>
+    )
+  }
+
+  renderModalDni() {
+    return(
+      <ModalC
+        isVisible={this.state.dniIsModalVisible}
+        onBackdropPress={() => this.setState({ dniIsModalVisible: false })}
+        style={[estilo.modalFicha]}
+      >
+        <View style={{ flex: 1 }}>
+          <List
+            style={[estilo.listFicha, estilo.listModal]}
+          >
+            <Text
+              primary
+              style={[estilo.tittleFicha]}
+              note
+            >
+              Tipo de Documento
+            </Text>
+            <ListItem
+              style={[
+                estilo.listItemFicha,
+                estilo.listItemModal
+              ]}
+            >
+              <Body style={[estilo.itemBodyFicha]}>
+                <Text style={[estilo.dateFicha]}>
+                  DNI
+                </Text>
+              </Body>
+            </ListItem>
+            <ListItem
+              style={[
+                estilo.listItemFicha,
+                estilo.listItemModal
+              ]}
+            >
+              <Body style={[estilo.itemBodyFicha]}>
+                <Text style={[estilo.dateFicha]}>
+                  Pasaporte
+                </Text>
+              </Body>
+            </ListItem>
+            <ListItem
+              style={[
+                estilo.listItemFicha,
+                estilo.listItemModal
+              ]}
+            >
+              <Body style={[estilo.itemBodyFicha]}>
+                <Text style={[estilo.dateFicha]}>
+                  Carnet de Extranjería
+                </Text>
+              </Body>
+            </ListItem>
+            <ListItem
+              style={[
+                estilo.listItemFicha,
+                estilo.listItemModal
+              ]}
+            >
+              <Body style={[estilo.itemBodyFicha]}>
+                <Text style={[estilo.dateFicha]}>
+                  RUC
+                </Text>
+              </Body>
+            </ListItem>
+          </List>
+        </View>
+      </ModalC>
     )
   }
 
@@ -137,42 +188,29 @@ export default class Contactos extends Component {
     return (
       <Block flex>
         <Content style={[styles.content, styles.contentContactos]}>
-          <View>
-            <Button iconLeft style={[styles.empresarialContacto]}>
-              <Icon
-                type="FontAwesome"
-                name="phone"
-                style={[styles.iconEmpresarialContacto]}
-              />
-              <Text style={[styles.textEmpresarialContacto]}>
-                {data.telefonoEmpresarial}
-              </Text>
-            </Button>
-            <Button iconLeft style={[styles.empresarialContacto]}>
-              <Icon
-                type="FontAwesome"
-                name="envelope"
-                style={[styles.iconEmpresarialContacto]}
-              />
-              <Text style={[styles.textEmpresarialContacto]}>
-                {data.correoEmpresarial}
-              </Text>
-            </Button>
-          </View>
-          <Hbar />
-          <ContactoList />
-          <View style={[styles.boxBtnNewContact]}>
-            <Button
-              style={[styles.iniciarSesionBtn]}
-              onPress={() => {
-                this.setEditContactVisible(true)
-              }}>
-              <Text
-                style={[styles.iniciarSesionBtnText, styles.textBtnNewContact]}>
-                Nuevo Contacto
-              </Text>
-            </Button>
-          </View>
+        <View>
+          <Button iconLeft style={[estilo.empresarialContacto]} >
+            <Icon type="FontAwesome" name="phone" style={[estilo.iconEmpresarialContacto]} />
+            <Text style={[estilo.textEmpresarialContacto]} >
+              {data.telefonoEmpresarial}
+            </Text>
+          </Button>
+          <Button iconLeft style={[estilo.empresarialContacto]} >
+            <Icon type="FontAwesome" name="envelope" style={[estilo.iconEmpresarialContacto]} />
+            <Text style={[estilo.textEmpresarialContacto]} >
+              {data.correoEmpresarial}
+            </Text>
+          </Button>
+        </View>
+        <View style={{ borderBottomWidth: 1,borderBottomColor: '#7e7e7d',marginTop: 15,marginBottom: 15 }} />
+        <ContactoList />
+        <View style={[estilo.boxBtnNewContact]}>
+          <Button style={[estilo.iniciarSesionBtn, estilo.borderBtn]} onPress={() => { this.setEditContactVisible(true); }} >
+            <Text style={[ estilo.iniciarSesionBtnText, estilo.textBtnNewContact ]} >
+              Nuevo Contacto
+            </Text>
+          </Button>
+        </View>
 
           {/* <ModalNuevoContacto
             newContactVisible={this.state.newContactVisible}
@@ -180,29 +218,8 @@ export default class Contactos extends Component {
             dniModal={this.dniModal.bind(this)}
             /> */}
           {this.renderModal()}
-          <ModalC
-            isVisible={this.state.dniIsModalVisible}
-            onBackdropPress={() => this.setState({ dniIsModalVisible: false })}
-            style={[styles.modalFicha]}>
-            <View style={{ flex: 1 }}>
-              <List style={[styles.listFicha, styles.listModal]}>
-                <Text primary style={[styles.tittleFicha]} note>
-                  Documento
-                </Text>
-                {data.listaSectores.map(function(sector, index) {
-                  return (
-                    <ListItem
-                      key={index}
-                      style={[styles.listItemFicha, styles.listItemModal]}>
-                      <Body style={[styles.itemBodyFicha]}>
-                        <Text style={[styles.dateFicha]}>{sector.nombre}</Text>
-                      </Body>
-                    </ListItem>
-                  )
-                })}
-              </List>
-            </View>
-          </ModalC>
+          {this.renderModalDni()}
+          
         </Content>
       </Block>
     )

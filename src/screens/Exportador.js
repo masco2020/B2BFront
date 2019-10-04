@@ -288,6 +288,177 @@ export default class Home extends Component {
     )
   }
 
+  renderModalCompradores() {
+    return (
+      <Modal
+        animationType="slide"
+        transparent={false}
+        visible={this.state.masFiltros}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+      }}>
+        <Header>
+          <Left>
+            <Button transparent onPress={() => {this.setMasFiltros(!this.state.masFiltros);}} >
+                <Icon name='arrow-back' />
+            </Button>
+          </Left>
+          <Body>
+            <Title>Filtros</Title>
+          </Body>
+          <Right />
+        </Header>
+        <Content>
+          <View style={{padding: 30}}>
+            <List>
+              <ListItem style={[estilo.listItem]} first>
+                <Body style={[estilo.itemBodyFicha]} >
+                  <Text style={[estilo.itemTitle]}  note>Sector</Text>
+                </Body>
+              </ListItem>
+              <ListItem style={[estilo.listItem]} >
+                <Left style={[estilo.itemBodyFicha]} >
+                  <Text style={[estilo.dateFicha, estilo.textItem]}  >Agronegocios</Text>
+                </Left>
+                <Right><CheckBox color={'#D80212'} checked={this.state.selectCheck} onPress={this.selectCheckable} /></Right>
+              </ListItem>
+              <ListItem style={[estilo.listItem]} >
+                <Left style={[estilo.itemBodyFicha]} >
+                  <Text style={[estilo.dateFicha, estilo.textItem]}  >Exportación de Servicios</Text>
+                </Left>
+                <Right><CheckBox color={'#D80212'} checked={true} /></Right>
+              </ListItem>
+              <ListItem style={[estilo.listItem]} >
+                <Left style={[estilo.itemBodyFicha]} >
+                  <Text style={[estilo.dateFicha, estilo.textItem]}  >Industria de la vestimenta y decoración</Text>
+                </Left>
+                <Right><CheckBox color={'#D80212'} checked={true} /></Right>
+              </ListItem>
+              <ListItem style={[estilo.listItem]} >
+                <Left style={[estilo.itemBodyFicha]} >
+                  <Text style={[estilo.dateFicha, estilo.textItem]}  >Manufacturas Diversas</Text>
+                </Left>
+                <Right><CheckBox color={'#D80212'} checked={true} /></Right>
+              </ListItem>
+              <ListItem style={[estilo.listItem]} >
+                <Left style={[estilo.itemBodyFicha]} >
+                  <Text style={[estilo.dateFicha, estilo.textItem]}  >Productos Pesqueros</Text>
+                </Left>
+                <Right><CheckBox color={'#D80212'} checked={true} /></Right>
+              </ListItem>
+              <ListItem style={[estilo.listItem, {marginTop:10,}]}>
+                <Body style={[estilo.itemBodyFicha]} >
+                  <Text style={[estilo.itemTitle]}  note>Alcance</Text>
+                </Body>
+              </ListItem>
+              <ListItem style={[estilo.listItem]} >
+                <Left style={[estilo.itemBodyFicha]} >
+                  <Text style={[estilo.dateFicha, estilo.textItem]}  >Tipo A</Text>
+                </Left>
+                <Right><CheckBox color={'#D80212'} checked={this.state.selectCheck} onPress={this.selectCheckable} /></Right>
+              </ListItem>
+              <ListItem style={[estilo.listItem]} >
+                <Left style={[estilo.itemBodyFicha]} >
+                  <Text style={[estilo.dateFicha, estilo.textItem]}  >A nivel nacional</Text>
+                </Left>
+                <Right><CheckBox color={'#D80212'} checked={true} /></Right>
+              </ListItem>
+              <ListItem style={[estilo.listItem]} >
+                <Left style={[estilo.itemBodyFicha]} >
+                  <Text style={[estilo.dateFicha, estilo.textItem]}  >A Nivel Ciudad</Text>
+                </Left>
+                <Right><CheckBox color={'#D80212'} checked={true} /></Right>
+              </ListItem>
+              <ListItem style={[estilo.listItem]} >
+                <Left style={[estilo.itemBodyFicha]} >
+                  <Text style={[estilo.dateFicha, estilo.textItem]}  >A nivel internacional</Text>
+                </Left>
+                <Right><CheckBox color={'#D80212'} checked={true} /></Right>
+              </ListItem>
+              <ListItem style={[estilo.listItem]} >
+                <Left style={[estilo.itemBodyFicha]} >
+                  <Text style={[estilo.dateFicha, estilo.textItem]}  >A nivel región</Text>
+                </Left>
+                <Right><CheckBox color={'#D80212'} checked={true} /></Right>
+              </ListItem>
+              <ListItem style={[estilo.listItem, {marginTop:10,}]}>
+                <Body style={[estilo.itemBodyFicha]} >
+                  <Text style={[estilo.itemTitle]}  note>Tamaño</Text>
+                </Body>
+              </ListItem>
+              <ListItem style={[estilo.listItem]} >
+                <Left style={[estilo.itemBodyFicha]} >
+                  <Text style={[estilo.dateFicha, estilo.textItem]}  >Pequeño</Text>
+                </Left>
+                <Right><CheckBox color={'#D80212'} checked={this.state.selectCheck} onPress={this.selectCheckable} /></Right>
+              </ListItem>
+              <ListItem style={[estilo.listItem]} >
+                <Left style={[estilo.itemBodyFicha]} >
+                  <Text style={[estilo.dateFicha, estilo.textItem]}  >Mediano</Text>
+                </Left>
+                <Right><CheckBox color={'#D80212'} checked={true} /></Right>
+              </ListItem>
+              <ListItem style={[estilo.listItem]} >
+                <Left style={[estilo.itemBodyFicha]} >
+                  <Text style={[estilo.dateFicha, estilo.textItem]}  >Grande</Text>
+                </Left>
+                <Right><CheckBox color={'#D80212'} checked={true} /></Right>
+              </ListItem>
+              <ListItem style={[estilo.listItem]} >
+                <Left style={[estilo.itemBodyFicha]} >
+                  <Text style={[estilo.dateFicha, estilo.textItem]}  >Extra Grande</Text>
+                </Left>
+                <Right><CheckBox color={'#D80212'} checked={true} /></Right>
+              </ListItem>
+              <ListItem style={[estilo.listItem, {marginTop:10,}]}>
+                <Body style={[estilo.itemBodyFicha]} >
+                  <Text style={[estilo.itemTitle]}  note>¿Ha Importado del Perú?</Text>
+                </Body>
+              </ListItem>
+              <ListItem style={[estilo.listItem]} >
+                <Left style={[estilo.itemBodyFicha]} >
+                  <Text style={[estilo.dateFicha, estilo.textItem]}  >Si</Text>
+                </Left>
+                <Right><Radio selected={this.state.selectCheck} onPress={this.selectCheckable} /></Right>
+              </ListItem>
+              <ListItem style={[estilo.listItem]} >
+                <Left style={[estilo.itemBodyFicha]} >
+                  <Text style={[estilo.dateFicha, estilo.textItem]}  >No</Text>
+                </Left>
+                <Right><Radio selected={false} /></Right>
+              </ListItem>
+              <ListItem style={[estilo.listItemFicha]}>
+                  <Body style={[estilo.itemBodyFicha]}>
+                      <Text style={[estilo.tittleFicha]} note>Indicar: ¿A que medio realizo el contacto?</Text>
+                      <Button bordered iconRight style={[estilo.btnPicker, estilo.borderBtn]} onPress={this.MediosModal} >
+                          <Text style={[estilo.dateFicha, estilo.btnListFicha, estilo.dateBtnListFichaSectores]} >Medio de Contacto</Text>
+                          <Icon type="FontAwesome" name='caret-down' />
+                      </Button>
+                  </Body>
+              </ListItem>
+              <ListItem style={[estilo.listItem, {marginTop:10,}]}>
+                <Body style={[estilo.itemBodyFicha]} >
+                  <Text style={[estilo.itemTitle]}  note>Pais</Text>
+                </Body>
+              </ListItem>
+              <ListItem style={[estilo.listItem]} >
+                <View style={[estilo.searchBarH]}>
+                  <Item style={{borderBottomWidth: 0,}}>
+                    <Input style={{height: 40, paddingTop: 0, paddingBottom: 0,}} placeholder="Busca Pais" />
+                    <IconF style={[estilo.searchBarHIcon, {color: '#D80212',},]} name="search" />
+                  </Item>
+                </View>
+              </ListItem>
+            </List>
+            <Button block small style={[estilo.filtrarBtn, estilo.borderBtn]}>
+              <Text style={[estilo.filtrarBtnText]}>Filtrar</Text>
+            </Button>
+          </View>
+        </Content>
+      </Modal>
+    )
+  }
+
   renderSearch() {
     return (
       <Block row style={{ padding: 16 }}>

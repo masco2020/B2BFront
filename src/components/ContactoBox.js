@@ -1,56 +1,54 @@
 import React, { Component } from 'react'
-import { ScrollView } from 'react-native'
+import { TouchableHighlight } from 'react-native'
 import styles from 'styles/contactos'
+import estilo from 'styles/styles'
 import { Text, View, Icon, Card, CardItem, Body } from 'native-base'
 
 export default class ContactoBox extends Component {
   render() {
     const contact = this.props.item
     return (
-      <Card style={[styles.contactoCards]}>
-        <CardItem style={[styles.contactoCardsItems]}>
-          <Body style={[styles.contactoCardsBody]}>
-            <View style={[styles.contactoCardTop]}>
-              <View style={[styles.contactNombre, styles.contactDato]}>
-                <Icon
-                  type="FontAwesome"
-                  name="user"
-                  style={[styles.iconEmpresarialContacto, styles.iconContact]}
-                />
-                <Text style={[styles.contactText, styles.contactNombreText]}>
-                  {contact.nombre} {contact.apellidoPaterno}
-                </Text>
-              </View>
-              <ScrollView
-                style={[styles.contactCargoScroll]}
-                horizontal={true}
-                contentInset>
-                <View style={[styles.contactCargo, styles.contactDato]}>
-                  <Text style={[styles.contactText]}>-{contact.cargo}</Text>
+      <Card style={[estilo.contactoCards]}>
+        <CardItem style={[estilo.contactoCardsItems]}>
+          <Body style={[estilo.contactoCardsBody]}>
+            <TouchableHighlight >
+              <View style={[estilo.contactoCardTop]}>
+                <View style={[ estilo.contactDato, estilo.contactNombre ]} >
+                  <View style={{flexDirection: 'row', justifyContent:'flex-start',}} >
+                    <Icon type="FontAwesome" name="user" style={[ estilo.iconEmpresarialContacto, estilo.iconContact ]} />
+                    <Text style={[ estilo.contactText, estilo.contactNombreText ]} >
+                      {contact.nombre} {contact.apellidoPaterno}
+                    </Text>
+                  </View>
+                  <View style={{flexDirection: 'row',}} >
+                    <Icon type="FontAwesome" name="user" style={[ estilo.iconEmpresarialContacto, estilo.iconContact, {color: '#fff',}]} />
+                    <Text style={[estilo.contactText, estilo.contactCargo]}>
+                      {contact.cargo}
+                    </Text>
+                  </View>
                 </View>
-              </ScrollView>
-            </View>
-            <View style={[styles.contactoCardBot]}>
-              <View style={[styles.contactllamar, styles.contactDato]}>
-                <Icon
-                  type="FontAwesome"
-                  name="phone"
-                  style={[styles.iconEmpresarialContacto, styles.iconContact]}
-                />
-                <Text style={[styles.contactText, styles.contactllamarText]}>
-                  Llamar
-                </Text>
+                <View style={[ estilo.contactEdit, estilo.contactDato ]} >
+                  <Icon type="FontAwesome" name="edit" style={[ estilo.iconEmpresarialContacto, estilo.iconContact, estilo.editContactIcon ]} />
+                </View>
               </View>
-              <View style={[styles.contactMail, styles.contactDato]}>
-                <Icon
-                  type="FontAwesome"
-                  name="envelope"
-                  style={[styles.iconEmpresarialContacto, styles.iconContact]}
-                />
-                <Text style={[styles.contactText, styles.contactMailText]}>
-                  Correo
-                </Text>
-              </View>
+            </TouchableHighlight>
+            <View style={[estilo.contactoCardBot]}>
+              <TouchableHighlight>
+                <View style={[ estilo.contactllamar, estilo.contactDato ]} >
+                  <Icon type="FontAwesome" name="phone" style={[ estilo.iconEmpresarialContacto, estilo.iconContact ]} />
+                  <Text style={[ estilo.contactText, estilo.contactllamarText ]} >
+                    Llamar
+                  </Text>
+                </View>
+              </TouchableHighlight>
+              <TouchableHighlight>
+                <View style={[ estilo.contactMail, estilo.contactDato ]} >
+                  <Icon type="FontAwesome" name="envelope" style={[ estilo.iconEmpresarialContacto, estilo.iconContact ]} />
+                  <Text style={[ estilo.contactText, estilo.contactMailText ]} >
+                    Correo
+                  </Text>
+                </View>
+              </TouchableHighlight>
             </View>
           </Body>
         </CardItem>
