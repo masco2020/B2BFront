@@ -7,17 +7,18 @@ import { createMaterialTopTabNavigator } from 'react-navigation-tabs'
 import { createAppContainer, createSwitchNavigator } from 'react-navigation'
 
 // screens
+import Loading from 'screens/Loading'
 import Intro from 'screens/Intro'
 import Login from 'screens/Login'
 import Perfil from 'screens/Perfil'
-import Empresa from 'screens/Exportador'
+import Empresa from 'screens/Empresa'
 import Historico from 'screens/Empresa/Historico'
 import Ficha from 'screens/Empresa/Ficha'
 import Contactos from 'screens/Empresa/Contactos'
 
-// import Menu from './Menu'
+import Menu from './Menu'
 import { getDrawerOptions, getHeaderOptions, defaultStackConfig } from './utils'
-import theme from 'themes/default'
+import Theme from 'themes/default'
 
 const EmpresaTabs = createMaterialTopTabNavigator(
   {
@@ -28,26 +29,41 @@ const EmpresaTabs = createMaterialTopTabNavigator(
   {
     lazy: true,
     tabBarOptions: {
-      style: { backgroundColor: theme.COLORS.PRIMARY },
+      style: { backgroundColor: Theme.COLORS.PRIMARY },
     },
   }
 )
 
 const EmpresaStack = createStackNavigator(
   {
-    EmpresaList: {
+    Exportador: {
       screen: Empresa,
+      params: { esExportador: true },
       navigationOptions: getHeaderOptions({
         title: 'Exportadores',
-        noShadow: true,
+        // headerProps: {
+        //   noShadow: true,
+        // },
+      }),
+    },
+    Comprador: {
+      screen: Empresa,
+      params: { esExportador: false },
+      navigationOptions: getHeaderOptions({
+        title: 'Compradores',
+        // headerProps: {
+        //   noShadow: true,
+        // },
       }),
     },
     EmpresaDetalle: {
       screen: EmpresaTabs,
       navigationOptions: getHeaderOptions({
-        title: nav => nav.getParam('data', {}).nombre,
-        noShadow: true,
-        back: true,
+        title: nav => nav.getParam('data', {}).nombreEmpresa,
+        headerProps: {
+          noShadow: true,
+          back: true,
+        },
       }),
     },
   },
@@ -58,7 +74,7 @@ const PerfilStack = createStackNavigator(
   {
     Perfil: {
       screen: Perfil,
-      navigationOptions: getHeaderOptions({ title: 'Perfil' }),
+      navigationOptions: getHeaderOptions({ title: 'B2B' }),
     },
   },
   defaultStackConfig
@@ -74,8 +90,8 @@ const AppStack = createDrawerNavigator(
       screen: EmpresaStack,
       navigationOptions: getDrawerOptions({ title: 'Empresas' }),
     },
-  }
-  // Menu
+  },
+  Menu
 )
 
 const IntroStack = createStackNavigator(
@@ -87,12 +103,13 @@ const AuthStack = createStackNavigator({ Login: Login }, { headerMode: 'none' })
 const AppContainer = createAppContainer(
   createSwitchNavigator(
     {
+      Loading: Loading,
       Intro: IntroStack,
       Auth: AuthStack,
       App: AppStack,
     },
     {
-      initialRouteName: 'Intro',
+      initialRouteName: 'Loading',
     }
   )
 )

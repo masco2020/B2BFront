@@ -1,4 +1,6 @@
-export default {
+import { StyleSheet } from 'react-native'
+
+export default StyleSheet.create({
   badgeText: {
     color: '#fff',
   },
@@ -27,14 +29,6 @@ export default {
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  searchBarH: {
-    borderColor: '#7e7e7d',
-    borderWidth: 1,
-    borderRadius: 10,
-    paddingLeft: 5,
-    paddingRight: 5,
-    flex: 6,
-  },
   searchBarHIcon: {
     color: '#7e7e7d',
     fontSize: 20,
@@ -49,10 +43,6 @@ export default {
     padding: 2,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  iconFilterH: {
-    marginLeft: 0,
-    marginRight: 0,
   },
   textBtnSegmen: {
     textTransform: 'capitalize',
@@ -90,4 +80,137 @@ export default {
     padding: 25,
     paddingBottom: 5,
   },
-}
+  /* from estilos */
+  modalLeyenda: {},
+  modalLeyendaBox: {
+    marginBottom: 35,
+    marginTop: 10,
+    marginLeft: 16,
+    marginRight: 16,
+    height: '100%',
+    maxWidth: '100%',
+    borderRadius: 10,
+    backgroundColor: 'white',
+    flex: 1,
+    justifyContent: 'center',
+    padding: 25,
+    paddingTop: 20,
+    paddingBottom: 5,
+  },
+  LeyendaTitel: {
+    color: '#7e7e7d',
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+  leyendaText: {
+    color: '#7e7e7d',
+    fontSize: 16,
+  },
+  leyendaSector: {
+    marginLeft: 0,
+    alignItems: 'center',
+    borderBottomWidth: 0,
+    borderBottomColor: undefined,
+    marginBottom: 0,
+    marginTop: 0,
+    paddingBottom: 0,
+    paddingTop: 5,
+    paddingLeft: 0,
+  },
+  circulLeyenda: {
+    margin: 4,
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 40,
+    width: 40,
+    paddingBottom: 0,
+    paddingLeft: 0,
+    paddingRight: 0,
+    paddingTop: 5,
+    borderRadius: 30,
+  },
+  textcirculLeyenda: {
+    fontSize: 24,
+    paddingBottom: 0,
+    paddingLeft: 0,
+    paddingRight: 0,
+  },
+  listItem: {
+    borderBottomWidth: 0,
+    borderBottomColor: undefined,
+    marginLeft: 0,
+    paddingBottom: 4,
+    paddingTop: 4,
+  },
+  itemBodyFicha: {},
+  itemTitle: {
+    color: '#D80212',
+    marginLeft: 0,
+    fontWeight: 'bold',
+    paddingBottom: 10,
+    marginTop: 16,
+  },
+  dateFicha: {
+    color: '#7e7e7d',
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginLeft: 0,
+  },
+  textItem: {
+    fontSize: 18,
+  },
+  masFiltrosBtn: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  masFiltrosBtnText: {
+    color: '#D80212',
+    fontWeight: 'bold',
+    textTransform: 'capitalize',
+    fontSize: 18,
+  },
+  searchBarH: {
+    borderColor: '#7e7e7d',
+    borderWidth: 1,
+    borderRadius: 10,
+    paddingHorizontal: 5,
+    paddingVertical: 0,
+    flex: 6,
+  },
+  filtrarBtn: {
+    marginTop: 45,
+    alignSelf: 'center',
+    justifyContent: 'center',
+  },
+  borderBtn: {
+    borderRadius: 8,
+  },
+  filtrarBtnText: {
+    textTransform: 'capitalize',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  textItemFicha: {},
+  tittleFicha: {
+    color: '#D80212',
+    marginLeft: 0,
+    fontWeight: 'bold',
+    paddingBottom: 15,
+  },
+  btnPicker: {
+    borderColor: '#7e7e7d',
+    height: 35,
+  },
+  btnListFicha: {
+    textTransform: 'capitalize',
+    paddingLeft: 10,
+    paddingRight: 10,
+  },
+  dateBtnListFichaSectores: {},
+  iconFilterH: {
+    marginLeft: 13,
+    marginRight: 13,
+    fontSize: 26,
+  },
+  /* end from estilos */
+})

@@ -51,11 +51,14 @@ export const defaultStackConfig = {
   transitionConfig,
 }
 
-export const getHeaderOptions = ({ title, ...props }) => ({ navigation }) => {
+export const getHeaderOptions = ({ title, headerProps, ...props }) => ({
+  navigation,
+}) => {
   title = isFunction(title) ? title(navigation) : title
 
   return {
-    header: <Header {...props} title={title} navigation={navigation} />,
+    header: <Header {...headerProps} title={title} navigation={navigation} />,
+    ...props,
   }
 }
 

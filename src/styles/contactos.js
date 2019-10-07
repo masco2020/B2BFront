@@ -1,22 +1,14 @@
-export default {
+import { StyleSheet } from 'react-native'
+
+export default StyleSheet.create({
   content: {
     padding: 16,
   },
   contentContactos: {
     backgroundColor: '#EBEBEB',
   },
-  empresarialContacto: {
-    borderRadius: 8,
-    backgroundColor: '#fff',
-    marginBottom: 10,
-  },
   iconEmpresarialContacto: {
     color: '#D80212',
-  },
-  textEmpresarialContacto: {
-    color: '#7e7e7d',
-    fontSize: 18,
-    fontWeight: 'bold',
   },
   contactoCards: {
     borderRadius: 8,
@@ -28,7 +20,7 @@ export default {
     width: '100%',
   },
   contactoCardTop: {
-    borderBottomColor: '#7e7e7d',
+    borderBottomColor: '#dddddd',
     borderBottomWidth: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -54,7 +46,6 @@ export default {
   contactText: {
     color: '#7e7e7d',
   },
-  contactNombre: {},
   contactNombreText: {
     fontWeight: 'bold',
     fontSize: 16,
@@ -62,9 +53,6 @@ export default {
   contactCargoScroll: {
     maxWidth: '45%',
   },
-  contactCargo: {},
-  contactllamar: {},
-  contactMail: {},
   contactllamarText: {
     color: '#D80212',
     fontSize: 16,
@@ -91,4 +79,89 @@ export default {
   itemNewContact: {
     marginLeft: 0,
   },
-}
+
+  /* from estilos */
+  contactNombre: {
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+  },
+  contactCargo: {
+    fontSize: 14,
+  },
+  editContactIcon: {
+    fontSize: 19,
+  },
+  contactllamar: {
+    marginBottom: 3,
+    marginTop: 3,
+  },
+  contactMail: {
+    marginBottom: 3,
+    marginTop: 3,
+  },
+  formFicha: {
+    padding: 16,
+  },
+  btnPickProductsFicha: {},
+  modalFicha: {
+    margin: 0,
+    backgroundColor: 'white',
+    height: 'auto',
+    flex: 0,
+    bottom: 0,
+    position: 'absolute',
+    width: '100%',
+    padding: 25,
+    paddingBottom: 5,
+  },
+  listFicha: {
+    paddingLeft: 0,
+    borderBottomWidth: 1,
+    borderBottomColor: '#7e7e7d',
+  },
+  listModal: {
+    borderBottomWidth: 0,
+  },
+  tittleFicha: {
+    color: '#D80212',
+    marginLeft: 0,
+    fontWeight: 'bold',
+    paddingBottom: 15,
+  },
+  listItemFicha: {
+    borderBottomWidth: 0,
+    borderBottomColor: undefined,
+    marginLeft: 0,
+  },
+  listItemModal: {
+    paddingBottom: 15,
+    paddingTop: 0,
+  },
+  itemBodyFicha: {},
+  dateFicha: {
+    color: '#7e7e7d',
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginLeft: 0,
+  },
+  empresarialContacto: {
+    borderRadius: 8,
+    backgroundColor: '#fff',
+    marginBottom: 10,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+  textEmpresarialContacto: {
+    color: '#7e7e7d',
+    fontSize: 16,
+    textTransform: 'capitalize',
+    fontWeight: 'bold',
+  },
+  telefonoEmpresarial: {},
+  correoEmpresarial: {},
+  iniciarSesionBtn: {},
+  borderBtn: {},
+  iniciarSesionBtnText: {},
+  /* end from estilos */
+})

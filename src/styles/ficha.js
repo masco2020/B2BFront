@@ -1,4 +1,6 @@
-export default {
+import { StyleSheet } from 'react-native'
+
+export default StyleSheet.create({
   containerFicha: {
     flex: 1,
   },
@@ -86,4 +88,12 @@ export default {
     paddingLeft: 10,
     paddingRight: 10,
   },
-}
+
+  /* from estilos */
+  tipoCliente: {},
+  borderBtn: {
+    borderRadius: 8,
+  },
+  correoEmpresarial: {},
+  /* end from estilos */
+})

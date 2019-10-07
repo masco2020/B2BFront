@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Modal } from 'react-native'
 import styles from 'styles/contactos'
 import {
   Text,
@@ -9,19 +8,20 @@ import {
   Button,
   View,
   Icon,
-  Left,
-  Body,
-  Title,
   Content,
-  Header,
-  Right,
-  List,
-  ListItem,
+  Picker,
 } from 'native-base'
-import ModalC from 'react-native-modal'
 import ContactoList from 'screens/Contacto/List'
 import Block from 'components/Block'
+import Modal from 'components/Modal'
 import { Hbar } from 'components/styled'
+
+const tipoDocumentos = [
+  { value: 'dni', label: 'DNI' },
+  { value: 'pasaporte', label: 'Pasaporte' },
+  { value: 'carnet', label: 'Carnet de Extranjería' },
+  { value: 'ruc', label: 'RUC' },
+]
 
 export default class Contactos extends Component {
   static navigationOptions = {
@@ -47,37 +47,13 @@ export default class Contactos extends Component {
     })
   }
 
-  dniModal = () => {
-    this.setState({
-      dniIsModalVisible: !this.state.dniIsModalVisible,
-    })
-  }
-
   renderModal() {
     return (
       <Modal
         animationType="slide"
+        header="Editar Contacto"
         transparent={false}
-        visible={this.state.editContactVisible}
-        // onRequestClose={() => {
-        //   Alert.alert('Modal has been closed.')
-        // }}
-      >
-        <Header>
-          <Left>
-            <Button
-              transparent
-              onPress={() => {
-                this.setEditContactVisible(!this.state.editContactVisible)
-              }}>
-              <Icon name="arrow-back" />
-            </Button>
-          </Left>
-          <Body>
-            <Title>Nuevo Contacto</Title>
-          </Body>
-          <Right />
-        </Header>
+        visible={this.state.editContactVisible}>
         <Content>
           <Form style={[styles.formFicha]}>
             <Item>
@@ -89,23 +65,25 @@ export default class Contactos extends Component {
             <Item>
               <Input placeholder="Apellido Materno" />
             </Item>
-
-            <Item>
-              <Button
-                transparent
-                iconRight
-                style={[styles.btnPickProductsFicha]}
-                onPress={this.dniModal}>
-                <Text
-                  style={[
-                    styles.dateFicha,
-                    styles.btnListFicha,
-                    styles.dateBtnListFichaProducts,
-                  ]}>
-                  Tipo de Documento
-                </Text>
-                <Icon type="FontAwesome" name="caret-down" />
-              </Button>
+            <Item picker>
+              <Picker
+                mode="dropdown"
+                iosIcon={<Icon name="arrow-down" />}
+                // style={{ width: undefined }}
+                placeholder="Tipo de Documento"
+                placeholderStyle={{ color: '#bfc6ea' }}
+                placeholderIconColor="#007aff"
+                // selectedValue={this.state.selected2}
+                // onValueChange={this.onValueChange2.bind(this)}
+              >
+                {tipoDocumentos.map((doc, index) => (
+                  <Picker.Item
+                    key={index}
+                    label={doc.label}
+                    value={doc.value}
+                  />
+                ))}
+              </Picker>
             </Item>
             <Item>
               <Input placeholder="Nº de Documento" />
@@ -160,7 +138,7 @@ export default class Contactos extends Component {
             </Button>
           </View>
           <Hbar />
-          <ContactoList />
+          <ContactoList data={data.listaContactos} />
           <View style={[styles.boxBtnNewContact]}>
             <Button
               style={[styles.iniciarSesionBtn]}
@@ -173,36 +151,7 @@ export default class Contactos extends Component {
               </Text>
             </Button>
           </View>
-
-          {/* <ModalNuevoContacto
-            newContactVisible={this.state.newContactVisible}
-            setNewContactVisible={this.setNewContactVisible(this)}
-            dniModal={this.dniModal.bind(this)}
-            /> */}
           {this.renderModal()}
-          <ModalC
-            isVisible={this.state.dniIsModalVisible}
-            onBackdropPress={() => this.setState({ dniIsModalVisible: false })}
-            style={[styles.modalFicha]}>
-            <View style={{ flex: 1 }}>
-              <List style={[styles.listFicha, styles.listModal]}>
-                <Text primary style={[styles.tittleFicha]} note>
-                  Documento
-                </Text>
-                {data.listaSectores.map(function(sector, index) {
-                  return (
-                    <ListItem
-                      key={index}
-                      style={[styles.listItemFicha, styles.listItemModal]}>
-                      <Body style={[styles.itemBodyFicha]}>
-                        <Text style={[styles.dateFicha]}>{sector.nombre}</Text>
-                      </Body>
-                    </ListItem>
-                  )
-                })}
-              </List>
-            </View>
-          </ModalC>
         </Content>
       </Block>
     )

@@ -1,7 +1,8 @@
 import React from 'react'
-import { DrawerItems } from 'react-navigation-drawer'
+import { DrawerNavigatorItems } from 'react-navigation-drawer'
 import { ScrollView, Dimensions } from 'react-native'
-import Block from '../components/Block'
+import Block from 'components/Block'
+import Logout from 'navigation/Logout'
 
 const { width } = Dimensions.get('screen')
 
@@ -9,7 +10,8 @@ const Drawer = props => (
   <Block flex forceInset={{ top: 'always', horizontal: 'never' }}>
     <Block flex>
       <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
-        <DrawerItems {...props} />
+        <DrawerNavigatorItems {...props} />
+        <Logout />
       </ScrollView>
     </Block>
   </Block>

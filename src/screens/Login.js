@@ -1,30 +1,39 @@
 import React, { Component } from 'react'
-import { TouchableHighlight, Modal, Keyboard } from 'react-native'
+import { TouchableHighlight, Keyboard, AsyncStorage } from 'react-native'
+import { Text, Item, Label, Input, Button, Icon } from 'native-base'
+
 import styles from 'styles/login'
-import {
-  Text,
-  Item,
-  Label,
-  Input,
-  Button,
-  Icon,
-  Header,
-  Left,
-  Body,
-  Title,
-  Right,
-  // Container,
-} from 'native-base'
 import Block from 'components/Block'
 import { Hbar, Container, LinkText } from 'components/styled'
+import Modal from 'components/Modal'
+import Theme from 'themes/default'
+import { connect } from 'components/AppProvider'
 
-export default class Login extends Component {
+class Login extends Component {
   state = {
     modalVisible: false,
+    user: '',
+    pass: '',
   }
 
-  onLogin = () => {
-    this.props.navigation.navigate('Perfil')
+  updateField = field => text => {
+    this.setState({ [field]: text })
+  }
+
+  onLogin = async () => {
+    const { user, pass } = this.state
+    this.props.dispatch({ type: 'APP_LOADING', payload: true })
+
+    const { data, success } = await this.props.api.login({
+      usuario: user,
+      clave: pass,
+    })
+    if (success) {
+      this.props.dispatch({ type: 'LOGIN', payload: data })
+      await AsyncStorage.setItem('user', JSON.stringify(data))
+      this.props.dispatch({ type: 'APP_LOADING', payload: false })
+      this.props.navigation.navigate('Perfil')
+    }
   }
 
   setModalVisibility = visible => () => {
@@ -33,75 +42,49 @@ export default class Login extends Component {
     })
   }
 
-  /* keyboard */
-  componentDidMount() {
-    this.keyboardDidShowListener = Keyboard.addListener(
-      'keyboardDidShow',
-      this._keyboardDidShow
-    )
-    this.keyboardDidHideListener = Keyboard.addListener(
-      'keyboardDidHide',
-      this._keyboardDidHide
-    )
-  }
-
-  componentWillUnmount() {
-    this.keyboardDidShowListener.remove()
-    this.keyboardDidHideListener.remove()
-  }
-
-  /* keyboard */
-
   renderModal() {
     return (
       <Modal
-        animationType="slide"
-        transparent={false}
+        header="Gestiona accesos"
         visible={this.state.modalVisible}
         onRequestClose={this.setModalVisibility(false)}>
-        <Header>
-          <Left>
-            <Button transparent onPress={this.setModalVisibility(false)}>
-              <Icon name="arrow-back" />
-            </Button>
-          </Left>
-          <Body>
-            <Title>Gestiona accesos</Title>
-          </Body>
-          <Right />
-        </Header>
         <Container padding={30}>
-          <Text>
-            A través de estos canales, solicita tu usuario y contraseña aquí.
-          </Text>
-          <Text />
-          <Text />
-          <Text>+51 555 555</Text>
-          <Text>promperu@promperu.pe</Text>
+          <Text>Enviar correo a Hola@b2b.com</Text>
         </Container>
       </Modal>
     )
   }
 
   render() {
+    const { user, pass } = this.state
+
     return (
-      <Container>
+      <Container style={{ backgroundColor: '#EFEFEF' }}>
         <Block flex={4} middle>
-          <Item floatingLabel>
-            <Icon name="person" />
+          <Item floatingLabel last style={[styles.itemLogin]}>
+            <Icon name="person" style={{ color: Theme.COLORS.PRIMARY }} />
             <Label>Usuario</Label>
-            <Input textContentType="username" />
+            <Input
+              autoCapitalize="none"
+              textContentType="username"
+              value={user}
+              onChangeText={this.updateField('user')}
+            />
           </Item>
-          <Item floatingLabel>
-            <Icon name="lock" />
+          <Item floatingLabel last style={[styles.itemLogin]}>
+            <Icon name="lock" style={{ color: Theme.COLORS.PRIMARY }} />
             <Label>Contraseña</Label>
-            <Input textContentType="password" secureTextEntry />
+            <Input
+              textContentType="password"
+              secureTextEntry
+              onChangeText={this.updateField('pass')}
+              value={pass}
+            />
           </Item>
           <Button style={styles.iniciarSesionBtn} onPress={this.onLogin}>
-            <Text style={styles.iniciarSesionBtnText}>Iniciar</Text>
+            <Text>Iniciar</Text>
           </Button>
         </Block>
-        <Block flex />
         <Block flex onSubmitEditing={Keyboard.dismiss}>
           <Hbar />
           <TouchableHighlight
@@ -117,3 +100,8 @@ export default class Login extends Component {
     )
   }
 }
+
+export default connect(ctx => ({
+  dispatch: ctx.dispatch,
+  api: ctx.api,
+}))(Login)
