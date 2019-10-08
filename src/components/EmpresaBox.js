@@ -20,7 +20,7 @@ class EmpresaBox extends React.PureComponent {
     const item = this.props.item
 
     return (
-      <TouchableNativeFeedback onPress={this.navigateEmpresa(item)}>
+      <TouchableNativeFeedback style={[styles.empresaTouch]} onPress={this.navigateEmpresa(item)}>
         <Card noShadow style={[styles.cardEmpresas]}>
           <CardItem bordered style={[styles.cardItemNamesEmpresas]}>
             <Text style={[styles.textNamesEmpresas]}>{item.nombreEmpresa}</Text>
@@ -30,7 +30,7 @@ class EmpresaBox extends React.PureComponent {
             <Block flex row>
               {item.listaSectores.map(function(sector, index) {
                 return (
-                  <Badge key={index} color={sector.color} size={24}>
+                  <Badge key={index} style={[styles.circulSector]} color={sector.color} size={27}>
                     <Text style={[styles.badgeText]}>{sector.letra}</Text>
                   </Badge>
                 )
