@@ -39,7 +39,7 @@ export default StyleSheet.create({
   },
   iniciarSesionBtn: {
     marginTop: 45,
-    width: '50%',
+    width: '100%',
     alignSelf: 'center',
     justifyContent: 'center',
   },
@@ -92,8 +92,6 @@ export default StyleSheet.create({
   itemLogin: {
     borderColor: '#D80212',
     borderBottomWidth: 1.5,
-    marginLeft: 24,
-    marginRight: 24,
   },
   iniciarSesionBtnText: {
     textTransform: 'capitalize',
@@ -101,6 +99,7 @@ export default StyleSheet.create({
     fontWeight: 'bold',
   },
   gestionTextLogin: {
+    color: '#7e7e7d',
     padding: 10,
     textAlign: 'center',
     marginBottom: 16,

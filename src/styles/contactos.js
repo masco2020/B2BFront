@@ -160,7 +160,12 @@ export default StyleSheet.create({
   },
   telefonoEmpresarial: {},
   correoEmpresarial: {},
-  iniciarSesionBtn: {},
+  iniciarSesionBtn: {marginTop: 45,
+    width: '50%',
+    alignSelf: 'center',
+    justifyContent: 'center',
+    borderRadius: 8,
+  },
   borderBtn: {},
   iniciarSesionBtnText: {},
   /* end from estilos */

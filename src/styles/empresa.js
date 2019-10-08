@@ -9,6 +9,10 @@ export default StyleSheet.create({
     borderRadius: 10,
     overflow: 'hidden',
   },
+  cartItemNamesEmpresas:{
+      paddingBottom: 5,
+      paddingTop: 5,
+  },
   cardItemNamesEmpresas: {
     paddingBottom: 5,
     paddingTop: 5,
@@ -24,11 +28,15 @@ export default StyleSheet.create({
   },
   empresaTouch: {
     width: '100%',
-    backgroundColor: '#98c',
   },
+  circulSector: {
+    margin: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+},
   /* from estilos */
   textDatesEmpresas: {},
-  textcirculSector: {
+  badgeText: {
     color: '#fff',
     fontSize: 12,
     paddingBottom: 0,

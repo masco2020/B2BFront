@@ -74,7 +74,15 @@ const PerfilStack = createStackNavigator(
   {
     Perfil: {
       screen: Perfil,
-      navigationOptions: getHeaderOptions({ title: 'B2B' }),
+      navigationOptions: getHeaderOptions(
+        { 
+          title: 'B2B',
+          headerProps: {
+            hideDrawer: true,
+            style: {alignItems: 'center'},
+          },
+        }
+      ),
     },
   },
   defaultStackConfig
@@ -98,7 +106,23 @@ const IntroStack = createStackNavigator(
   { Intro: Intro },
   { headerMode: 'none' }
 )
-const AuthStack = createStackNavigator({ Login: Login }, { headerMode: 'none' })
+const AuthStack = createStackNavigator(
+  { 
+    Login: {
+      screen: Login,
+      navigationOptions: getHeaderOptions(
+        { 
+          title: 'B2B',
+          headerProps: {
+            hideDrawer: true,
+            style: {alignItems: 'center'},
+          },
+        }
+      ),
+
+    },
+  },
+)
 
 const AppContainer = createAppContainer(
   createSwitchNavigator(

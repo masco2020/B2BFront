@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { TouchableHighlight, Keyboard, AsyncStorage } from 'react-native'
-import { Text, Item, Label, Input, Button, Icon } from 'native-base'
+import { Text, Item, Label, Input, Button, Icon, List, ListItem, Left, Body, Right } from 'native-base'
 
 import styles from 'styles/login'
 import Block from 'components/Block'
@@ -45,11 +45,27 @@ class Login extends Component {
   renderModal() {
     return (
       <Modal
-        header="Gestiona accesos"
+        header="Contactanos"
         visible={this.state.modalVisible}
         onRequestClose={this.setModalVisibility(false)}>
-        <Container padding={30}>
-          <Text>Enviar correo a Hola@b2b.com</Text>
+        <Container padding={30} style={{flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+          <List>
+            <ListItem style={[styles.msgGestionLogin]} icon >
+              <Left style={[styles.msgGestionL]}>
+                <Icon type="FontAwesome" name="envelope" style={{ color: '#D80212' }} />
+              </Left>
+              <Right style={[styles.msgGestionR]}>
+                <Text style={[styles.gestionTxtMsg]} >Enviar correo a</Text>
+              </Right>
+            </ListItem>
+            <ListItem style={[styles.mailGestion]} >
+              <Body>
+                <Button bordered style={[styles.gestionEmailBtn, styles.borderBtn]} >
+                  <Text style={[ styles.gestionEmailTxt ]} >Hola@b2b.com</Text>
+                </Button>
+              </Body>
+            </ListItem>
+          </List>
         </Container>
       </Modal>
     )
@@ -60,7 +76,7 @@ class Login extends Component {
 
     return (
       <Container style={{ backgroundColor: '#EFEFEF' }}>
-        <Block flex={4} middle>
+        <Block flex={4} middle style={{backgroundColor: '#EFEFEF', paddingLeft: 24, paddingRight: 24,}}>
           <Item floatingLabel last style={[styles.itemLogin]}>
             <Icon name="person" style={{ color: Theme.COLORS.PRIMARY }} />
             <Label>Usuario</Label>
@@ -81,8 +97,8 @@ class Login extends Component {
               value={pass}
             />
           </Item>
-          <Button style={styles.iniciarSesionBtn} onPress={this.onLogin}>
-            <Text>Iniciar</Text>
+          <Button small style={[styles.iniciarSesionBtn, styles.borderBtn]} onPress={this.onLogin}>
+            <Text style={styles.iniciarSesionBtnText}>Iniciar</Text>
           </Button>
         </Block>
         <Block flex onSubmitEditing={Keyboard.dismiss}>

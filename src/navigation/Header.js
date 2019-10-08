@@ -9,11 +9,11 @@ class AppHeader extends React.Component {
   }
 
   render() {
-    const { hideDrawer, back, navigation, title, ...other } = this.props
+    const { hideDrawer, back, navigation, title, style, ...other } = this.props
     const leftButtonIcon = back ? 'arrow-back' : 'menu'
 
     return (
-      <Header noLeft={hideDrawer} {...other}>
+      <Header noLeft={hideDrawer} {...other} >
         {!hideDrawer && (
           <Left>
             <Button transparent onPress={this.handleLeftPress}>
@@ -21,8 +21,8 @@ class AppHeader extends React.Component {
             </Button>
           </Left>
         )}
-        <Body>
-          <Title>{title}</Title>
+        <Body style={style}>
+          <Title style={{fontWeight: 'bold'}}>{title}</Title>
         </Body>
         {!hideDrawer && <Right />}
       </Header>
