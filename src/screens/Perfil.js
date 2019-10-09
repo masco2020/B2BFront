@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { TouchableHighlight, Image } from 'react-native'
-import { Container, Text, Card, CardItem, Body } from 'native-base'
+import { Container, Text } from 'native-base'
 import styles from 'styles/perfil'
 import Block from 'components/Block'
+import { fc, fw, fz, ta } from 'styles/styles'
 
 const perfiles = [
   {
@@ -23,35 +24,27 @@ export default class Perfil extends Component {
   }
 
   render() {
+    const textStyle = [fc.muted, fz.n24]
+
     return (
       <Container>
-        <Block flex center style={[styles.perfilView]}>
-          <Text style={[styles.text1Perfil]}>
-            Elige el tipo de{'\n'}empresa de tu interés
+        <Block flex={2} center middle>
+          <Text style={[...textStyle, ta.center]}>
+            <Text style={[...textStyle, fw.bold]}>Elige</Text> el tipo de{'\n'}
+            empresa de tu interés
           </Text>
         </Block>
         {perfiles.map((perfil, index) => (
-          <Block key={index} flex={3} center style={[styles.perfilOptions]}>
+          <Block key={index} flex={3} center>
             <TouchableHighlight
               onPress={this.navigate(perfil.route)}
-              style={{ width: '100%' }}>
-              <Card style={[styles.perfilCards]}>
-                <CardItem
-                  style={[styles.perfilCardsItems, styles.iconPerfilItem]}
-                  header>
-                  <Image source={perfil.image} style={[styles.perfilIcon]} />
-                </CardItem>
-                <CardItem
-                  style={[styles.perfilCardsItems, styles.txtPerfilItem]}>
-                  <Body style={[styles.perfilCardsItemsBody]}>
-                    <Text
-                      numberOfLines={1}
-                      style={[styles.perfilCardsItemsText]}>
-                      {perfil.label}
-                    </Text>
-                  </Body>
-                </CardItem>
-              </Card>
+              style={styles.perfilButton}>
+              <Block style={[styles.perfilCard, styles.perfilButton]}>
+                <Image source={perfil.image} style={[styles.perfilIcon]} />
+                <Text style={[ta.center, fz.n20, fw.bold, fc.white]}>
+                  {perfil.label}
+                </Text>
+              </Block>
             </TouchableHighlight>
           </Block>
         ))}
@@ -59,15 +52,3 @@ export default class Perfil extends Component {
     )
   }
 }
-
-/* <Card key={index} style={[styles.perfilCards, { marginTop: 35 }]}>
-  <TouchableHighlight onPress={this.navigate(perfil.route)}>
-    <CardItem style={[styles.perfilCardsItems]}>
-      <Body style={[styles.perfilCardsItemsBody]}>
-        <Text style={[styles.perfilCardsItemsText]}>
-          {perfil.label}
-        </Text>
-      </Body>
-    </CardItem>
-  </TouchableHighlight>
-</Card> */

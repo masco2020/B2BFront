@@ -1,8 +1,19 @@
 import React, { Component } from 'react'
-import { TouchableHighlight, Keyboard, AsyncStorage } from 'react-native'
-import { Text, Item, Label, Input, Button, Icon } from 'native-base'
+import { Alert, AsyncStorage, TouchableOpacity } from 'react-native'
+import {
+  Button,
+  Header,
+  Icon,
+  Input,
+  Item,
+  Label,
+  Root,
+  Text,
+  Title,
+} from 'native-base'
 
 import styles from 'styles/login'
+import { bg, fc, fz } from 'styles/styles'
 import Block from 'components/Block'
 import { Hbar, Container, LinkText } from 'components/styled'
 import Modal from 'components/Modal'
@@ -22,6 +33,10 @@ class Login extends Component {
 
   onLogin = async () => {
     const { user, pass } = this.state
+    if (!user || !pass) {
+      return Alert.alert('Error', 'Completa usuario y contraseña')
+    }
+
     this.props.dispatch({ type: 'APP_LOADING', payload: true })
 
     const { data, success } = await this.props.api.login({
@@ -42,14 +57,39 @@ class Login extends Component {
     })
   }
 
+  renderContacto({ text, icon, info }) {
+    const textStyle = [fc.primary, fz.n20]
+    return (
+      <Block flex center middle>
+        <Block row middle style={{ marginBottom: Theme.SIZES.BASE / 2 }}>
+          <Icon type="FontAwesome5" name={icon} style={textStyle} />
+          <Text style={textStyle}>{text}</Text>
+        </Block>
+        <Button bordered style={styles.gestionButton}>
+          <Text style={styles.gestionButtonText}>{info}</Text>
+        </Button>
+      </Block>
+    )
+  }
+
   renderModal() {
     return (
       <Modal
-        header="Gestiona accesos"
+        header="Contáctanos"
         visible={this.state.modalVisible}
         onRequestClose={this.setModalVisibility(false)}>
         <Container padding={30}>
-          <Text>Enviar correo a Hola@b2b.com</Text>
+          {this.renderContacto({
+            text: 'Llamar a',
+            icon: 'phone',
+            info: '01 555 5555',
+          })}
+          <Hbar />
+          {this.renderContacto({
+            text: 'Enviar correo a',
+            icon: 'envelope',
+            info: 'hola@b2b.com',
+          })}
         </Container>
       </Modal>
     )
@@ -59,49 +99,56 @@ class Login extends Component {
     const { user, pass } = this.state
 
     return (
-      <Container style={{ backgroundColor: '#EFEFEF' }}>
-        <Block flex={4} middle>
-          <Item floatingLabel last style={[styles.itemLogin]}>
-            <Icon name="person" style={{ color: Theme.COLORS.PRIMARY }} />
-            <Label>Usuario</Label>
-            <Input
-              autoCapitalize="none"
-              textContentType="username"
-              value={user}
-              onChangeText={this.updateField('user')}
-            />
-          </Item>
-          <Item floatingLabel last style={[styles.itemLogin]}>
-            <Icon name="lock" style={{ color: Theme.COLORS.PRIMARY }} />
-            <Label>Contraseña</Label>
-            <Input
-              textContentType="password"
-              secureTextEntry
-              onChangeText={this.updateField('pass')}
-              value={pass}
-            />
-          </Item>
-          <Button style={styles.iniciarSesionBtn} onPress={this.onLogin}>
-            <Text>Iniciar</Text>
-          </Button>
-        </Block>
-        <Block flex onSubmitEditing={Keyboard.dismiss}>
-          <Hbar />
-          <TouchableHighlight
-            style={[styles.gestionLogin]}
-            onPress={this.setModalVisibility(true)}>
-            <Text style={[styles.gestionTextLogin]}>
-              Gestiona tu acceso <LinkText>aquí.</LinkText>
-            </Text>
-          </TouchableHighlight>
-        </Block>
-        {this.renderModal()}
-      </Container>
+      <Root>
+        <Header style={[bg.primary]}>
+          <Block center>
+            <Title>B2B</Title>
+          </Block>
+        </Header>
+        <Container style={{ backgroundColor: '#EBEBEB' }}>
+          <Block flex={5} middle>
+            <Item floatingLabel last style={[styles.itemLogin]}>
+              <Icon name="person" style={{ color: Theme.COLORS.PRIMARY }} />
+              <Label>Usuario</Label>
+              <Input
+                autoCapitalize="none"
+                textContentType="username"
+                value={user}
+                onChangeText={this.updateField('user')}
+              />
+            </Item>
+            <Item floatingLabel last style={[styles.itemLogin]}>
+              <Icon name="lock" style={{ color: Theme.COLORS.PRIMARY }} />
+              <Label>Contraseña</Label>
+              <Input
+                textContentType="password"
+                secureTextEntry
+                onChangeText={this.updateField('pass')}
+                value={pass}
+              />
+            </Item>
+            <Button style={styles.iniciarSesionBtn} onPress={this.onLogin}>
+              <Text>Iniciar</Text>
+            </Button>
+          </Block>
+          <Block flex>
+            <Hbar />
+            <Block flex center middle>
+              <TouchableOpacity onPress={this.setModalVisibility(true)}>
+                <Text style={[styles.gestionTextLogin]}>
+                  Gestiona tu acceso <LinkText>aquí.</LinkText>
+                </Text>
+              </TouchableOpacity>
+            </Block>
+          </Block>
+          {this.renderModal()}
+        </Container>
+      </Root>
     )
   }
 }
 
 export default connect(ctx => ({
-  dispatch: ctx.dispatch,
   api: ctx.api,
+  dispatch: ctx.dispatch,
 }))(Login)

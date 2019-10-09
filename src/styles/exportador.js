@@ -1,13 +1,11 @@
 import { StyleSheet } from 'react-native'
+import Theme from 'themes/default'
 
 export default StyleSheet.create({
   badgeText: {
     color: '#fff',
   },
   circulSector: {
-    // margin: 2,
-    // justifyContent: 'center',
-    // alignItems: 'center',
     height: 27,
     width: 27,
   },
@@ -22,7 +20,6 @@ export default StyleSheet.create({
     overflow: 'hidden',
     width: '100%',
   },
-  btnSegmen: {},
   formFilterHome: {
     padding: 16,
     flexDirection: 'row',
@@ -30,7 +27,7 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   searchBarHIcon: {
-    color: '#7e7e7d',
+    // color: Theme.COLORS.BLACK,
     fontSize: 20,
     marginRight: 5,
   },
@@ -49,17 +46,6 @@ export default StyleSheet.create({
     fontSize: 16,
     paddingLeft: 20,
     paddingRight: 20,
-  },
-  btnSegmenFirstHome: {
-    borderTopLeftRadius: 5,
-    borderBottomLeftRadius: 5,
-    borderLeftColor: '#D80212',
-    borderTopColor: '#D80212',
-    borderBottomColor: '#D80212',
-  },
-  btnSegmenLastHome: {
-    borderTopRightRadius: 5,
-    borderBottomRightRadius: 5,
   },
   formFilterHomeView: {
     padding: 10,
@@ -98,12 +84,12 @@ export default StyleSheet.create({
     paddingBottom: 5,
   },
   LeyendaTitel: {
-    color: '#7e7e7d',
+    color: Theme.COLORS.BLACK,
     fontSize: 24,
     fontWeight: 'bold',
   },
   leyendaText: {
-    color: '#7e7e7d',
+    color: Theme.COLORS.BLACK,
     fontSize: 16,
   },
   leyendaSector: {
@@ -144,14 +130,14 @@ export default StyleSheet.create({
   },
   itemBodyFicha: {},
   itemTitle: {
-    color: '#D80212',
+    color: Theme.COLORS.PRIMARY,
     marginLeft: 0,
     fontWeight: 'bold',
     paddingBottom: 10,
     marginTop: 16,
   },
   dateFicha: {
-    color: '#7e7e7d',
+    color: Theme.COLORS.BLACK,
     fontSize: 16,
     fontWeight: 'bold',
     marginLeft: 0,
@@ -164,13 +150,13 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   masFiltrosBtnText: {
-    color: '#D80212',
+    color: Theme.COLORS.PRIMARY,
     fontWeight: 'bold',
     textTransform: 'capitalize',
     fontSize: 18,
   },
   searchBarH: {
-    borderColor: '#7e7e7d',
+    borderColor: Theme.COLORS.BLACK,
     borderWidth: 1,
     borderRadius: 10,
     paddingHorizontal: 5,
@@ -192,13 +178,13 @@ export default StyleSheet.create({
   },
   textItemFicha: {},
   tittleFicha: {
-    color: '#D80212',
+    color: Theme.COLORS.PRIMARY,
     marginLeft: 0,
     fontWeight: 'bold',
     paddingBottom: 15,
   },
   btnPicker: {
-    borderColor: '#7e7e7d',
+    borderColor: Theme.COLORS.BLACK,
     height: 35,
   },
   btnListFicha: {

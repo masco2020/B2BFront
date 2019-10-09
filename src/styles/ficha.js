@@ -1,37 +1,37 @@
 import { StyleSheet } from 'react-native'
+import Theme from 'themes/default'
+import styled from 'styled-components/native'
+
+export const FichaTitle = styled.Text({
+  color: Theme.COLORS.PRIMARY,
+  fontWeight: 'bold',
+  paddingBottom: Theme.SIZES.BASE / 4,
+})
+
+export const FichaDesc = styled.Text({
+  color: Theme.COLORS.BLACK,
+  fontSize: Theme.SIZES.BASE,
+})
 
 export default StyleSheet.create({
-  containerFicha: {
-    flex: 1,
-  },
-  contentFicha: {},
-  formFicha: {
-    padding: 16,
+  contentFicha: {
+    padding: Theme.SIZES.BASE,
   },
   listFicha: {
-    paddingLeft: 0,
     borderBottomWidth: 1,
-    borderBottomColor: '#7e7e7d',
-  },
-  listItemFicha: {
-    borderBottomWidth: 0,
-    borderBottomColor: undefined,
-    marginLeft: 0,
+    borderBottomColor: Theme.COLORS.MUTED,
+    marginBottom: Theme.SIZES.BASE,
   },
   listItemFichaContac: {
     paddingTop: 20,
     borderBottomWidth: 0,
   },
-  itemBodyFicha: {},
-  tittleFicha: {
-    color: '#D80212',
-    marginLeft: 0,
-    fontWeight: 'bold',
-    paddingBottom: 15,
+  itemBodyFicha: {
+    paddingBottom: Theme.SIZES.BASE,
   },
   dateFicha: {
-    color: '#7e7e7d',
-    fontSize: 16,
+    color: Theme.COLORS.BLACK,
+    fontSize: Theme.SIZES.BASE,
     fontWeight: 'bold',
     marginLeft: 0,
   },
@@ -39,7 +39,7 @@ export default StyleSheet.create({
     borderBottomWidth: 0,
   },
   listItemModal: {
-    paddingBottom: 15,
+    paddingBottom: Theme.SIZES.BASE,
     paddingTop: 0,
   },
   modalFicha: {
@@ -54,45 +54,24 @@ export default StyleSheet.create({
     paddingBottom: 5,
   },
   btnPicker: {
-    borderColor: '#7e7e7d',
+    borderColor: Theme.COLORS.BLACK,
     height: 35,
   },
   btnListFicha: {
     textTransform: 'capitalize',
-    paddingLeft: 10,
-    paddingRight: 10,
+    paddingHorizontal: 10,
   },
   dateBtnListFichaSectores: {},
   dateBtnListFichaProducts: {},
-  boxBtnLocationFicha: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: 16,
-  },
-  btnAddLocationFicha: {
-    height: 35,
-  },
-  textBtnAddLocationFicha: {
-    textTransform: 'capitalize',
-    color: '#D80212',
-    paddingLeft: 10,
-    paddingRight: 10,
-  },
-  btnVerLocationFicha: {
-    height: 35,
-  },
-  textBtnVerLocationFicha: {
-    textTransform: 'capitalize',
-    color: '#fff',
-    paddingLeft: 10,
-    paddingRight: 10,
-  },
 
   /* from estilos */
-  tipoCliente: {},
   borderBtn: {
-    borderRadius: 8,
+    borderRadius: Theme.SIZES.BASE / 2,
+  },
+  fichaButton: {
+    borderRadius: Theme.SIZES.BASE / 2,
+    textTransform: 'capitalize',
+    height: 35,
   },
   correoEmpresarial: {},
   /* end from estilos */

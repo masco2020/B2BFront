@@ -45,9 +45,7 @@ const transitionConfig = (transitionProps, prevTransitionProps) => ({
 })
 
 export const defaultStackConfig = {
-  cardStyle: {
-    backgroundColor: '#F8F9FE',
-  },
+  cardStyle: { backgroundColor: '#FFF' },
   transitionConfig,
 }
 

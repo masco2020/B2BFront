@@ -6,6 +6,7 @@ import { withNavigation } from 'react-navigation'
 import Block from 'components/Block'
 import { Badge } from 'components/styled'
 import styles from 'styles/empresa'
+import { fw, fz } from 'styles/styles'
 
 class EmpresaBox extends React.PureComponent {
   static defaultProps = {
@@ -22,12 +23,12 @@ class EmpresaBox extends React.PureComponent {
     return (
       <TouchableNativeFeedback onPress={this.navigateEmpresa(item)}>
         <Card noShadow style={[styles.cardEmpresas]}>
-          <CardItem bordered style={[styles.cardItemNamesEmpresas]}>
-            <Text style={[styles.textNamesEmpresas]}>{item.nombreEmpresa}</Text>
+          <CardItem bordered>
+            <Text style={[fw.bold, fz.n16]}>{item.nombreEmpresa}</Text>
           </CardItem>
-          <CardItem bordered style={[styles.cardItemDatesEmpresas]}>
-            <Text style={[styles.textDatesEmpresas]}>RUC: {item.ruc}</Text>
-            <Block flex row>
+          <CardItem style={[{ justifyContent: 'space-between' }]}>
+            <Text>RUC: {item.ruc}</Text>
+            <Block row>
               {item.listaSectores.map(function(sector, index) {
                 return (
                   <Badge key={index} color={sector.color} size={24}>

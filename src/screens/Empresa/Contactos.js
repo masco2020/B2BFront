@@ -1,20 +1,13 @@
 import React, { Component } from 'react'
-import styles from 'styles/contactos'
-import {
-  Text,
-  Form,
-  Item,
-  Input,
-  Button,
-  View,
-  Icon,
-  Content,
-  Picker,
-} from 'native-base'
-import ContactoList from 'screens/Contacto/List'
+import { FlatList } from 'react-native'
+import { Text, Item, Input, Button, View, Content, Picker } from 'native-base'
+
+import ContactoBox from 'components/ContactoBox'
 import Block from 'components/Block'
+import Icon from 'components/Icon'
 import Modal from 'components/Modal'
 import { Hbar } from 'components/styled'
+import styles from 'styles/contactos'
 
 const tipoDocumentos = [
   { value: 'dni', label: 'DNI' },
@@ -29,81 +22,65 @@ export default class Contactos extends Component {
   }
 
   state = {
-    editContactVisible: false,
-    newContactVisible: false,
-    quitarPieState: this.props.quitarPieK,
-    dniIsModalVisible: false,
+    editorVisible: false,
   }
 
-  setNewContactVisible(visible) {
+  toggleEditor = () => {
     this.setState({
-      newContactVisible: visible,
-    })
-  }
-
-  setEditContactVisible(visible) {
-    this.setState({
-      editContactVisible: visible,
+      editorVisible: !this.state.editorVisible,
     })
   }
 
   renderModal() {
     return (
       <Modal
-        animationType="slide"
         header="Editar Contacto"
-        transparent={false}
-        visible={this.state.editContactVisible}>
+        visible={this.state.editorVisible}
+        onRequestClose={this.toggleEditor}>
         <Content>
-          <Form style={[styles.formFicha]}>
-            <Item>
-              <Input placeholder="Nombre" />
-            </Item>
-            <Item>
-              <Input placeholder="Apellido Paterno" />
-            </Item>
-            <Item>
-              <Input placeholder="Apellido Materno" />
-            </Item>
-            <Item picker>
-              <Picker
-                mode="dropdown"
-                iosIcon={<Icon name="arrow-down" />}
-                // style={{ width: undefined }}
-                placeholder="Tipo de Documento"
-                placeholderStyle={{ color: '#bfc6ea' }}
-                placeholderIconColor="#007aff"
-                // selectedValue={this.state.selected2}
-                // onValueChange={this.onValueChange2.bind(this)}
-              >
-                {tipoDocumentos.map((doc, index) => (
-                  <Picker.Item
-                    key={index}
-                    label={doc.label}
-                    value={doc.value}
-                  />
-                ))}
-              </Picker>
-            </Item>
-            <Item>
-              <Input placeholder="Nº de Documento" />
-            </Item>
-            <Item>
-              <Input placeholder="Correo Electrónico" />
-            </Item>
-            <Item>
-              <Input placeholder="Cargo" />
-            </Item>
-            <Item>
-              <Input placeholder="Nº de Celular" />
-            </Item>
-            <Item>
-              <Input placeholder="Nº de Telefono" />
-            </Item>
-            <Item>
-              <Input placeholder="Cuenta Skype" />
-            </Item>
-          </Form>
+          <Item>
+            <Input placeholder="Nombre" />
+          </Item>
+          <Item>
+            <Input placeholder="Apellido Paterno" />
+          </Item>
+          <Item>
+            <Input placeholder="Apellido Materno" />
+          </Item>
+          <Item picker>
+            <Picker
+              mode="dropdown"
+              iosIcon={<Icon name="arrow-down" />}
+              // style={{ width: undefined }}
+              placeholder="Tipo de Documento"
+              placeholderStyle={{ color: '#bfc6ea', width: '100%' }}
+              placeholderIconColor="#007aff"
+              // selectedValue={this.state.selected2}
+              // onValueChange={this.onValueChange2.bind(this)}
+            >
+              {tipoDocumentos.map((doc, index) => (
+                <Picker.Item key={index} label={doc.label} value={doc.value} />
+              ))}
+            </Picker>
+          </Item>
+          <Item>
+            <Input placeholder="Nº de Documento" />
+          </Item>
+          <Item>
+            <Input placeholder="Correo Electrónico" />
+          </Item>
+          <Item>
+            <Input placeholder="Cargo" />
+          </Item>
+          <Item>
+            <Input placeholder="Nº de Celular" />
+          </Item>
+          <Item>
+            <Input placeholder="Nº de Telefono" />
+          </Item>
+          <Item>
+            <Input placeholder="Cuenta Skype" />
+          </Item>
         </Content>
       </Modal>
     )
@@ -111,46 +88,37 @@ export default class Contactos extends Component {
 
   render() {
     const data = this.props.navigation.getParam('data') || {}
+    const info = [
+      { icon: 'phone', prop: 'telefono' },
+      { icon: 'envelope', prop: 'email' },
+    ]
 
     return (
       <Block flex>
-        <Content style={[styles.content, styles.contentContactos]}>
+        <Content style={[styles.contentContactos]}>
           <View>
-            <Button iconLeft style={[styles.empresarialContacto]}>
-              <Icon
-                type="FontAwesome"
-                name="phone"
-                style={[styles.iconEmpresarialContacto]}
-              />
-              <Text style={[styles.textEmpresarialContacto]}>
-                {data.telefonoEmpresarial}
-              </Text>
-            </Button>
-            <Button iconLeft style={[styles.empresarialContacto]}>
-              <Icon
-                type="FontAwesome"
-                name="envelope"
-                style={[styles.iconEmpresarialContacto]}
-              />
-              <Text style={[styles.textEmpresarialContacto]}>
-                {data.correoEmpresarial}
-              </Text>
-            </Button>
+            {info.map(contact => (
+              <Block key={contact.icon} flex row style={[styles.infoContacto]}>
+                <Block middle>
+                  <Icon name={contact.icon} primary />
+                </Block>
+                <Text selectable style={[styles.infoText]}>
+                  {data[contact.prop]}
+                </Text>
+              </Block>
+            ))}
           </View>
           <Hbar />
-          <ContactoList data={data.listaContactos} />
-          <View style={[styles.boxBtnNewContact]}>
-            <Button
-              style={[styles.iniciarSesionBtn]}
-              onPress={() => {
-                this.setEditContactVisible(true)
-              }}>
-              <Text
-                style={[styles.iniciarSesionBtnText, styles.textBtnNewContact]}>
-                Nuevo Contacto
-              </Text>
+          <FlatList
+            data={data.listaContactos}
+            renderItem={({ item }) => <ContactoBox item={item} />}
+            keyExtractor={item => item.idContacto.toString()}
+          />
+          <Block center style={{ marginVertical: 32 }}>
+            <Button onPress={this.toggleEditor}>
+              <Text>Nuevo Contacto</Text>
             </Button>
-          </View>
+          </Block>
           {this.renderModal()}
         </Content>
       </Block>

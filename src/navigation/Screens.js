@@ -98,6 +98,7 @@ const IntroStack = createStackNavigator(
   { Intro: Intro },
   { headerMode: 'none' }
 )
+
 const AuthStack = createStackNavigator({ Login: Login }, { headerMode: 'none' })
 
 const AppContainer = createAppContainer(

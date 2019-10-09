@@ -11,20 +11,26 @@ import {
   Left,
   List,
   ListItem,
+  Segment,
   Radio,
   Right,
   Text,
   View,
 } from 'native-base'
 import ModalC from 'react-native-modal'
-// import { Modal } from 'react-native'
 import Modal from 'components/Modal'
 
-import IconF from 'react-native-vector-icons/FontAwesome'
 import styles from 'styles/exportador'
 import Block from 'components/Block'
 import EmpresaList from 'screens/Empresa/List'
 import { Hbar } from 'components/styled'
+import Theme from 'themes/default'
+
+const options = [
+  { active: true, label: 'Empresa' },
+  { active: false, label: 'Producto' },
+  { active: false, label: 'Ciudad' },
+]
 
 export default class Home extends Component {
   state = {
@@ -161,7 +167,7 @@ export default class Home extends Component {
               </Left>
               <Right>
                 <CheckBox
-                  color={'#D80212'}
+                  color={Theme.COLORS.PRIMARY}
                   checked={this.state.selectCheck}
                   onPress={this.selectCheckable}
                 />
@@ -174,7 +180,7 @@ export default class Home extends Component {
                 </Text>
               </Left>
               <Right>
-                <CheckBox color={'#D80212'} checked={true} />
+                <CheckBox color={Theme.COLORS.PRIMARY} checked={true} />
               </Right>
             </ListItem>
             <ListItem style={[styles.listItem]}>
@@ -184,7 +190,7 @@ export default class Home extends Component {
                 </Text>
               </Left>
               <Right>
-                <CheckBox color={'#D80212'} checked={true} />
+                <CheckBox color={Theme.COLORS.PRIMARY} checked={true} />
               </Right>
             </ListItem>
             <ListItem style={[styles.listItem]}>
@@ -194,7 +200,7 @@ export default class Home extends Component {
                 </Text>
               </Left>
               <Right>
-                <CheckBox color={'#D80212'} checked={true} />
+                <CheckBox color={Theme.COLORS.PRIMARY} checked={true} />
               </Right>
             </ListItem>
             <ListItem style={[styles.listItem]}>
@@ -204,14 +210,14 @@ export default class Home extends Component {
                 </Text>
               </Left>
               <Right>
-                <CheckBox color={'#D80212'} checked={true} />
+                <CheckBox color={Theme.COLORS.PRIMARY} checked={true} />
               </Right>
             </ListItem>
           </List>
           <View
             style={{
               borderBottomWidth: 2,
-              borderBottomColor: '#D80212',
+              borderBottomColor: Theme.COLORS.PRIMARY,
               margin: 15,
             }}
           />
@@ -254,7 +260,7 @@ export default class Home extends Component {
                 </Left>
                 <Right>
                   <CheckBox
-                    color={'#D80212'}
+                    color={Theme.COLORS.PRIMARY}
                     checked={this.state.selectCheck}
                     onPress={this.selectCheckable}
                   />
@@ -267,7 +273,7 @@ export default class Home extends Component {
                   </Text>
                 </Left>
                 <Right>
-                  <CheckBox color={'#D80212'} checked={true} />
+                  <CheckBox color={Theme.COLORS.PRIMARY} checked={true} />
                 </Right>
               </ListItem>
               <ListItem style={[styles.listItem]}>
@@ -277,7 +283,7 @@ export default class Home extends Component {
                   </Text>
                 </Left>
                 <Right>
-                  <CheckBox color={'#D80212'} checked={true} />
+                  <CheckBox color={Theme.COLORS.PRIMARY} checked={true} />
                 </Right>
               </ListItem>
               <ListItem style={[styles.listItem]}>
@@ -287,7 +293,7 @@ export default class Home extends Component {
                   </Text>
                 </Left>
                 <Right>
-                  <CheckBox color={'#D80212'} checked={true} />
+                  <CheckBox color={Theme.COLORS.PRIMARY} checked={true} />
                 </Right>
               </ListItem>
               <ListItem style={[styles.listItem]}>
@@ -297,7 +303,7 @@ export default class Home extends Component {
                   </Text>
                 </Left>
                 <Right>
-                  <CheckBox color={'#D80212'} checked={true} />
+                  <CheckBox color={Theme.COLORS.PRIMARY} checked={true} />
                 </Right>
               </ListItem>
               <ListItem style={[styles.listItem, { marginTop: 10 }]}>
@@ -315,7 +321,7 @@ export default class Home extends Component {
                 </Left>
                 <Right>
                   <CheckBox
-                    color={'#D80212'}
+                    color={Theme.COLORS.PRIMARY}
                     checked={this.state.selectCheck}
                     onPress={this.selectCheckable}
                   />
@@ -328,7 +334,7 @@ export default class Home extends Component {
                   </Text>
                 </Left>
                 <Right>
-                  <CheckBox color={'#D80212'} checked={true} />
+                  <CheckBox color={Theme.COLORS.PRIMARY} checked={true} />
                 </Right>
               </ListItem>
               <ListItem style={[styles.listItem]}>
@@ -338,7 +344,7 @@ export default class Home extends Component {
                   </Text>
                 </Left>
                 <Right>
-                  <CheckBox color={'#D80212'} checked={true} />
+                  <CheckBox color={Theme.COLORS.PRIMARY} checked={true} />
                 </Right>
               </ListItem>
               <ListItem style={[styles.listItem, { marginTop: 10 }]}>
@@ -356,7 +362,7 @@ export default class Home extends Component {
                 </Left>
                 <Right>
                   <CheckBox
-                    color={'#D80212'}
+                    color={Theme.COLORS.PRIMARY}
                     checked={this.state.selectCheck}
                     onPress={this.selectCheckable}
                   />
@@ -369,7 +375,7 @@ export default class Home extends Component {
                   </Text>
                 </Left>
                 <Right>
-                  <CheckBox color={'#D80212'} checked={true} />
+                  <CheckBox color={Theme.COLORS.PRIMARY} checked={true} />
                 </Right>
               </ListItem>
               <ListItem style={[styles.listItem]}>
@@ -379,7 +385,7 @@ export default class Home extends Component {
                   </Text>
                 </Left>
                 <Right>
-                  <CheckBox color={'#D80212'} checked={true} />
+                  <CheckBox color={Theme.COLORS.PRIMARY} checked={true} />
                 </Right>
               </ListItem>
               <ListItem style={[styles.listItem]}>
@@ -389,7 +395,7 @@ export default class Home extends Component {
                   </Text>
                 </Left>
                 <Right>
-                  <CheckBox color={'#D80212'} checked={true} />
+                  <CheckBox color={Theme.COLORS.PRIMARY} checked={true} />
                 </Right>
               </ListItem>
               <ListItem style={[styles.listItem, { marginTop: 10 }]}>
@@ -406,8 +412,10 @@ export default class Home extends Component {
                       style={{ height: 40, paddingTop: 0, paddingBottom: 0 }}
                       placeholder="Busca Ciudad"
                     />
-                    <IconF
-                      style={[styles.searchBarHIcon, { color: '#D80212' }]}
+                    <Icon
+                      type="FontAwesome5"
+                      color={Theme.COLORS.PRIMARY}
+                      style={[styles.searchBarHIcon]}
                       name="search"
                     />
                   </Item>
@@ -449,7 +457,7 @@ export default class Home extends Component {
                 </Left>
                 <Right>
                   <CheckBox
-                    color={'#D80212'}
+                    color={Theme.COLORS.PRIMARY}
                     checked={this.state.selectCheck}
                     onPress={this.selectCheckable}
                   />
@@ -462,7 +470,7 @@ export default class Home extends Component {
                   </Text>
                 </Left>
                 <Right>
-                  <CheckBox color={'#D80212'} checked={true} />
+                  <CheckBox color={Theme.COLORS.PRIMARY} checked={true} />
                 </Right>
               </ListItem>
               <ListItem style={[styles.listItem]}>
@@ -472,7 +480,7 @@ export default class Home extends Component {
                   </Text>
                 </Left>
                 <Right>
-                  <CheckBox color={'#D80212'} checked={true} />
+                  <CheckBox color={Theme.COLORS.PRIMARY} checked={true} />
                 </Right>
               </ListItem>
               <ListItem style={[styles.listItem]}>
@@ -482,7 +490,7 @@ export default class Home extends Component {
                   </Text>
                 </Left>
                 <Right>
-                  <CheckBox color={'#D80212'} checked={true} />
+                  <CheckBox color={Theme.COLORS.PRIMARY} checked={true} />
                 </Right>
               </ListItem>
               <ListItem style={[styles.listItem]}>
@@ -492,7 +500,7 @@ export default class Home extends Component {
                   </Text>
                 </Left>
                 <Right>
-                  <CheckBox color={'#D80212'} checked={true} />
+                  <CheckBox color={Theme.COLORS.PRIMARY} checked={true} />
                 </Right>
               </ListItem>
               <ListItem style={[styles.listItem, { marginTop: 10 }]}>
@@ -510,7 +518,7 @@ export default class Home extends Component {
                 </Left>
                 <Right>
                   <CheckBox
-                    color={'#D80212'}
+                    color={Theme.COLORS.PRIMARY}
                     checked={this.state.selectCheck}
                     onPress={this.selectCheckable}
                   />
@@ -523,7 +531,7 @@ export default class Home extends Component {
                   </Text>
                 </Left>
                 <Right>
-                  <CheckBox color={'#D80212'} checked={true} />
+                  <CheckBox color={Theme.COLORS.PRIMARY} checked={true} />
                 </Right>
               </ListItem>
               <ListItem style={[styles.listItem]}>
@@ -533,7 +541,7 @@ export default class Home extends Component {
                   </Text>
                 </Left>
                 <Right>
-                  <CheckBox color={'#D80212'} checked={true} />
+                  <CheckBox color={Theme.COLORS.PRIMARY} checked={true} />
                 </Right>
               </ListItem>
               <ListItem style={[styles.listItem]}>
@@ -543,7 +551,7 @@ export default class Home extends Component {
                   </Text>
                 </Left>
                 <Right>
-                  <CheckBox color={'#D80212'} checked={true} />
+                  <CheckBox color={Theme.COLORS.PRIMARY} checked={true} />
                 </Right>
               </ListItem>
               <ListItem style={[styles.listItem]}>
@@ -553,7 +561,7 @@ export default class Home extends Component {
                   </Text>
                 </Left>
                 <Right>
-                  <CheckBox color={'#D80212'} checked={true} />
+                  <CheckBox color={Theme.COLORS.PRIMARY} checked={true} />
                 </Right>
               </ListItem>
               <ListItem style={[styles.listItem, { marginTop: 10 }]}>
@@ -571,7 +579,7 @@ export default class Home extends Component {
                 </Left>
                 <Right>
                   <CheckBox
-                    color={'#D80212'}
+                    color={Theme.COLORS.PRIMARY}
                     checked={this.state.selectCheck}
                     onPress={this.selectCheckable}
                   />
@@ -584,7 +592,7 @@ export default class Home extends Component {
                   </Text>
                 </Left>
                 <Right>
-                  <CheckBox color={'#D80212'} checked={true} />
+                  <CheckBox color={Theme.COLORS.PRIMARY} checked={true} />
                 </Right>
               </ListItem>
               <ListItem style={[styles.listItem]}>
@@ -594,7 +602,7 @@ export default class Home extends Component {
                   </Text>
                 </Left>
                 <Right>
-                  <CheckBox color={'#D80212'} checked={true} />
+                  <CheckBox color={Theme.COLORS.PRIMARY} checked={true} />
                 </Right>
               </ListItem>
               <ListItem style={[styles.listItem]}>
@@ -604,7 +612,7 @@ export default class Home extends Component {
                   </Text>
                 </Left>
                 <Right>
-                  <CheckBox color={'#D80212'} checked={true} />
+                  <CheckBox color={Theme.COLORS.PRIMARY} checked={true} />
                 </Right>
               </ListItem>
               <ListItem style={[styles.listItem, { marginTop: 10 }]}>
@@ -669,8 +677,10 @@ export default class Home extends Component {
                       style={{ height: 40, paddingTop: 0, paddingBottom: 0 }}
                       placeholder="Busca Pais"
                     />
-                    <IconF
-                      style={[styles.searchBarHIcon, { color: '#D80212' }]}
+                    <Icon
+                      type="FontAwesome5"
+                      color={Theme.COLORS.PRIMARY}
+                      style={[styles.searchBarHIcon]}
                       name="search"
                     />
                   </Item>
@@ -686,9 +696,21 @@ export default class Home extends Component {
     )
   }
 
+  renderSegment() {
+    return (
+      <Segment>
+        {options.map((option, index) => (
+          <Button first={index === 0} key={index} active={option.active}>
+            <Text>{option.label}</Text>
+          </Button>
+        ))}
+      </Segment>
+    )
+  }
+
   renderSearch() {
     return (
-      <Block row style={{ padding: 16 }}>
+      <Block row style={{ padding: Theme.SIZES.BASE }}>
         <Content style={[styles.searchBarH]}>
           <Item style={{ borderBottomWidth: 0 }}>
             <Input
@@ -697,6 +719,7 @@ export default class Home extends Component {
             />
             <Icon
               style={[styles.searchBarHIcon]}
+              color={Theme.COLORS.BLACK}
               type="FontAwesome"
               name="search"
             />
@@ -704,7 +727,7 @@ export default class Home extends Component {
         </Content>
         <Button
           style={{
-            backgroundColor: '#D80212',
+            backgroundColor: Theme.COLORS.PRIMARY,
             borderRadius: 9,
             marginLeft: 16,
           }}
@@ -723,7 +746,8 @@ export default class Home extends Component {
     const esExportador = this.props.navigation.getParam('esExportador')
 
     return (
-      <Block flex style={{ backgroundColor: '#fff' }}>
+      <Block flex>
+        {this.renderSegment()}
         {this.renderSearch()}
         <Hbar />
         <Content style={{ flex: 1 }} contentContainerStyle={{ flex: 1 }}>

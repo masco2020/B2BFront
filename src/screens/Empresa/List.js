@@ -1,7 +1,6 @@
 import React from 'react'
 import { ActivityIndicator, FlatList } from 'react-native'
 import EmpresaBox from 'components/EmpresaBox'
-import { Container } from 'components/styled'
 import { connect } from 'components/AppProvider'
 import produce from 'immer'
 
@@ -17,6 +16,7 @@ class EmpresaList extends React.Component {
     empresas: [],
   }
 
+  // TODO: No llamar en componentDidMount
   componentDidMount() {
     this.loadEmpresas()
   }
@@ -40,7 +40,6 @@ class EmpresaList extends React.Component {
 
     const { esExportador, dispatch } = this.props
 
-    console.info('loading empresas')
     dispatch({ type: 'APP_LOADING', payload: true })
     const Pagina = this.state.page
 

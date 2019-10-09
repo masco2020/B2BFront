@@ -85,17 +85,10 @@ function request({ url, method = 'GET', headers, params, requiredParams }) {
       const paramsEncoded = serializeQuery(params)
 
       urlToFetch = `${url}?${paramsEncoded}`
-      data = {
-        method: method,
-        headers,
-      }
+      data = { method, headers }
     } else {
       urlToFetch = url
-      data = {
-        method: method,
-        body: JSON.stringify(params),
-        headers,
-      }
+      data = { body: JSON.stringify(params), method, headers }
     }
 
     fetch(urlToFetch, data)

@@ -1,14 +1,13 @@
 import { StyleSheet } from 'react-native'
+import Theme from 'themes/default'
 
 export default StyleSheet.create({
-  content: {
-    padding: 16,
-  },
   contentContactos: {
     backgroundColor: '#EBEBEB',
+    padding: Theme.SIZES.BASE,
   },
   iconEmpresarialContacto: {
-    color: '#D80212',
+    color: Theme.COLORS.PRIMARY,
   },
   contactoCards: {
     borderRadius: 8,
@@ -54,11 +53,11 @@ export default StyleSheet.create({
     maxWidth: '45%',
   },
   contactllamarText: {
-    color: '#D80212',
+    color: Theme.COLORS.PRIMARY,
     fontSize: 16,
   },
   contactMailText: {
-    color: '#D80212',
+    color: Theme.COLORS.PRIMARY,
     fontSize: 16,
   },
   tipoDocumentBtnText: {
@@ -67,11 +66,11 @@ export default StyleSheet.create({
     textTransform: 'capitalize',
     marginLeft: 0,
   },
-  boxBtnNewContact: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 50,
-  },
+  // boxBtnNewContact: {
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  //   marginBottom: 50,
+  // },
   /* nuevo contacto */
   textBtnNewContact: {
     fontWeight: 'bold',
@@ -123,7 +122,7 @@ export default StyleSheet.create({
     borderBottomWidth: 0,
   },
   tittleFicha: {
-    color: '#D80212',
+    color: Theme.COLORS.PRIMARY,
     marginLeft: 0,
     fontWeight: 'bold',
     paddingBottom: 15,
@@ -144,24 +143,25 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     marginLeft: 0,
   },
-  empresarialContacto: {
+  infoContacto: {
     borderRadius: 8,
-    backgroundColor: '#fff',
-    marginBottom: 10,
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
+    backgroundColor: Theme.COLORS.WHITE,
+    paddingHorizontal: Theme.SIZES.BASE,
+    paddingVertical: Theme.SIZES.BASE / 2,
+    marginBottom: Theme.SIZES.BASE / 2,
   },
-  textEmpresarialContacto: {
-    color: '#7e7e7d',
-    fontSize: 16,
-    textTransform: 'capitalize',
-    fontWeight: 'bold',
+  infoText: {
+    color: Theme.COLORS.BLACK,
+    fontSize: Theme.SIZES.BASE,
+    marginLeft: Theme.SIZES.BASE,
+    width: '100%',
   },
-  telefonoEmpresarial: {},
-  correoEmpresarial: {},
-  iniciarSesionBtn: {},
-  borderBtn: {},
-  iniciarSesionBtnText: {},
+  // textEmpresarialContacto: {
+  // },
+  // telefonoEmpresarial: {},
+  // correoEmpresarial: {},
+  // iniciarSesionBtn: {},
+  // borderBtn: {},
+  // iniciarSesionBtnText: {},
   /* end from estilos */
 })
