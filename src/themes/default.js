@@ -1,6 +1,6 @@
 const Theme = {
   COLORS: {
-    PRIMARY: '#D52B1E',
+    PRIMARY: '#D80212',
     MUTED: '#DBDBDB',
 
     BLACK: '#7E7E7D',
@@ -21,6 +21,7 @@ const Theme = {
   SIZES: {
     BASE: 16,
     ROUND: 6,
+    RADIUS: 8,
   },
 }
 

@@ -7,29 +7,40 @@ export default StyleSheet.create({
     fontSize: 24,
   },
   /* LOGIN */
+  block:{
+    backgroundColor: '#EFEFEF',
+    paddingHorizontal: 24,
+  },
   iniciarSesionBtn: {
-    marginTop: 45,
-    width: '50%',
+    marginTop: 40,
+    width: '100%',
     alignSelf: 'center',
     justifyContent: 'center',
+    borderRadius: Theme.SIZES.RADIUS,
+    height: 35,
+  },
+  iniciarSesionBtnText:{
+    textTransform: 'capitalize',
+    fontSize: 18,
+    fontWeight: 'bold',
   },
   itemLogin: {
     borderColor: Theme.COLORS.PRIMARY,
     borderBottomWidth: 1.5,
-    width: '85%',
   },
   gestionTextLogin: {
+    color: Theme.COLORS.BLACK,
     fontSize: 18,
   },
 
   gestionButtonText: {
-    color: Theme.COLORS.MUTED,
+    color: Theme.COLORS.BLACK,
     fontSize: 20,
   },
 
   gestionButton: {
     borderWidth: 1,
-    borderColor: Theme.COLORS.MUTED,
+    borderColor: Theme.COLORS.BLACK,
     borderRadius: Theme.SIZES.ROUND,
     padding: Theme.SIZES.BASE / 2,
   },

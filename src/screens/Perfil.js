@@ -24,7 +24,7 @@ export default class Perfil extends Component {
   }
 
   render() {
-    const textStyle = [fc.muted, fz.n24]
+    const textStyle = [fc.black, fz.n24]
 
     return (
       <Container>

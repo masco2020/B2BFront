@@ -22,7 +22,7 @@ function Logout(props) {
   return (
     <TouchableOpacity onPress={logout}>
       <View style={{ paddingHorizontal: 12 }}>
-        <DrawerItem title="Salir" />
+        <DrawerItem title="Cerrar Sesión" />
       </View>
     </TouchableOpacity>
   )

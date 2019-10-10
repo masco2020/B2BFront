@@ -1,10 +1,11 @@
 import React from 'react'
 import { StyleSheet } from 'react-native'
-import { View, Text } from 'native-base'
+import { View, Text, Icon } from 'native-base'
+import Theme from 'themes/default'
 
 class DrawerItem extends React.Component {
   render() {
-    const { focused, title } = this.props
+    const { focused, title, iconName } = this.props
 
     const containerStyles = [
       styles.defaultStyle,
@@ -13,8 +14,10 @@ class DrawerItem extends React.Component {
 
     return (
       <View style={containerStyles}>
-        <View>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        <Icon type="FontAwesome5" style={[styles.icon]} name={iconName}/>
           <Text
+            style={styles.textStyle}
             size={15}
             bold={focused ? true : false}
             color={focused ? 'white' : 'rgba(0,0,0,0.5)'}>
@@ -43,6 +46,15 @@ const styles = StyleSheet.create({
     },
     shadowRadius: 8,
     shadowOpacity: 0.1,
+  },
+  textStyle:{
+    color: Theme.COLORS.PRIMARY,
+    fontSize: Theme.SIZES.ROUND * 3,
+  },
+  icon:{
+    fontSize: Theme.SIZES.ROUND * 3,
+    color: Theme.COLORS.PRIMARY,
+    marginRight: Theme.SIZES.BASE * 1.5,
   },
 })
 

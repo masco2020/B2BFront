@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import styles from 'styles/contactos'
+import { fw } from 'styles/styles'
 import { Text, Card, CardItem } from 'native-base'
 import Block from 'components/Block'
 import Icon from 'components/Icon'
@@ -26,13 +27,13 @@ export default class ContactoBox extends Component {
               <Block middle>
                 <Icon active name="phone" primary />
               </Block>
-              <LinkText>Llamar</LinkText>
+              <LinkText style={fw.bold} >Llamar</LinkText>
             </Block>
             <Block row>
               <Block middle>
                 <Icon active name="envelope" primary />
               </Block>
-              <LinkText>Correo</LinkText>
+              <LinkText style={fw.bold} >Correo</LinkText>
             </Block>
           </Block>
         </CardItem>

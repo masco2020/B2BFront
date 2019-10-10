@@ -63,7 +63,7 @@ class Login extends Component {
       <Block flex center middle>
         <Block row middle style={{ marginBottom: Theme.SIZES.BASE / 2 }}>
           <Icon type="FontAwesome5" name={icon} style={textStyle} />
-          <Text style={textStyle}>{text}</Text>
+          <Text style={textStyle}>&nbsp;&nbsp;{text}</Text>
         </Block>
         <Button bordered style={styles.gestionButton}>
           <Text style={styles.gestionButtonText}>{info}</Text>
@@ -79,12 +79,12 @@ class Login extends Component {
         visible={this.state.modalVisible}
         onRequestClose={this.setModalVisibility(false)}>
         <Container padding={30}>
-          {this.renderContacto({
+          {/* {this.renderContacto({
             text: 'Llamar a',
             icon: 'phone',
             info: '01 555 5555',
           })}
-          <Hbar />
+          <Hbar /> */}
           {this.renderContacto({
             text: 'Enviar correo a',
             icon: 'envelope',
@@ -106,7 +106,7 @@ class Login extends Component {
           </Block>
         </Header>
         <Container style={{ backgroundColor: '#EBEBEB' }}>
-          <Block flex={5} middle>
+          <Block flex={5} middle style={styles.block}>
             <Item floatingLabel last style={[styles.itemLogin]}>
               <Icon name="person" style={{ color: Theme.COLORS.PRIMARY }} />
               <Label>Usuario</Label>
@@ -127,12 +127,12 @@ class Login extends Component {
                 value={pass}
               />
             </Item>
-            <Button style={styles.iniciarSesionBtn} onPress={this.onLogin}>
-              <Text>Iniciar</Text>
+            <Button small style={styles.iniciarSesionBtn} onPress={this.onLogin}>
+              <Text style={styles.iniciarSesionBtnText}>Iniciar</Text>
             </Button>
           </Block>
           <Block flex>
-            <Hbar />
+            <Hbar style={{borderBottomColor: Theme.COLORS.BLACK}} />
             <Block flex center middle>
               <TouchableOpacity onPress={this.setModalVisibility(true)}>
                 <Text style={[styles.gestionTextLogin]}>

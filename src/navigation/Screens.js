@@ -84,11 +84,11 @@ const AppStack = createDrawerNavigator(
   {
     Perfil: {
       screen: PerfilStack,
-      navigationOptions: getDrawerOptions({ title: 'Perfil' }),
+      navigationOptions: getDrawerOptions({ title: 'Perfil', iconName:'globe-americas' }),
     },
     Empresas: {
       screen: EmpresaStack,
-      navigationOptions: getDrawerOptions({ title: 'Empresas' }),
+      navigationOptions: getDrawerOptions({ title: 'Empresas', iconName:'laptop' }),
     },
   },
   Menu

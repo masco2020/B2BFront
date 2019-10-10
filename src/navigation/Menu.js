@@ -7,7 +7,7 @@ import Block from 'components/Block'
 import Logout from 'navigation/Logout'
 import { connect } from 'components/AppProvider'
 import Theme from 'themes/default'
-import { bg, fz, fc } from 'styles/styles'
+import { bg, fz, fc, fw } from 'styles/styles'
 
 const { width } = Dimensions.get('screen')
 
@@ -17,22 +17,22 @@ const Drawer = ({ user, ...props }) => {
   return (
     <Block flex forceInset={{ top: 'always', horizontal: 'never' }}>
       {user && (
-        <Block row middle style={[bg.primary, { padding: Theme.SIZES.BASE }]}>
+        <Block row middle style={[bg.primary, { paddingVertical: Theme.SIZES.BASE * 2, paddingHorizontal: Theme.SIZES.BASE}]}>
           <Initial>
-            <Text style={[fz.n24, fc.white]}>{initial}</Text>
+            <Text style={[fz.n30, fc.white, fw.bold]}>{initial}</Text>
           </Initial>
           <Block flex>
-            <Text numberOfLines={1} style={[fz.n20, fc.white]}>
+            <Text numberOfLines={1} style={[fz.n20, fc.white, fw.bold]}>
               {user.nombre}
             </Text>
-            <Text numberOfLines={1} style={[fz.n16, fc.white]}>
+            <Text numberOfLines={1} style={[fz.n16, fc.white, fw.bold]}>
               {user.cargo}
             </Text>
           </Block>
         </Block>
       )}
       <Block flex>
-        <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
+        <ScrollView showsVerticalScrollIndicator={false} style={[{ flex: 1 }, bg.muted]}>
           <DrawerNavigatorItems {...props} />
           <Logout />
         </ScrollView>
@@ -76,7 +76,7 @@ const Initial = styled(Block).attrs({ center: true, middle: true })(
     borderRadius: size / 2,
     borderWidth: 4,
     height: size,
-    marginRight: Theme.SIZES.BASE / 4,
+    marginRight: Theme.SIZES.BASE / 2,
     width: size,
   })
 )

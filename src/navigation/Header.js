@@ -1,6 +1,7 @@
 import React from 'react'
 import { withNavigation } from 'react-navigation'
 import { Header, Title, Button, Left, Right, Body, Icon } from 'native-base'
+import { fw } from 'styles/styles'
 
 class AppHeader extends React.Component {
   handleLeftPress = () => {
@@ -22,7 +23,7 @@ class AppHeader extends React.Component {
           </Left>
         )}
         <Body>
-          <Title>{title}</Title>
+          <Title style={[fw.bold]}>{title}</Title>
         </Body>
         {!hideDrawer && <Right />}
       </Header>
