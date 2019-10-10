@@ -9,6 +9,7 @@ const DEFAULT_STATE = {
     loading: true,
   },
   user: null,
+  data: {},
 }
 
 const Context = React.createContext(DEFAULT_STATE)
@@ -64,6 +65,12 @@ export class AppProvider extends React.Component {
         return this.setState(
           produce(draft => {
             draft.user = null
+          })
+        )
+      case 'UPDATE_DATA':
+        return this.setState(
+          produce(draft => {
+            draft.data = payload
           })
         )
       default:

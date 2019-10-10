@@ -56,9 +56,10 @@ class EmpresaList extends React.Component {
           draft.empresas = draft.empresas.concat(res.data)
         })
       )
-      dispatch({ type: 'APP_LOADING', payload: false })
     } catch (error) {
       console.error('ERROR', error)
+    } finally {
+      dispatch({ type: 'APP_LOADING', payload: false })
     }
   }
 

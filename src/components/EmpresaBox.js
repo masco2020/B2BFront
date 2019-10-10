@@ -1,12 +1,20 @@
 import React from 'react'
-import { TouchableNativeFeedback } from 'react-native'
 import { Text, Card, CardItem } from 'native-base'
 import { withNavigation } from 'react-navigation'
 
+import Touchable from 'components/Touchable'
 import Block from 'components/Block'
 import { Badge } from 'components/styled'
 import styles from 'styles/empresa'
 import { fw, fz } from 'styles/styles'
+
+const sectorColors = {
+  A: '#86B920',
+  E: '#DA0213',
+  I: '#A0137C',
+  M: '#FACE1E',
+  P: '#FACE1E',
+}
 
 class EmpresaBox extends React.PureComponent {
   static defaultProps = {
@@ -21,7 +29,7 @@ class EmpresaBox extends React.PureComponent {
     const item = this.props.item
 
     return (
-      <TouchableNativeFeedback onPress={this.navigateEmpresa(item)}>
+      <Touchable onPress={this.navigateEmpresa(item)}>
         <Card noShadow style={[styles.cardEmpresas]}>
           <CardItem bordered>
             <Text style={[fw.bold, fz.n16]}>{item.nombreEmpresa}</Text>
@@ -31,7 +39,10 @@ class EmpresaBox extends React.PureComponent {
             <Block row>
               {item.listaSectores.map(function(sector, index) {
                 return (
-                  <Badge key={index} color={sector.color} size={24}>
+                  <Badge
+                    key={index}
+                    color={sectorColors[sector.letra]}
+                    size={24}>
                     <Text style={[styles.badgeText]}>{sector.letra}</Text>
                   </Badge>
                 )
@@ -39,7 +50,7 @@ class EmpresaBox extends React.PureComponent {
             </Block>
           </CardItem>
         </Card>
-      </TouchableNativeFeedback>
+      </Touchable>
     )
   }
 }

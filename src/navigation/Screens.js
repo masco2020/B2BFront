@@ -15,10 +15,10 @@ import Empresa from 'screens/Empresa'
 import Historico from 'screens/Empresa/Historico'
 import Ficha from 'screens/Empresa/Ficha'
 import Contactos from 'screens/Empresa/Contactos'
+import ContactoEditor from 'screens/Contacto/Editor'
 
 import Menu from './Menu'
 import { getDrawerOptions, getHeaderOptions, defaultStackConfig } from './utils'
-import Theme from 'themes/default'
 
 const EmpresaTabs = createMaterialTopTabNavigator(
   {
@@ -29,7 +29,7 @@ const EmpresaTabs = createMaterialTopTabNavigator(
   {
     lazy: true,
     tabBarOptions: {
-      style: { backgroundColor: Theme.COLORS.PRIMARY },
+      style: { backgroundColor: '#6d6d6b' },
     },
   }
 )
@@ -39,22 +39,12 @@ const EmpresaStack = createStackNavigator(
     Exportador: {
       screen: Empresa,
       params: { esExportador: true },
-      navigationOptions: getHeaderOptions({
-        title: 'Exportadores',
-        // headerProps: {
-        //   noShadow: true,
-        // },
-      }),
+      navigationOptions: getHeaderOptions({ title: 'Exportadores' }),
     },
     Comprador: {
       screen: Empresa,
       params: { esExportador: false },
-      navigationOptions: getHeaderOptions({
-        title: 'Compradores',
-        // headerProps: {
-        //   noShadow: true,
-        // },
-      }),
+      navigationOptions: getHeaderOptions({ title: 'Compradores' }),
     },
     EmpresaDetalle: {
       screen: EmpresaTabs,
@@ -64,6 +54,16 @@ const EmpresaStack = createStackNavigator(
           noShadow: true,
           back: true,
         },
+      }),
+    },
+    ContactoEditor: {
+      screen: ContactoEditor,
+      navigationOptions: getHeaderOptions({
+        title: nav =>
+          nav.getParam('type') === 'create'
+            ? 'Nuevo Contacto'
+            : 'Editar Contacto',
+        headerProps: { back: true },
       }),
     },
   },
@@ -84,11 +84,11 @@ const AppStack = createDrawerNavigator(
   {
     Perfil: {
       screen: PerfilStack,
-      navigationOptions: getDrawerOptions({ title: 'Perfil' }),
+      navigationOptions: getDrawerOptions({ title: 'Perfil', iconName:'globe-americas' }),
     },
     Empresas: {
       screen: EmpresaStack,
-      navigationOptions: getDrawerOptions({ title: 'Empresas' }),
+      navigationOptions: getDrawerOptions({ title: 'Empresas', iconName:'laptop' }),
     },
   },
   Menu

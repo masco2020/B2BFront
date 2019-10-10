@@ -1,10 +1,10 @@
 import React from 'react'
-import { TouchableHighlight } from 'react-native'
-import { Image } from './utils'
-import Block from 'components/Block'
-
 import produce from 'immer'
 import ImageView from 'react-native-image-view'
+
+import { Image } from './utils'
+import Touchable from 'components/Touchable'
+import Block from 'components/Block'
 
 export default class MessageImage extends React.Component {
   state = {
@@ -33,13 +33,13 @@ export default class MessageImage extends React.Component {
           onClose={this.toggleModal}
           isVisible={this.state.visible}
         />
-        <TouchableHighlight
+        <Touchable
           onPress={this.toggleModal}
           style={{ width: 200, height: 100 }}>
           <Image
             source={{ uri: this.props.image.source, width: 200, height: 100 }}
           />
-        </TouchableHighlight>
+        </Touchable>
       </Block>
     )
   }

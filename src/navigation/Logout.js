@@ -1,7 +1,8 @@
 import React from 'react'
-import { AsyncStorage, TouchableOpacity, View } from 'react-native'
+import { AsyncStorage, View } from 'react-native'
 import { withNavigation } from 'react-navigation'
 import DrawerItem from 'navigation/DrawerItem'
+import Touchable from 'components/Touchable'
 import { connect } from 'components/AppProvider'
 
 function Logout(props) {
@@ -20,11 +21,11 @@ function Logout(props) {
   }
 
   return (
-    <TouchableOpacity onPress={logout}>
+    <Touchable onPress={logout}>
       <View style={{ paddingHorizontal: 12 }}>
-        <DrawerItem title="Salir" />
+        <DrawerItem title="Cerrar Sesión" />
       </View>
-    </TouchableOpacity>
+    </Touchable>
   )
 }
 export default connect(({ context, api, dispatch }) => ({

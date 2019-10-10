@@ -700,7 +700,11 @@ export default class Home extends Component {
     return (
       <Segment>
         {options.map((option, index) => (
-          <Button first={index === 0} key={index} active={option.active}>
+          <Button
+            first={index === 0}
+            last={index === options.length}
+            key={index}
+            active={option.active}>
             <Text>{option.label}</Text>
           </Button>
         ))}

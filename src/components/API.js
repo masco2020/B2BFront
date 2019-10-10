@@ -1,10 +1,12 @@
 /* eslint-disable max-len */
+import { Alert } from 'react-native'
 
 const urlAPI = 'http://190.117.249.6/Rutex/api'
 const paths = {
   contacto: '/contacto/',
   empresa: '/empresa/',
   historico: '/historico/',
+  listas: '/listas/',
   login: '/login/',
 }
 
@@ -124,6 +126,9 @@ class API {
       return request({
         headers: this.privateHeaders,
         ...params,
+      }).catch(err => {
+        console.info('Ha habido un error de lado del servidor', err)
+        Alert.alert('Error', 'Ha habido un error de lado del servidor')
       })
     }
     console.info('Missing property privateHeaders')
@@ -245,6 +250,11 @@ class API {
     ]
 
     return this.signedRequest({ url, params, method: 'POST', requiredParams })
+  }
+
+  listarConfiguracionInicial() {
+    const url = this.baseUrl + paths.listas + 'listarConfiguracionInicial'
+    return this.signedRequest({ url })
   }
 }
 

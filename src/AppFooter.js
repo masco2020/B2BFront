@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Footer, FooterTab, Button } from 'native-base'
-import Icon from 'react-native-vector-icons/FontAwesome'
+import Icon from 'components/Icon'
 import styles from 'styles/login'
 
 export default class AppFooter extends Component {

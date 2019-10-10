@@ -1,9 +1,11 @@
-import React, { Component } from 'react'
-import { TouchableHighlight, Image } from 'react-native'
+import React from 'react'
+import { Image } from 'react-native'
 import { Container, Text } from 'native-base'
 import styles from 'styles/perfil'
 import Block from 'components/Block'
+import Touchable from 'components/Touchable'
 import { fc, fw, fz, ta } from 'styles/styles'
+import { connect } from 'components/AppProvider'
 
 const perfiles = [
   {
@@ -18,13 +20,28 @@ const perfiles = [
   },
 ]
 
-export default class Perfil extends Component {
+class Perfil extends React.Component {
+  componentDidMount() {
+    this.loadConfiguracionData()
+  }
+
+  loadConfiguracionData = async () => {
+    try {
+      const res = await this.props.api.listarConfiguracionInicial()
+      if (res && res.data) {
+        this.props.dispatch({ type: 'UPDATE_DATA', payload: res.data })
+      }
+    } catch (error) {
+      console.info('ERROR listarConfiguracionInicial', error)
+    }
+  }
+
   navigate = routename => () => {
     this.props.navigation.navigate(routename)
   }
 
   render() {
-    const textStyle = [fc.muted, fz.n24]
+    const textStyle = [fc.black, fz.n24]
 
     return (
       <Container>
@@ -36,7 +53,7 @@ export default class Perfil extends Component {
         </Block>
         {perfiles.map((perfil, index) => (
           <Block key={index} flex={3} center>
-            <TouchableHighlight
+            <Touchable
               onPress={this.navigate(perfil.route)}
               style={styles.perfilButton}>
               <Block style={[styles.perfilCard, styles.perfilButton]}>
@@ -45,10 +62,14 @@ export default class Perfil extends Component {
                   {perfil.label}
                 </Text>
               </Block>
-            </TouchableHighlight>
+            </Touchable>
           </Block>
         ))}
       </Container>
     )
   }
 }
+
+export default connect(ctx => ({ api: ctx.api, dispatch: ctx.dispatch }))(
+  Perfil
+)

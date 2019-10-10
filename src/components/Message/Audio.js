@@ -4,10 +4,12 @@ import { Text } from 'native-base'
 import { Audio } from 'expo-av'
 import styled from 'styled-components/native'
 import Icon from '@expo/vector-icons/FontAwesome5'
+
 import { msToStr } from './utils'
 import Theme from 'themes/default'
+import Touchable from 'components/Touchable'
 
-const Button = styled.TouchableHighlight({
+const Button = styled(Touchable)({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',

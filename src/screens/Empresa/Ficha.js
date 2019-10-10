@@ -12,10 +12,13 @@ export default class Ficha extends Component {
   openSelectSector = () => {
     const data = this.props.navigation.getParam('data', {})
 
-    ActionSheet.show({
-      options: data.listaSectores.map(sector => sector.nombre),
-      title: 'Sectores',
-    })
+    ActionSheet.show(
+      {
+        options: data.listaSectores.map(sector => sector.nombre),
+        title: 'Sectores',
+      },
+      function() {}
+    )
   }
 
   render() {
