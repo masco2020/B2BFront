@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Alert, AsyncStorage, TouchableOpacity } from 'react-native'
+import { Alert, AsyncStorage, Linking, TouchableOpacity } from 'react-native'
 import {
   Button,
   Header,
@@ -57,7 +57,11 @@ class Login extends Component {
     })
   }
 
-  renderContacto({ text, icon, info }) {
+  openUrl = url => () => {
+    Linking.openURL(url)
+  }
+
+  renderContacto({ text, icon, info, url }) {
     const textStyle = [fc.primary, fz.n20]
     return (
       <Block flex center middle>
@@ -65,7 +69,10 @@ class Login extends Component {
           <Icon type="FontAwesome5" name={icon} style={textStyle} />
           <Text style={textStyle}>&nbsp;&nbsp;{text}</Text>
         </Block>
-        <Button bordered style={styles.gestionButton}>
+        <Button
+          bordered
+          style={styles.gestionButton}
+          onPress={this.openUrl(url)}>
           <Text style={styles.gestionButtonText}>{info}</Text>
         </Button>
       </Block>
@@ -89,6 +96,7 @@ class Login extends Component {
             text: 'Enviar correo a',
             icon: 'envelope',
             info: 'hola@b2b.com',
+            url: 'mailto:hola@b2b.com',
           })}
         </Container>
       </Modal>
@@ -127,12 +135,15 @@ class Login extends Component {
                 value={pass}
               />
             </Item>
-            <Button small style={styles.iniciarSesionBtn} onPress={this.onLogin}>
+            <Button
+              small
+              style={styles.iniciarSesionBtn}
+              onPress={this.onLogin}>
               <Text style={styles.iniciarSesionBtnText}>Iniciar</Text>
             </Button>
           </Block>
           <Block flex>
-            <Hbar style={{borderBottomColor: Theme.COLORS.BLACK}} />
+            <Hbar color={Theme.COLORS.BLACK} />
             <Block flex center middle>
               <TouchableOpacity onPress={this.setModalVisibility(true)}>
                 <Text style={[styles.gestionTextLogin]}>

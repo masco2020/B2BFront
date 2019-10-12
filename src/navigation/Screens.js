@@ -13,6 +13,7 @@ import Login from 'screens/Login'
 import Perfil from 'screens/Perfil'
 import Empresa from 'screens/Empresa'
 import Historico from 'screens/Empresa/Historico'
+import Help from 'screens/Empresa/Help'
 import Ficha from 'screens/Empresa/Ficha'
 import Contactos from 'screens/Empresa/Contactos'
 import ContactoEditor from 'screens/Contacto/Editor'
@@ -45,6 +46,13 @@ const EmpresaStack = createStackNavigator(
       screen: Empresa,
       params: { esExportador: false },
       navigationOptions: getHeaderOptions({ title: 'Compradores' }),
+    },
+    Help: {
+      screen: Help,
+      navigationOptions: getHeaderOptions({
+        title: 'Ayuda',
+        headerProps: { back: true },
+      }),
     },
     EmpresaDetalle: {
       screen: EmpresaTabs,
@@ -84,11 +92,17 @@ const AppStack = createDrawerNavigator(
   {
     Perfil: {
       screen: PerfilStack,
-      navigationOptions: getDrawerOptions({ title: 'Perfil', iconName:'globe-americas' }),
+      navigationOptions: getDrawerOptions({
+        title: 'Perfil',
+        iconName: 'globe-americas',
+      }),
     },
     Empresas: {
       screen: EmpresaStack,
-      navigationOptions: getDrawerOptions({ title: 'Empresas', iconName:'laptop' }),
+      navigationOptions: getDrawerOptions({
+        title: 'Empresas',
+        iconName: 'laptop',
+      }),
     },
   },
   Menu

@@ -204,6 +204,13 @@ class API {
     return this.signedRequest({ url, params, requiredParams })
   }
 
+  historicoMedia(params) {
+    const url = this.baseUrl + paths.historico + 'DescargarContenidoHistorico'
+    const requiredParams = ['NombreArchivo']
+
+    return this.signedRequest({ url, params, requiredParams })
+  }
+
   historicoCreate(params) {
     const url = this.baseUrl + paths.historico
     const requiredParams = ['idEmpresa', 'idTipoContenido', 'idUsuario']
@@ -252,7 +259,7 @@ class API {
     return this.signedRequest({ url, params, method: 'POST', requiredParams })
   }
 
-  listarConfiguracionInicial() {
+  configuracionList() {
     const url = this.baseUrl + paths.listas + 'listarConfiguracionInicial'
     return this.signedRequest({ url })
   }

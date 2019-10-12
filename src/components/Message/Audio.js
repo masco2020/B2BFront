@@ -3,11 +3,12 @@ import Block from 'components/Block'
 import { Text } from 'native-base'
 import { Audio } from 'expo-av'
 import styled from 'styled-components/native'
-import Icon from '@expo/vector-icons/FontAwesome5'
+import Icon from 'components/Icon'
 
 import { msToStr } from './utils'
 import Theme from 'themes/default'
 import Touchable from 'components/Touchable'
+import { connect } from 'components/AppProvider'
 
 const Button = styled(Touchable)({
   display: 'flex',
@@ -26,7 +27,7 @@ function AudioButton(props) {
   )
 }
 
-export default class MessageAudio extends React.Component {
+class MessageAudio extends React.Component {
   state = {
     isPlaying: false,
     finished: false,
@@ -36,7 +37,11 @@ export default class MessageAudio extends React.Component {
 
   async componentDidMount() {
     this.soundObject = new Audio.Sound()
-    await this.soundObject.loadAsync({ uri: this.props.audio })
+    const uri = await this.props.api.historicoMedia({
+      NombreArchivo: this.props.nombreArchivo,
+    })
+
+    await this.soundObject.loadAsync({ uri })
 
     this.soundObject.setOnPlaybackStatusUpdate(this.onPlaybackStatusUpdate)
   }
@@ -96,3 +101,5 @@ export default class MessageAudio extends React.Component {
     )
   }
 }
+
+export default connect(ctx => ({ api: ctx.api }))(MessageAudio)

@@ -1,7 +1,8 @@
 import React from 'react'
 import { StyleSheet } from 'react-native'
-import { View, Text, Icon } from 'native-base'
+import { View, Text } from 'native-base'
 import Theme from 'themes/default'
+import Icon from 'components/Icon'
 
 class DrawerItem extends React.Component {
   render() {
@@ -14,8 +15,8 @@ class DrawerItem extends React.Component {
 
     return (
       <View style={containerStyles}>
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <Icon type="FontAwesome5" style={[styles.icon]} name={iconName}/>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          {iconName && <Icon style={[styles.icon]} name={iconName} />}
           <Text
             style={styles.textStyle}
             size={15}
@@ -31,8 +32,7 @@ class DrawerItem extends React.Component {
 
 const styles = StyleSheet.create({
   defaultStyle: {
-    paddingVertical: 15,
-    paddingHorizontal: 14,
+    padding: Theme.SIZES.BASE,
   },
   // activeStyle: {
   //   backgroundColor: defaultTheme.primaryColor,
@@ -47,14 +47,14 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     shadowOpacity: 0.1,
   },
-  textStyle:{
+  textStyle: {
     color: Theme.COLORS.PRIMARY,
     fontSize: Theme.SIZES.ROUND * 3,
   },
-  icon:{
+  icon: {
     fontSize: Theme.SIZES.ROUND * 3,
     color: Theme.COLORS.PRIMARY,
-    marginRight: Theme.SIZES.BASE * 1.5,
+    marginRight: Theme.SIZES.BASE,
   },
 })
 

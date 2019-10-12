@@ -1,23 +1,24 @@
 import React from 'react'
-import { DrawerNavigatorItems } from 'react-navigation-drawer'
 import { ScrollView, Dimensions, Text } from 'react-native'
 import styled from 'styled-components/native'
 
-import Block from 'components/Block'
-import Logout from 'navigation/Logout'
+import { Logout, Web, Link } from 'navigation/Links'
 import { connect } from 'components/AppProvider'
+import Block from 'components/Block'
+import { Hbar } from 'components/styled'
 import Theme from 'themes/default'
 import { bg, fz, fc, fw } from 'styles/styles'
 
 const { width } = Dimensions.get('screen')
 
-const Drawer = ({ user, ...props }) => {
+const Drawer = ({ user }) => {
   const initial = user && user.nombre && user.nombre.slice(0, 1)
+  const marginHorizontal = Theme.SIZES.BASE * 1.5
 
   return (
     <Block flex forceInset={{ top: 'always', horizontal: 'never' }}>
       {user && (
-        <Block row middle style={[bg.primary, { paddingVertical: Theme.SIZES.BASE * 2, paddingHorizontal: Theme.SIZES.BASE}]}>
+        <Header>
           <Initial>
             <Text style={[fz.n30, fc.white, fw.bold]}>{initial}</Text>
           </Initial>
@@ -29,11 +30,27 @@ const Drawer = ({ user, ...props }) => {
               {user.cargo}
             </Text>
           </Block>
-        </Block>
+        </Header>
       )}
       <Block flex>
-        <ScrollView showsVerticalScrollIndicator={false} style={[{ flex: 1 }, bg.muted]}>
-          <DrawerNavigatorItems {...props} />
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          style={[{ flex: 1 }, bg.muted]}>
+          <Link title="Perfil" iconName="globe-americas" routeName="Perfil" />
+          <Link
+            title="Compradores"
+            iconName="globe-americas"
+            routeName="Comprador"
+          />
+          <Link
+            title="Exportadores"
+            iconName="globe-americas"
+            routeName="Exportador"
+          />
+          <Hbar color={Theme.COLORS.PRIMARY} style={{ marginHorizontal }} />
+          <Link title="Ayuda" iconName="question" routeName="Help" />
+          <Web />
+          <Hbar color={Theme.COLORS.PRIMARY} style={{ marginHorizontal }} />
           <Logout />
         </ScrollView>
       </Block>
@@ -58,8 +75,8 @@ const Menu = {
       fontWeight: 'normal',
     },
     itemsContainerStyle: {
-      paddingVertical: 16,
-      paddingHorizontal: 12,
+      paddingVertical: Theme.SIZES.BASE,
+      paddingHorizontal: Theme.SIZES.BASE / 2,
       justifyContent: 'center',
       alignContent: 'center',
       alignItems: 'center',
@@ -80,3 +97,12 @@ const Initial = styled(Block).attrs({ center: true, middle: true })(
     width: size,
   })
 )
+
+const Header = styled(Block).attrs({
+  row: true,
+  middle: true,
+})({
+  backgroundColor: Theme.COLORS.PRIMARY,
+  paddingVertical: Theme.SIZES.BASE * 2,
+  paddingHorizontal: Theme.SIZES.BASE,
+})

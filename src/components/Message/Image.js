@@ -5,10 +5,27 @@ import ImageView from 'react-native-image-view'
 import { Image } from './utils'
 import Touchable from 'components/Touchable'
 import Block from 'components/Block'
+import { connect } from 'components/AppProvider'
 
-export default class MessageImage extends React.Component {
+const broken = require('assets/broken.png')
+
+class MessageImage extends React.Component {
   state = {
     visible: false,
+    broken: false,
+    uri: '',
+  }
+
+  // TODO: Revisar url de imagen
+  componentDidMount() {
+    this.props.api
+      .historicoMedia({ NombreArchivo: this.props.nombreArchivo })
+      .then(res => {
+        this.setState({ uri: res })
+      })
+      .catch(() => {
+        this.setState({ broken: true })
+      })
   }
 
   toggleModal = () => {
@@ -20,9 +37,20 @@ export default class MessageImage extends React.Component {
   }
 
   render() {
-    const images = [this.props.image].map(i => ({
-      ...i,
-      source: { uri: i.source },
+    if (this.state.broken) {
+      return (
+        <Block center>
+          <Image source={broken} style={{ height: 32, width: 32 }} />
+        </Block>
+      )
+    }
+
+    if (!this.state.uri) {
+      return <Block style={{ height: 32 }} />
+    }
+
+    const images = [this.state.uri].map(i => ({
+      source: { uri: i },
     }))
 
     return (
@@ -36,11 +64,11 @@ export default class MessageImage extends React.Component {
         <Touchable
           onPress={this.toggleModal}
           style={{ width: 200, height: 100 }}>
-          <Image
-            source={{ uri: this.props.image.source, width: 200, height: 100 }}
-          />
+          <Image source={{ uri: this.state.uri, width: 200, height: 100 }} />
         </Touchable>
       </Block>
     )
   }
 }
+
+export default connect(ctx => ({ api: ctx.api }))(MessageImage)

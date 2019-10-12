@@ -1,6 +1,5 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {
-  Badge,
   Body,
   Button,
   CheckBox,
@@ -32,10 +31,9 @@ const options = [
   { active: false, label: 'Ciudad' },
 ]
 
-export default class Home extends Component {
+export default class Empresa extends React.Component {
   state = {
     masFiltros: false,
-    leyendaModalVisible: false,
     selectCheck: false,
     sectorModalVisible: false,
   }
@@ -43,12 +41,6 @@ export default class Home extends Component {
   setMasFiltros(visible) {
     this.setState({
       masFiltros: visible,
-    })
-  }
-
-  leyendaModal = () => {
-    this.setState({
-      leyendaModalVisible: !this.state.leyendaModalVisible,
     })
   }
 
@@ -62,78 +54,6 @@ export default class Home extends Component {
     this.setState({
       selectCheck: !this.state.selectCheck,
     })
-  }
-
-  renderModalLeyenda() {
-    return (
-      <ModalC
-        isVisible={this.state.leyendaModalVisible}
-        onBackdropPress={() => this.setState({ leyendaModalVisible: false })}
-        style={[styles.modalLeyenda]}>
-        <View style={[styles.modalLeyendaBox]}>
-          <Text style={[styles.LeyendaTitel]}>Reconócelos</Text>
-          <View
-            style={{
-              borderBottomWidth: 1,
-              borderBottomColor: '#ddd',
-              marginTop: 5,
-              marginBottom: 5,
-            }}
-          />
-          <Text style={[styles.leyendaText]}>
-            Aprende como reconocer los sectores facilmente con nuestros iconos
-            de colores:
-          </Text>
-          <List>
-            <ListItem style={[styles.leyendaSector]}>
-              <Badge
-                style={[styles.circulLeyenda, { backgroundColor: '#86BA24' }]}>
-                <Text style={[styles.textcirculLeyenda]}>A</Text>
-              </Badge>
-              <Text style={{ color: '#86BA24', fontSize: 16 }}>
-                Agronegocios
-              </Text>
-            </ListItem>
-            <ListItem style={[styles.leyendaSector]}>
-              <Badge
-                style={[styles.circulLeyenda, { backgroundColor: '#E00613' }]}>
-                <Text style={[styles.textcirculLeyenda]}>E</Text>
-              </Badge>
-              <Text style={{ color: '#E00613', fontSize: 16 }}>
-                Exportación de Servicios
-              </Text>
-            </ListItem>
-            <ListItem style={[styles.leyendaSector]}>
-              <Badge
-                style={[styles.circulLeyenda, { backgroundColor: '#A0137B' }]}>
-                <Text style={[styles.textcirculLeyenda]}>I</Text>
-              </Badge>
-              <Text style={{ color: '#A0137B', fontSize: 16 }}>
-                Industria de la vestimenta y decoración
-              </Text>
-            </ListItem>
-            <ListItem style={[styles.leyendaSector]}>
-              <Badge
-                style={[styles.circulLeyenda, { backgroundColor: '#FFCC21' }]}>
-                <Text style={[styles.textcirculLeyenda]}>M</Text>
-              </Badge>
-              <Text style={{ color: '#FFCC21', fontSize: 16 }}>
-                Manufacturas Diversas
-              </Text>
-            </ListItem>
-            <ListItem style={[styles.leyendaSector]}>
-              <Badge
-                style={[styles.circulLeyenda, { backgroundColor: '#0071B8' }]}>
-                <Text style={[styles.textcirculLeyenda]}>P</Text>
-              </Badge>
-              <Text style={{ color: '#0071B8', fontSize: 16 }}>
-                Productos Pesqueros
-              </Text>
-            </ListItem>
-          </List>
-        </View>
-      </ModalC>
-    )
   }
 
   renderModalSectores() {
@@ -757,7 +677,6 @@ export default class Home extends Component {
         <Content style={{ flex: 1 }} contentContainerStyle={{ flex: 1 }}>
           <EmpresaList esExportador={esExportador} />
         </Content>
-        {this.renderModalLeyenda()}
         {this.renderModalSectores()}
         {this.renderModal()}
       </Block>

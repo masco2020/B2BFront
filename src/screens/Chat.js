@@ -1,35 +1,36 @@
 import React from 'react'
-import { ActivityIndicator, FlatList, KeyboardAvoidingView } from 'react-native'
-import { Fab, Icon, Button } from 'native-base'
+import { FlatList, KeyboardAvoidingView } from 'react-native'
+import { ActionSheet } from 'native-base'
 
-import Block from 'components/Block'
+import Actions from 'components/Button/Actions'
 import MessageInput from 'components/Button/Text'
-import AudioButton from 'components/Button/Audio'
-import CameraButton from 'components/Button/Camera'
-import GalleryButton from 'components/Button/Gallery'
-import FileButton from 'components/Button/File'
-import LocationButton from 'components/Button/Location'
 import Message from 'components/Message'
-import Theme from 'themes/default'
-import produce from 'immer'
+
+const actionButtons = [
+  { name: 'Cámara', action: Actions.takePhoto, icon: 'camera' },
+  { name: 'Galería', action: Actions.getPhoto, icon: 'image' },
+  { name: 'Documento', action: Actions.getFile, icon: 'file' },
+  { name: 'Ubicación', action: Actions.getLocation, icon: 'map-marker-alt' },
+]
 
 class Chat extends React.Component {
   static defaultProps = {
     sendMessage() {},
     onLoadMore() {},
+    conversation: [],
   }
 
-  state = {
-    opacity: 1,
-    fabOpen: false,
-    showScrollBottom: false,
-  }
-
-  onToggleFAB = () => {
-    this.setState(
-      produce(draft => {
-        draft.fabOpen = !draft.fabOpen
-      })
+  onMoreActions = () => {
+    ActionSheet.show(
+      {
+        options: actionButtons.map(button => button.name),
+        title: 'Opciones',
+      },
+      buttonIndex => {
+        if (actionButtons[buttonIndex]) {
+          actionButtons[buttonIndex].action(this.props.sendMessage)
+        }
+      }
     )
   }
 
@@ -52,32 +53,10 @@ class Chat extends React.Component {
   }
 
   render() {
-    const appLoading = this.props.loading
-
     return (
       <KeyboardAvoidingView
         behavior="padding"
-        style={{ flex: 1, backgroundColor: '#eee4dc' }}>
-        {appLoading && <ActivityIndicator size="large" color="#0000ff" />}
-        <Fab
-          active={this.state.fabOpen}
-          // direction="up" position="bottomRight"
-          direction="down"
-          position="topRight"
-          style={{ backgroundColor: Theme.COLORS.PRIMARY }}
-          onPress={this.onToggleFAB}>
-          <Icon type="FontAwesome5" name="plus" />
-          <Button>
-            <Icon type="FontAwesome5" name="plus" />
-            <Icon type="FontAwesome5" name="plus" />
-            <Icon type="FontAwesome5" name="plus" />
-          </Button>
-          {/* <AudioButton onPress={this.props.sendMessage} />
-          <CameraButton onPress={this.props.sendMessage} />
-          <GalleryButton onPress={this.props.sendMessage} />
-          <LocationButton onPress={this.props.sendMessage} />
-          <FileButton onPress={this.props.sendMessage} /> */}
-        </Fab>
+        style={{ flex: 1, backgroundColor: '#EBEBEB' }}>
         <FlatList
           ref={list => (this.messagesBox = list)}
           style={{
@@ -86,14 +65,16 @@ class Chat extends React.Component {
             marginTop: 20,
             paddingHorizontal: 10,
           }}
-          inverted={-1}
+          // inverted={-1}
           keyExtractor={(o, i) => `message_${i}`}
           data={this.props.conversation}
           renderItem={Message}
           onScroll={this.onScroll}
         />
-
-        <MessageInput onPress={this.props.sendMessage} />
+        <MessageInput
+          onPress={this.props.sendMessage}
+          onMoreActions={this.onMoreActions}
+        />
       </KeyboardAvoidingView>
     )
   }

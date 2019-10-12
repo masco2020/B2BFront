@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
   },
   middle: {
     alignItems: 'center',
-    justifyContent: 'center',
+    // justifyContent: 'center',
   },
   center: {
     alignItems: 'center',

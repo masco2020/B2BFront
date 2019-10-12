@@ -1,16 +1,18 @@
 import React from 'react'
-import { Button, Item, Input, Icon } from 'native-base'
-import { Dimensions } from 'react-native'
+import { Item, Input } from 'native-base'
 import Block from 'components/Block'
-
-const { width } = Dimensions.get('screen')
+import Icon from 'components/Icon'
+import Touchable from 'components/Touchable'
+import Theme from 'themes/default'
+import RoundedButton from 'components/RoundedButton'
+import { CONTENIDO } from './Actions'
 
 export default class MessageInput extends React.Component {
   state = {
     text: null,
   }
 
-  changeMessage = async text => {
+  changeMessage = text => {
     this.setState({ text })
   }
 
@@ -19,8 +21,8 @@ export default class MessageInput extends React.Component {
 
     if (text) {
       this.props.onPress({
-        content: this.state.text,
-        type: 'text',
+        mensaje: this.state.text,
+        type: CONTENIDO.mensaje,
       })
       this.setState({ text: null })
     }
@@ -28,42 +30,22 @@ export default class MessageInput extends React.Component {
 
   render() {
     return (
-      <Block style={{ height: 40, padding: 10, paddingTop: 0 }}>
-        <Item regular>
-          <Input
-            placeholder="Escribe el mensaje"
-            style={{
-              width: width - 25 - 30,
-              backgroundColor: '#fff',
-              fontSize: 14,
-            }}
-            underlineColorAndroid="transparent"
-          />
-        </Item>
-        {/* <TextInput
-          value={this.state.text}
-          underlineColorAndroid="transparent"
-          multiline
-          // onFocus={this.onFocus(true)}
-          // onBlur={this.onFocus(false)}
-          onChangeText={this.changeMessage}
-          // onContentSizeChange={event => {
-            //   this.setState({ height: event.nativeEvent.contentSize.height })
-            // }}
-            style={{
-              width: width - 25 - 30,
-              // height: Math.max(35, this.state.height),
-              padding: 5,
-              marginRight: 5,
-              borderRadius: 5,
-              backgroundColor: '#fff',
-              fontSize: 14,
-            }}
-          /> */}
-
-        <Button onPress={this.sendText}>
-          <Icon name="paper-plane" type="FontAwesome5" />
-        </Button>
+      <Block row middle style={{ padding: 10, paddingTop: 0 }}>
+        <Block flex>
+          <Item regular style={{ backgroundColor: '#fff', marginRight: 8 }}>
+            <Input
+              style={{ fontSize: 14, paddingVertical: 0 }}
+              onChangeText={this.changeMessage}
+              value={this.state.text}
+              placeholder="Escribe el mensaje"
+              underlineColorAndroid="transparent"
+            />
+            <Touchable onPress={this.props.onMoreActions}>
+              <Icon name="paperclip" primary />
+            </Touchable>
+          </Item>
+        </Block>
+        <RoundedButton onPress={this.sendText} icon="paper-plane" />
       </Block>
     )
   }

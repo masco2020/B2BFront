@@ -1,11 +1,11 @@
 import React from 'react'
-import { AsyncStorage, View } from 'react-native'
+import { AsyncStorage, Linking, View } from 'react-native'
 import { withNavigation } from 'react-navigation'
 import DrawerItem from 'navigation/DrawerItem'
 import Touchable from 'components/Touchable'
 import { connect } from 'components/AppProvider'
 
-function Logout(props) {
+function LogoutLink(props) {
   async function logout() {
     try {
       props.dispatch({ type: 'APP_LOADING', payload: true })
@@ -28,8 +28,39 @@ function Logout(props) {
     </Touchable>
   )
 }
-export default connect(({ context, api, dispatch }) => ({
+
+export function Web() {
+  function onPress() {
+    Linking.openURL('https://b2b.promperu.gob.pe/')
+  }
+
+  return (
+    <Touchable onPress={onPress}>
+      <View style={{ paddingHorizontal: 12 }}>
+        <DrawerItem title="Visitar la web" iconName="laptop" />
+      </View>
+    </Touchable>
+  )
+}
+
+function LinkBase({ routeName, ...props }) {
+  function navigate() {
+    props.navigation.navigate(routeName)
+  }
+
+  return (
+    <Touchable onPress={navigate}>
+      <View style={{ paddingHorizontal: 12 }}>
+        <DrawerItem {...props} />
+      </View>
+    </Touchable>
+  )
+}
+
+export const Logout = connect(({ context, api, dispatch }) => ({
   api,
   dispatch,
   user: context.user,
-}))(withNavigation(Logout))
+}))(withNavigation(LogoutLink))
+
+export const Link = withNavigation(LinkBase)

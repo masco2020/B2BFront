@@ -13,7 +13,7 @@ const sectorColors = {
   E: '#DA0213',
   I: '#A0137C',
   M: '#FACE1E',
-  P: '#FACE1E',
+  P: '#0071B8',
 }
 
 class EmpresaBox extends React.PureComponent {

@@ -27,7 +27,7 @@ class Perfil extends React.Component {
 
   loadConfiguracionData = async () => {
     try {
-      const res = await this.props.api.listarConfiguracionInicial()
+      const res = await this.props.api.configuracionList()
       if (res && res.data) {
         this.props.dispatch({ type: 'UPDATE_DATA', payload: res.data })
       }

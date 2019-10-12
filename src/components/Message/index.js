@@ -13,18 +13,26 @@ import Theme from 'themes/default'
 
 moment.locale('es')
 
+const TIPO_CONTENIDO = {
+  1: 'mensaje',
+  2: 'imagen',
+  3: 'audio',
+  4: 'documento',
+  5: 'ubicacion',
+}
+
 const { width } = Dimensions.get('screen')
 
 export default function Message(props) {
   const item = props.item
   let Content
 
-  switch (item.type) {
-    case 'location': {
+  switch (TIPO_CONTENIDO[item.idTipoContenido]) {
+    case 'ubicacion': {
       Content = <MessageLocation {...item} />
       break
     }
-    case 'image': {
+    case 'imagen': {
       Content = <MessageImage {...item} />
       break
     }
@@ -33,16 +41,16 @@ export default function Message(props) {
       break
     }
     default:
-      Content = <Text>{item.content}</Text>
+      Content = <Text>{item.mensaje}</Text>
   }
 
-  const fecha = moment(item.timestamp).format('DD [de] MMMM')
-  const hora = moment(item.timestamp).format('HH:mm A')
+  const fecha = moment(item.fechaRegistro).format('DD [de] MMMM')
+  const hora = moment(item.fechaRegistro).format('hh:mm A')
 
   return (
     <BubbleContainer {...item}>
       <Bubble {...item}>
-        {!item.isUser && <MessageUser>{item.user.name}</MessageUser>}
+        {!item.isUser && <MessageUser>{item.usuario.nombre}</MessageUser>}
         {Content}
         <Block style={{ paddingTop: 4 }} row space="between">
           <MessageDate>{fecha}</MessageDate>
