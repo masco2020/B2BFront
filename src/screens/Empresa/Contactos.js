@@ -6,6 +6,7 @@ import ContactoBox from 'components/ContactoBox'
 import Block from 'components/Block'
 import Icon from 'components/Icon'
 import { Hbar } from 'components/styled'
+import { fw } from 'styles/styles'
 import styles from 'styles/contactos'
 
 class Contactos extends React.Component {
@@ -61,8 +62,8 @@ class Contactos extends React.Component {
             keyExtractor={item => item.idContacto.toString()}
           />
           <Block center style={{ marginVertical: 32 }}>
-            <Button onPress={this.createContact}>
-              <Text>Nuevo Contacto</Text>
+            <Button styles={{borderRadius: 8}} onPress={this.createContact}>
+              <Text style={{textTransform: 'capitalize'}} >Nuevo Contacto</Text>
             </Button>
           </Block>
         </Content>

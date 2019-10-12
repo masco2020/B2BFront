@@ -17,14 +17,20 @@ export default class ContactoBox extends Component {
     return (
       <Touchable onPress={this.openEditor}>
         <Card noShadow style={[styles.contactoCards]}>
-          <CardItem bordered>
+          <CardItem bordered style={{justifyContent: 'space-between'}} >
             <Block row left>
               <Block middle>
-                <Icon active name="user" primary />
+                <Icon style={{width: 18}} active name="user-alt" primary />
               </Block>
-              <Text selectable style={[styles.infoText]}>
+              <Block style={[styles.blockText]}>
+                <Text selectable style={[styles.textBox, fw.bold]}>
                 {contact.nombres} {contact.apellidoPaterno}
-              </Text>
+                </Text>
+                <Text style={styles.cargoStyle}>{contact.nombres}</Text>
+              </Block>
+            </Block>
+            <Block middle>
+              <Icon style={{width: 18}} active name="edit" primary />
             </Block>
           </CardItem>
           <CardItem>
