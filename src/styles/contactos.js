@@ -150,6 +150,10 @@ export default StyleSheet.create({
     paddingVertical: Theme.SIZES.BASE / 2,
     marginBottom: Theme.SIZES.BASE / 2,
   },
+  boxTop:{
+    justifyContent: 'space-between',
+     paddingBottom: 4,
+  },
   blockText:{
     flexDirection: 'column',
   },
@@ -160,14 +164,14 @@ export default StyleSheet.create({
   },
   textBox: {
     color: Theme.COLORS.BLACK,
-    fontSize: Theme.SIZES.BASE,
-    marginLeft: Theme.SIZES.BASE / 4,
+    fontSize: Theme.SIZES.BASE + 2,
+    marginLeft: Theme.SIZES.BASE / 2,
     textTransform: 'capitalize',
   },
   cargoStyle:{
     color: Theme.COLORS.BLACK,
-    fontSize: Theme.SIZES.BASE - 2,
-    marginLeft: Theme.SIZES.BASE / 4,
+    fontSize: Theme.SIZES.BASE,
+    marginLeft: Theme.SIZES.BASE / 2,
     textTransform: 'capitalize',
   },
   btnNuevo:{

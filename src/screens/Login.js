@@ -113,7 +113,7 @@ class Login extends Component {
             <Title>B2B</Title>
           </Block>
         </Header>
-        <Container style={{ backgroundColor: '#EBEBEB' }}>
+        <Container style={{ backgroundColor: '#EBEBEB'}}>
           <Block flex={5} middle style={styles.block}>
             <Item floatingLabel last style={[styles.itemLogin]}>
               <Icon name="person" style={{ color: Theme.COLORS.PRIMARY }} />

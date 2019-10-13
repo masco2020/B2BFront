@@ -3,6 +3,7 @@ import Theme from 'themes/default'
 
 export const fz = StyleSheet.create({
   n16: { fontSize: 16 },
+  n18: { fontSize: 18 },
   n20: { fontSize: 20 },
   n24: { fontSize: 24 },
   n30: { fontSize: 30 },

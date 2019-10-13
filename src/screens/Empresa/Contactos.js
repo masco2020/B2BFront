@@ -2,12 +2,12 @@ import React from 'react'
 import { FlatList } from 'react-native'
 import { Text, Button, View, Content } from 'native-base'
 
+import styles from 'styles/contactos'
+import { fw, fz } from 'styles/styles'
 import ContactoBox from 'components/ContactoBox'
 import Block from 'components/Block'
 import Icon from 'components/Icon'
 import { Hbar } from 'components/styled'
-import { fw } from 'styles/styles'
-import styles from 'styles/contactos'
 
 class Contactos extends React.Component {
   static navigationOptions = {
@@ -41,11 +41,11 @@ class Contactos extends React.Component {
     return (
       <Block flex>
         <Content style={[styles.contentContactos]}>
-          <View>
+          <View  style={{ marginVertical: 10}}>
             {info.map(contact => (
               <Block key={contact.icon} flex row style={[styles.infoContacto]}>
                 <Block middle>
-                  <Icon name={contact.icon} primary />
+                  <Icon name={contact.icon} primary style={fz.n18} />
                 </Block>
                 <Text selectable style={[styles.infoText]}>
                   {data[contact.prop]}
@@ -63,7 +63,7 @@ class Contactos extends React.Component {
           />
           <Block center style={{ marginVertical: 32 }}>
             <Button styles={{borderRadius: 8}} onPress={this.createContact}>
-              <Text style={{textTransform: 'capitalize'}} >Nuevo Contacto</Text>
+              <Text style={[{textTransform: 'capitalize'}, fz.n20]} >Nuevo Contacto</Text>
             </Button>
           </Block>
         </Content>

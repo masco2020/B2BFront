@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import styles from 'styles/contactos'
-import { fw } from 'styles/styles'
+import { fw, fz } from 'styles/styles'
 import { Text, Card, CardItem } from 'native-base'
 import Block from 'components/Block'
 import Icon from 'components/Icon'
@@ -17,7 +17,7 @@ export default class ContactoBox extends Component {
     return (
       <Touchable onPress={this.openEditor}>
         <Card noShadow style={[styles.contactoCards]}>
-          <CardItem bordered style={{justifyContent: 'space-between'}} >
+          <CardItem bordered style={styles.boxTop} >
             <Block row left>
               <Block middle>
                 <Icon style={{width: 18}} active name="user-alt" primary />
@@ -39,13 +39,13 @@ export default class ContactoBox extends Component {
                 <Block middle>
                   <Icon active name="phone" primary />
                 </Block>
-                <LinkText style={fw.bold}>Llamar</LinkText>
+                <LinkText style={fw.bold, fz.n18}>Llamar</LinkText>
               </Block>
               <Block row>
                 <Block middle>
                   <Icon active name="envelope" primary />
                 </Block>
-                <LinkText style={fw.bold}>Correo</LinkText>
+                <LinkText style={fw.bold, fz.n18}>Correo</LinkText>
               </Block>
             </Block>
           </CardItem>
