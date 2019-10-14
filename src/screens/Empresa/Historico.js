@@ -6,6 +6,7 @@ import { NavigationEvents } from 'react-navigation'
 
 import { connect } from 'components/AppProvider'
 import Chat from 'screens/Chat'
+import produce from 'immer'
 
 const MAX_PER_PAGE = 20
 
@@ -19,7 +20,7 @@ class Historico extends Component {
     messages: [],
   }
 
-  onWillFocus = async () => {
+  loadMore = async () => {
     const data = this.props.navigation.getParam('data', {})
 
     try {
@@ -31,7 +32,12 @@ class Historico extends Component {
       })
 
       if (res && res.data) {
-        this.setState({ messages: res.data })
+        this.setState(
+          produce(draft => {
+            draft.messages = [].concat(draft.messages, res.data)
+            draft.page = draft.page + 1
+          })
+        )
       }
     } catch (error) {
       Alert.alert('Error', 'Error al cargar historico')
@@ -45,12 +51,18 @@ class Historico extends Component {
 
     try {
       this.props.dispatch({ type: 'APP_LOADING', payload: true })
-      await this.props.api.historicoCreate({
+      const response = await this.props.api.historicoCreate({
         ...params,
         idEmpresa: data.idEmpresa,
         idTipoContenido: type,
         idUsuario: this.props.user.idUsuario,
       })
+
+      if (response && response.success) {
+        produce(draft => {
+          draft.messages = [].concat(response.data, draft.messages)
+        })
+      }
     } catch (error) {
       console.info('xxxx', error)
     } finally {
@@ -61,8 +73,12 @@ class Historico extends Component {
   render() {
     return (
       <Container>
-        <NavigationEvents onWillFocus={this.onWillFocus} />
-        <Chat conversation={this.state.messages} sendMessage={this.onMessage} />
+        <NavigationEvents onWillFocus={this.loadMore} />
+        <Chat
+          conversation={this.state.messages}
+          sendMessage={this.onMessage}
+          onLoadMore={this.loadMore}
+        />
       </Container>
     )
   }

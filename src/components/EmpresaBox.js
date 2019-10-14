@@ -7,6 +7,7 @@ import Block from 'components/Block'
 import { Badge } from 'components/styled'
 import styles from 'styles/empresa'
 import { fw, fz } from 'styles/styles'
+import { connect } from './AppProvider'
 
 const sectorColors = {
   A: '#86B920',
@@ -22,11 +23,16 @@ class EmpresaBox extends React.PureComponent {
   }
 
   navigateEmpresa = item => () => {
-    this.props.navigation.navigate('EmpresaDetalle', { data: item })
+    this.props.dispatch({ type: 'SET_EMPRESA', payload: item })
+    this.props.navigation.navigate('EmpresaDetalle', {
+      data: item,
+      esExportador: this.props.esExportador,
+    })
   }
 
   render() {
     const item = this.props.item
+    const esExportador = this.props.esExportador
 
     return (
       <Touchable onPress={this.navigateEmpresa(item)}>
@@ -35,7 +41,9 @@ class EmpresaBox extends React.PureComponent {
             <Text style={[fw.bold, fz.n16]}>{item.nombreEmpresa}</Text>
           </CardItem>
           <CardItem style={[{ justifyContent: 'space-between' }]}>
-            <Text>RUC: {item.ruc}</Text>
+            {(esExportador && <Text>RUC: {item.ruc}</Text>) || (
+              <Text>País: {item.pais}</Text>
+            )}
             <Block row>
               {item.listaSectores.map(function(sector, index) {
                 return (
@@ -55,4 +63,6 @@ class EmpresaBox extends React.PureComponent {
   }
 }
 
-export default withNavigation(EmpresaBox)
+export default connect(ctx => ({
+  dispatch: ctx.dispatch,
+}))(withNavigation(EmpresaBox))

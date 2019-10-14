@@ -26,9 +26,10 @@ import { Hbar } from 'components/styled'
 import Theme from 'themes/default'
 
 const options = [
-  { active: true, label: 'Empresa' },
-  { active: false, label: 'Producto' },
-  { active: false, label: 'Ciudad' },
+  { active: true, label: 'Empresa', types: ['comprador', 'exportador'] },
+  { active: false, label: 'Producto', types: ['comprador', 'exportador'] },
+  { active: false, label: 'Ciudad', types: ['exportador'] },
+  { active: false, label: 'Pais', types: ['comprador'] },
 ]
 
 export default class Empresa extends React.Component {
@@ -617,12 +618,16 @@ export default class Empresa extends React.Component {
   }
 
   renderSegment() {
+    const type = this.props.navigation.getParam('esExportador')
+      ? 'exportador'
+      : 'comprador'
+    const optionsByType = options.filter(o => o.types.includes(type))
     return (
       <Segment>
-        {options.map((option, index) => (
+        {optionsByType.map((option, index) => (
           <Button
             first={index === 0}
-            last={index === options.length}
+            last={index === optionsByType.length - 1}
             key={index}
             active={option.active}>
             <Text>{option.label}</Text>

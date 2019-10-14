@@ -1,6 +1,7 @@
 import React from 'react'
 import produce from 'immer'
 import API from 'components/API'
+import merge from 'lodash/merge'
 
 const api = new API()
 
@@ -10,6 +11,7 @@ const DEFAULT_STATE = {
   },
   user: null,
   data: {},
+  empresa: {},
 }
 
 const Context = React.createContext(DEFAULT_STATE)
@@ -71,6 +73,18 @@ export class AppProvider extends React.Component {
         return this.setState(
           produce(draft => {
             draft.data = payload
+          })
+        )
+      case 'SET_EMPRESA':
+        return this.setState(
+          produce(draft => {
+            draft.empresa = payload
+          })
+        )
+      case 'UPDATE_EMPRESA':
+        return this.setState(
+          produce(draft => {
+            draft.empresa = merge(draft.empresa, payload)
           })
         )
       default:

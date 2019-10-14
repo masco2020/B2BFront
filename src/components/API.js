@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { Alert } from 'react-native'
+import * as mime from 'react-native-mime-types'
 
 const urlAPI = 'http://190.117.249.6/Rutex/api'
 const paths = {
@@ -98,6 +98,44 @@ function request({ url, method = 'GET', headers, params, requiredParams }) {
       //If response is in json then in success
       .then(response => {
         if (!response.success) {
+          console.info('>>>', data)
+          return reject(response)
+        }
+        return resolve(response)
+      })
+      //If response is not in json then in error
+      .catch(reject)
+  })
+}
+
+function requestFormdata({ url, headers, params }) {
+  return new Promise((resolve, reject) => {
+    // eslint-disable-next-line no-undef
+    let formdata = new FormData()
+
+    const { file, ...others } = params
+    const uriParts = file.split('.')
+    const fileExtension = uriParts[uriParts.length - 1]
+    let fileType = mime.lookup(`file.${fileType}`)
+
+    formdata.append('', {
+      uri: file,
+      name: `file.${fileExtension}`,
+      type: fileType,
+    })
+
+    Object.keys(others).forEach(key => {
+      formdata.append(key, params[key])
+    })
+
+    let urlToFetch = url
+    let data = { body: formdata, method: 'POST', headers }
+
+    fetch(urlToFetch, data)
+      .then(response => response.json())
+      //If response is in json then in success
+      .then(response => {
+        if (!response.success) {
           return reject(response)
         }
         return resolve(response)
@@ -126,9 +164,13 @@ class API {
       return request({
         headers: this.privateHeaders,
         ...params,
-      }).catch(err => {
-        console.info('Ha habido un error de lado del servidor', err)
-        Alert.alert('Error', 'Ha habido un error de lado del servidor')
+        // }).catch(err => {
+        //   console.info(
+        //     'Ha habido un error de lado del servidor',
+        //     params,
+        //     err.message
+        //   )
+        //   Alert.alert('Error', 'Ha habido un error de lado del servidor')
       })
     }
     console.info('Missing property privateHeaders')
@@ -159,6 +201,7 @@ class API {
           Authorization: 'Bearer ' + res.data.token,
           ...headers,
         }
+        this.token = res.data.token
       }
       return res
     } catch (error) {
@@ -167,6 +210,7 @@ class API {
   }
 
   setToken(token) {
+    this.token = token
     this.privateHeaders = {
       'Content-Type': 'application/json',
       Accept: 'application/json',
@@ -208,14 +252,31 @@ class API {
     const url = this.baseUrl + paths.historico + 'DescargarContenidoHistorico'
     const requiredParams = ['NombreArchivo']
 
-    return this.signedRequest({ url, params, requiredParams })
+    return this.signedRequest({
+      url,
+      params,
+      requiredParams,
+      headers: {
+        Authorization: 'Bearer ' + this.token,
+        Accept: 'application/octet-stream',
+      },
+    })
   }
 
   historicoCreate(params) {
     const url = this.baseUrl + paths.historico
     const requiredParams = ['idEmpresa', 'idTipoContenido', 'idUsuario']
 
-    return this.signedRequest({ url, params, method: 'POST', requiredParams })
+    // FIXME: Llamar endpoint
+    return requestFormdata({
+      url,
+      params,
+      requiredParams,
+      headers: {
+        Authorization: 'Bearer ' + this.token,
+        'Content-Type': 'multipart/form-data',
+      },
+    })
   }
 
   contactoCreate(params) {

@@ -74,7 +74,9 @@ class EmpresaList extends React.Component {
         style={{ paddingHorizontal: 16 }}
         data={this.state.empresas}
         extraData={this.state}
-        renderItem={({ item }) => <EmpresaBox item={item} />}
+        renderItem={({ item }) => (
+          <EmpresaBox item={item} esExportador={this.props.esExportador} />
+        )}
         keyExtractor={(item, index) => `${item.idEmpresa}_${index}`}
         ListFooterComponent={this.renderFooter}
         onScroll={this.onScroll}

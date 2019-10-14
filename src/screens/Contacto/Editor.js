@@ -23,14 +23,37 @@ class ContactoEditor extends React.PureComponent {
 
     try {
       this.props.dispatch({ type: 'APP_LOADING', payload: true })
-      await this.props.api[method]({
+
+      const response = await this.props.api[method]({
         ...formData,
         idEmpresa,
         idUsuario: this.props.user.idUsuario,
         idContacto: data.idContacto,
       })
 
-      this.props.navigation.goBack()
+      if (!response || !response.success) {
+        Alert.alert('Error', 'Error al guardar datos')
+      } else {
+        // Update en local
+        const empresa = this.props.empresa
+        let contactos = this.props.empresa.listaContactos
+
+        if (type === 'create') {
+          contactos.push(response.data)
+        } else {
+          contactos = contactos.map(c => {
+            return c.idContacto === data.idContacto ? response.data : c
+          })
+        }
+
+        this.props.dispatch({
+          type: 'UPDATE_EMPRESA',
+          payload: { ...empresa, listaContactos: contactos },
+        })
+
+        // Fin update local
+        this.props.navigation.goBack()
+      }
     } catch (error) {
       Alert.alert('Error', 'Error al guardar datos')
     } finally {
@@ -78,4 +101,5 @@ export default connect(ctx => ({
   dispatch: ctx.dispatch,
   data: ctx.context.data,
   user: ctx.context.user,
+  empresa: ctx.context.empresa,
 }))(ContactoEditor)

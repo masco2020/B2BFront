@@ -65,7 +65,7 @@ class Chat extends React.Component {
             marginTop: 20,
             paddingHorizontal: 10,
           }}
-          // inverted={-1}
+          inverted={-1}
           keyExtractor={(o, i) => `message_${i}`}
           data={this.props.conversation}
           renderItem={Message}

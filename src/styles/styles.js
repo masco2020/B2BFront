@@ -3,6 +3,7 @@ import Theme from 'themes/default'
 
 export const fz = StyleSheet.create({
   n16: { fontSize: 16 },
+  n18: { fontSize: 18 },
   n20: { fontSize: 20 },
   n24: { fontSize: 24 },
   n30: { fontSize: 30 },
@@ -30,6 +31,18 @@ export const bg = StyleSheet.create({
   gray: { backgroundColor: Theme.COLORS.GRAY },
   black: { backgroundColor: Theme.COLORS.BLACK },
   white: { backgroundColor: '#fff' },
+})
+
+export const br = StyleSheet.create({
+  left: {
+    borderTopLeftRadius: Theme.SIZES.ROUND,
+    borderBottomLeftRadius: Theme.SIZES.ROUND,
+  },
+  right: {
+    borderTopRightRadius: Theme.SIZES.ROUND,
+    borderBottomRightRadius: Theme.SIZES.ROUND,
+  },
+  full: { borderRadius: Theme.SIZES.ROUND },
 })
 
 // export const margin = (...args) => {

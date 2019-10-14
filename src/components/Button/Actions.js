@@ -59,7 +59,7 @@ export default class Actions {
       result = await DocumentPicker.getDocumentAsync({
         // type: 'application/pdf',
         type: '*/*',
-        copyToCacheDirectory: false,
+        copyToCacheDirectory: true,
       })
     } catch (error) {
       console.error(error)

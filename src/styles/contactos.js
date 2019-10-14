@@ -150,11 +150,36 @@ export default StyleSheet.create({
     paddingVertical: Theme.SIZES.BASE / 2,
     marginBottom: Theme.SIZES.BASE / 2,
   },
+  boxTop:{
+    justifyContent: 'space-between',
+     paddingBottom: 4,
+  },
+  blockText:{
+    flexDirection: 'column',
+  },
   infoText: {
     color: Theme.COLORS.BLACK,
     fontSize: Theme.SIZES.BASE,
-    marginLeft: Theme.SIZES.BASE,
-    width: '100%',
+    marginLeft: Theme.SIZES.BASE / 2,
+  },
+  textBox: {
+    color: Theme.COLORS.BLACK,
+    fontSize: Theme.SIZES.BASE + 2,
+    marginLeft: Theme.SIZES.BASE / 2,
+    textTransform: 'capitalize',
+  },
+  cargoStyle:{
+    color: Theme.COLORS.BLACK,
+    fontSize: Theme.SIZES.BASE,
+    marginLeft: Theme.SIZES.BASE / 2,
+    textTransform: 'capitalize',
+  },
+  btnNuevo:{
+    borderRadius: Theme.SIZES.RADIUS,
+    textTransform: 'capitalize',
+  },
+  textNuevo:{
+    textTransform: 'capitalize',
   },
   // textEmpresarialContacto: {
   // },
