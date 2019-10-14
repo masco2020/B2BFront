@@ -116,7 +116,7 @@ function requestFormdata({ url, headers, params }) {
     const { file, ...others } = params
     const uriParts = file.split('.')
     const fileExtension = uriParts[uriParts.length - 1]
-    let fileType = mime.lookup(`file.${fileType}`)
+    let fileType = mime.lookup(`file.${fileExtension}`)
 
     formdata.append('', {
       uri: file,
@@ -267,7 +267,6 @@ class API {
     const url = this.baseUrl + paths.historico
     const requiredParams = ['idEmpresa', 'idTipoContenido', 'idUsuario']
 
-    // FIXME: Llamar endpoint
     return requestFormdata({
       url,
       params,

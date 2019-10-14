@@ -3,9 +3,9 @@ import { Item, Input } from 'native-base'
 import Block from 'components/Block'
 import Icon from 'components/Icon'
 import Touchable from 'components/Touchable'
-import Theme from 'themes/default'
 import RoundedButton from 'components/RoundedButton'
 import { CONTENIDO } from './Actions'
+import ButtonAudio from './Audio'
 
 export default class MessageInput extends React.Component {
   state = {
@@ -40,6 +40,7 @@ export default class MessageInput extends React.Component {
               placeholder="Escribe el mensaje"
               underlineColorAndroid="transparent"
             />
+            <ButtonAudio onPress={this.props.onPress} />
             <Touchable onPress={this.props.onMoreActions}>
               <Icon name="paperclip" primary />
             </Touchable>

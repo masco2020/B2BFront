@@ -2,9 +2,11 @@ import React from 'react'
 import { Alert } from 'react-native'
 import { Audio } from 'expo-av'
 import * as Permissions from 'expo-permissions'
-import RoundedButton from '../RoundedButton'
+import Icon from 'components/Icon'
+import Touchable from 'components/Touchable'
+import { CONTENIDO } from './Actions'
 
-export default class ButtonLocation extends React.Component {
+export default class ButtonAudio extends React.Component {
   recording = new Audio.Recording()
 
   state = {
@@ -63,8 +65,8 @@ export default class ButtonLocation extends React.Component {
     this.recording = new Audio.Recording()
 
     this.props.onPress({
-      audio: fileUrl,
-      type: 'audio',
+      file: fileUrl,
+      type: CONTENIDO.audio,
     })
   }
 
@@ -78,6 +80,10 @@ export default class ButtonLocation extends React.Component {
   }
 
   render() {
-    return <RoundedButton onPress={this.getAudio} icon={this.state.icon} />
+    return (
+      <Touchable onPress={this.getAudio}>
+        <Icon name={this.state.icon} primary />
+      </Touchable>
+    )
   }
 }
