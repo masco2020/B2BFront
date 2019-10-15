@@ -16,16 +16,21 @@ class MessageImage extends React.Component {
     uri: '',
   }
 
-  // TODO: Revisar url de imagen
-  componentDidMount() {
-    this.props.api
-      .historicoMedia({ NombreArchivo: this.props.nombreArchivo })
-      .then(res => {
-        this.setState({ uri: res })
+  async componentDidMount() {
+    try {
+      const res = await this.props.api.historicoMedia({
+        NombreArchivo: this.props.nombreArchivo,
       })
-      .catch(() => {
-        this.setState({ broken: true })
-      })
+      // eslint-disable-next-line no-undef
+      const fileReaderInstance = new FileReader()
+      fileReaderInstance.readAsDataURL(res)
+      fileReaderInstance.onload = () => {
+        this.setState({ uri: fileReaderInstance.result })
+      }
+    } catch (error) {
+      console.info('image', error)
+      this.setState({ broken: true })
+    }
   }
 
   toggleModal = () => {

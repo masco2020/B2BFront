@@ -57,6 +57,7 @@ class Historico extends Component {
         idTipoContenido: type,
         idUsuario: this.props.user.idUsuario,
       })
+      this.props.dispatch({ type: 'APP_LOADING', payload: false })
 
       if (response && response.success) {
         produce(draft => {

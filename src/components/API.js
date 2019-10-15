@@ -82,6 +82,8 @@ function request({ url, method = 'GET', headers, params, requiredParams }) {
       }
     }
 
+    const expectsJSON = headers.Accept === 'application/json'
+
     let urlToFetch, data
     if (method === 'GET') {
       const paramsEncoded = serializeQuery(params)
@@ -94,10 +96,16 @@ function request({ url, method = 'GET', headers, params, requiredParams }) {
     }
 
     fetch(urlToFetch, data)
-      .then(response => response.json())
+      .then(response => {
+        if (expectsJSON) {
+          return response.json()
+        } else {
+          return response.blob()
+        }
+      })
       //If response is in json then in success
       .then(response => {
-        if (!response.success) {
+        if (expectsJSON && !response.success) {
           console.info('>>>', data)
           return reject(response)
         }
@@ -258,7 +266,7 @@ class API {
       requiredParams,
       headers: {
         Authorization: 'Bearer ' + this.token,
-        Accept: 'application/octet-stream',
+        // Accept: 'application/octet-stream',
       },
     })
   }
