@@ -1,5 +1,8 @@
 /* eslint-disable max-len */
 import * as mime from 'react-native-mime-types'
+import * as FileSystem from 'expo-file-system'
+import { CameraRoll } from 'react-native'
+import qs from 'qs'
 
 const urlAPI = 'http://190.117.249.6/Rutex/api'
 const paths = {
@@ -48,16 +51,16 @@ const paths = {
  * @returns {string}
  */
 
-function serializeQuery(params) {
-  let paramsEncoded = []
-  for (const key in params) {
-    const encodedKey = encodeURIComponent(key)
-    const encodedValue = encodeURIComponent(params[key])
-    paramsEncoded.push(encodedKey + '=' + encodedValue)
-  }
+// function serializeQuery(params) {
+//   let paramsEncoded = []
+//   for (const key in params) {
+//     const encodedKey = encodeURIComponent(key)
+//     const encodedValue = encodeURIComponent(params[key])
+//     paramsEncoded.push(encodedKey + '=' + encodedValue)
+//   }
 
-  return paramsEncoded.join('&')
-}
+//   return paramsEncoded.join('&')
+// }
 
 /**
  * @typedef {Object} RequestResponse
@@ -86,7 +89,7 @@ function request({ url, method = 'GET', headers, params, requiredParams }) {
 
     let urlToFetch, data
     if (method === 'GET') {
-      const paramsEncoded = serializeQuery(params)
+      const paramsEncoded = qs.stringify(params)
 
       urlToFetch = `${url}?${paramsEncoded}`
       data = { method, headers }
@@ -122,15 +125,17 @@ function requestFormdata({ url, headers, params }) {
     let formdata = new FormData()
 
     const { file, ...others } = params
-    const uriParts = file.split('.')
-    const fileExtension = uriParts[uriParts.length - 1]
-    let fileType = mime.lookup(`file.${fileExtension}`)
+    if (file) {
+      const uriParts = file.split('.')
+      const fileExtension = uriParts[uriParts.length - 1]
+      let fileType = mime.lookup(`file.${fileExtension}`)
 
-    formdata.append('', {
-      uri: file,
-      name: `file.${fileExtension}`,
-      type: fileType,
-    })
+      formdata.append('', {
+        uri: file,
+        name: `file.${fileExtension}`,
+        type: fileType,
+      })
+    }
 
     Object.keys(others).forEach(key => {
       formdata.append(key, params[key])
@@ -266,8 +271,23 @@ class API {
       requiredParams,
       headers: {
         Authorization: 'Bearer ' + this.token,
-        // Accept: 'application/octet-stream',
       },
+    })
+  }
+
+  downloadMedia(params) {
+    const url = this.baseUrl + paths.historico + 'DescargarContenidoHistorico'
+
+    return FileSystem.downloadAsync(
+      url + `?NombreArchivo=${params.NombreArchivo}`,
+      FileSystem.cacheDirectory + params.NombreArchivo,
+      {
+        headers: {
+          Authorization: 'Bearer ' + this.token,
+        },
+      }
+    ).then(({ uri }) => {
+      return CameraRoll.saveToCameraRoll(uri, 'photo')
     })
   }
 

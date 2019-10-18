@@ -33,6 +33,10 @@ export const bg = StyleSheet.create({
   white: { backgroundColor: '#fff' },
 })
 
+export const tt = StyleSheet.create({
+  cap: { textTransform: 'capitalize' },
+})
+
 export const br = StyleSheet.create({
   left: {
     borderTopLeftRadius: Theme.SIZES.ROUND,

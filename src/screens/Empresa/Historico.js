@@ -57,12 +57,13 @@ class Historico extends Component {
         idTipoContenido: type,
         idUsuario: this.props.user.idUsuario,
       })
-      this.props.dispatch({ type: 'APP_LOADING', payload: false })
 
       if (response && response.success) {
-        produce(draft => {
-          draft.messages = [].concat(response.data, draft.messages)
-        })
+        this.setState(
+          produce(draft => {
+            draft.messages = [].concat(response.data, draft.messages)
+          })
+        )
       }
     } catch (error) {
       console.info('xxxx', error)

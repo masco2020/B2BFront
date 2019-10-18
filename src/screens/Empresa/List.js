@@ -1,14 +1,17 @@
 import React from 'react'
 import { ActivityIndicator, FlatList } from 'react-native'
+import produce from 'immer'
+import debounce from 'lodash/debounce'
+
 import EmpresaBox from 'components/EmpresaBox'
 import { connect } from 'components/AppProvider'
-import produce from 'immer'
 
 const MAX_PER_PAGE = 10
 
 class EmpresaList extends React.Component {
   static defaultProps = {
     esExportador: false,
+    filter: {},
   }
 
   state = {
@@ -18,7 +21,7 @@ class EmpresaList extends React.Component {
 
   // TODO: No llamar en componentDidMount
   componentDidMount() {
-    this.loadEmpresas()
+    this.debouncedLoad()
   }
 
   onScroll = event => {
@@ -33,35 +36,40 @@ class EmpresaList extends React.Component {
     }
   }
 
-  loadEmpresas = async () => {
+  loadEmpresas = async reset => {
     if (this.props.loading) {
       return
     }
 
-    const { esExportador, dispatch } = this.props
+    const { esExportador, dispatch, filter } = this.props
 
     dispatch({ type: 'APP_LOADING', payload: true })
-    const Pagina = this.state.page
+    const Pagina = reset ? 1 : this.state.page
 
     try {
       const res = await this.props.api.empresasList({
         Pagina,
         Cantidad: MAX_PER_PAGE,
         EsExportador: esExportador,
+        ...filter,
       })
 
-      this.setState(
-        produce(draft => {
-          draft.page = Pagina + 1
-          draft.empresas = draft.empresas.concat(res.data)
-        })
-      )
+      if (res && res.data && res.data.length) {
+        this.setState(
+          produce(draft => {
+            draft.page = Pagina + 1
+            draft.empresas = reset ? res.data : draft.empresas.concat(res.data)
+          })
+        )
+      }
     } catch (error) {
       console.error('ERROR', error)
     } finally {
       dispatch({ type: 'APP_LOADING', payload: false })
     }
   }
+
+  debouncedLoad = debounce(this.loadEmpresas, 1000)
 
   renderFooter = () => {
     if (!this.props.loading) return null
@@ -87,8 +95,7 @@ class EmpresaList extends React.Component {
 
 export default connect(ctx => ({
   empresas: ctx.context.empresas,
-  loading: ctx.loading,
+  loading: ctx.context.app.loading,
   api: ctx.api,
   dispatch: ctx.dispatch,
-  setContext: ctx.setContext,
 }))(EmpresaList)

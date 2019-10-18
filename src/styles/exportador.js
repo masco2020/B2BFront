@@ -122,11 +122,12 @@ export default StyleSheet.create({
     paddingRight: 0,
   },
   listItem: {
-    borderBottomWidth: 0,
-    borderBottomColor: undefined,
-    marginLeft: 0,
-    paddingBottom: 4,
-    paddingTop: 4,
+    // borderBottomWidth: 0,
+    // borderBottomColor: undefined,
+    // marginLeft: 0,
+    // paddingBottom: 4,
+    // paddingTop: 4,
+    // paddingVertical: 4,
   },
   itemBodyFicha: {},
   itemTitle: {
@@ -139,8 +140,8 @@ export default StyleSheet.create({
   dateFicha: {
     color: Theme.COLORS.BLACK,
     fontSize: 16,
-    fontWeight: 'bold',
-    marginLeft: 0,
+    // fontWeight: 'bold',
+    textTransform: 'capitalize',
   },
   textItem: {
     fontSize: 18,
@@ -148,6 +149,7 @@ export default StyleSheet.create({
   masFiltrosBtn: {
     justifyContent: 'center',
     alignItems: 'center',
+    marginBottom: Theme.SIZES.BASE,
   },
   masFiltrosBtnText: {
     color: Theme.COLORS.PRIMARY,
@@ -198,5 +200,4 @@ export default StyleSheet.create({
     marginRight: 13,
     fontSize: 26,
   },
-  /* end from estilos */
 })

@@ -2,66 +2,141 @@ import React from 'react'
 import {
   Body,
   Button,
-  CheckBox,
   Content,
   Icon,
   Input,
   Item,
-  Left,
-  List,
   ListItem,
   Segment,
-  Radio,
+  Picker,
   Right,
   Text,
   View,
 } from 'native-base'
 import ModalC from 'react-native-modal'
-import Modal from 'components/Modal'
+import get from 'lodash/get'
+import set from 'lodash/set'
+import produce from 'immer'
 
-import styles from 'styles/exportador'
-import Block from 'components/Block'
-import EmpresaList from 'screens/Empresa/List'
 import { Hbar } from 'components/styled'
+import { connect } from 'components/AppProvider'
+import Block from 'components/Block'
+import Modal from 'components/Modal'
+import Touchable from 'components/Touchable'
+import EmpresaList from 'screens/Empresa/List'
 import Theme from 'themes/default'
+import styles from 'styles/exportador'
+import { tt } from 'styles/styles'
 
 const options = [
-  { active: true, label: 'Empresa', types: ['comprador', 'exportador'] },
-  { active: false, label: 'Producto', types: ['comprador', 'exportador'] },
-  { active: false, label: 'Ciudad', types: ['exportador'] },
-  { active: false, label: 'Pais', types: ['comprador'] },
+  {
+    value: 'empresa',
+    param: 'Empresa',
+    label: 'Empresa',
+    types: ['comprador', 'exportador'],
+  },
+  {
+    value: 'producto',
+    param: 'producto',
+    label: 'Producto',
+    types: ['comprador', 'exportador'],
+  },
+  { value: 'ciudad', param: 'ciudad', label: 'Ciudad', types: ['exportador'] },
+  { value: 'pais', param: 'pais', label: 'Pais', types: ['comprador'] },
 ]
 
-export default class Empresa extends React.Component {
+function updateStateOnCheckbox(draft, key, value) {
+  const array = draft.form[key] || []
+  const selected = array.find(o => o.id === value)
+  const filtered = array.filter(o => o.id !== value)
+
+  if (selected) {
+    draft.form[key] = filtered
+  } else {
+    draft.form[key] = [].concat(filtered, { id: value })
+  }
+}
+
+class Empresa extends React.Component {
   state = {
-    masFiltros: false,
-    selectCheck: false,
-    sectorModalVisible: false,
+    quickFilter: false,
+    advancedFilter: false,
+    textFilter: options[0],
+    form: {},
   }
 
-  setMasFiltros(visible) {
-    this.setState({
-      masFiltros: visible,
-    })
+  toggleAdvanced = visible => () => {
+    this.setState({ advancedFilter: visible })
   }
 
-  sectorModal = () => {
-    this.setState({
-      sectorModalVisible: !this.state.sectorModalVisible,
-    })
+  toggleQuick = visible => () => {
+    this.setState({ quickFilter: visible })
   }
 
-  selectCheckable = () => {
-    this.setState({
-      selectCheck: !this.state.selectCheck,
-    })
+  onSegmentButton = value => () => {
+    this.setState(
+      produce(draft => {
+        draft.textFilter = value
+        options.forEach(o => {
+          set(draft, `form[${o.param}]`, null)
+        })
+      })
+    )
   }
 
-  renderModalSectores() {
+  onTextFilterSearch = () => {
+    this.list.debouncedLoad(true)
+  }
+
+  addToForm = (key, value) => () => {
+    this.setState(
+      produce(draft => {
+        updateStateOnCheckbox(draft, key, value)
+      })
+    )
+  }
+
+  addToFormQuick = (key, value) => () => {
+    this.setState(
+      produce(draft => {
+        updateStateOnCheckbox(draft, key, value)
+      }),
+      this.list.debouncedLoad
+    )
+  }
+
+  isValueChecked = (key, value) => {
+    const prop = get(this.state, `form[${key}]`, [])
+    return !!prop.find(o => o.id === value)
+  }
+
+  setForm = key => value => {
+    this.setState(
+      produce(draft => {
+        draft.form[key] = value
+      })
+    )
+  }
+
+  doAdvancedFilter = () => {
+    this.setState(
+      {
+        quickFilter: false,
+        advancedFilter: false,
+      },
+      () => {
+        this.list.debouncedLoad(true)
+      }
+    )
+  }
+
+  renderQuickFilter() {
+    const { listaSectores = [] } = this.props.data
+
     return (
       <ModalC
-        isVisible={this.state.sectorModalVisible}
-        onBackdropPress={() => this.setState({ sectorModalVisible: false })}
+        isVisible={this.state.quickFilter}
+        onBackdropPress={this.toggleQuick(false)}
         style={{
           margin: 0,
           backgroundColor: 'white',
@@ -71,547 +146,166 @@ export default class Empresa extends React.Component {
           position: 'absolute',
           width: '100%',
         }}>
-        <View style={{ flex: 1, padding: 16 }}>
-          <List>
-            <ListItem style={[styles.listItem, { marginTop: 10 }]} first>
-              <Body style={[styles.itemBodyFicha]}>
-                <Text style={[styles.itemTitle]} note>
-                  Sector
+        <Block flex>
+          <Text style={[styles.itemTitle, { padding: Theme.SIZES.BASE }]}>
+            Sectores
+          </Text>
+          {listaSectores.map(sector => (
+            <ListItem
+              key={sector.id}
+              noBorder
+              onPress={this.addToFormQuick('listaSectores', sector.id)}>
+              <Body style={{ margin: 0, padding: 0 }}>
+                <Text style={[styles.dateFicha, styles.textItem]}>
+                  {sector.nombre}
                 </Text>
               </Body>
-            </ListItem>
-            <ListItem style={[styles.listItem]}>
-              <Left style={[styles.itemBodyFicha]}>
-                <Text style={[styles.dateFicha, styles.textItem]}>
-                  Agronegocios
-                </Text>
-              </Left>
               <Right>
-                <CheckBox
-                  color={Theme.COLORS.PRIMARY}
-                  checked={this.state.selectCheck}
-                  onPress={this.selectCheckable}
-                />
+                {this.isValueChecked('listaSectores', sector.id) && (
+                  <Icon
+                    type="FontAwesome5"
+                    color={Theme.COLORS.PRIMARY}
+                    name="check"
+                  />
+                )}
               </Right>
             </ListItem>
-            <ListItem style={[styles.listItem]}>
-              <Left style={[styles.itemBodyFicha]}>
-                <Text style={[styles.dateFicha, styles.textItem]}>
-                  Exportación de Servicios
-                </Text>
-              </Left>
-              <Right>
-                <CheckBox color={Theme.COLORS.PRIMARY} checked={true} />
-              </Right>
-            </ListItem>
-            <ListItem style={[styles.listItem]}>
-              <Left style={[styles.itemBodyFicha]}>
-                <Text style={[styles.dateFicha, styles.textItem]}>
-                  Industria de la vestimenta y decoración
-                </Text>
-              </Left>
-              <Right>
-                <CheckBox color={Theme.COLORS.PRIMARY} checked={true} />
-              </Right>
-            </ListItem>
-            <ListItem style={[styles.listItem]}>
-              <Left style={[styles.itemBodyFicha]}>
-                <Text style={[styles.dateFicha, styles.textItem]}>
-                  Manufacturas Diversas
-                </Text>
-              </Left>
-              <Right>
-                <CheckBox color={Theme.COLORS.PRIMARY} checked={true} />
-              </Right>
-            </ListItem>
-            <ListItem style={[styles.listItem]}>
-              <Left style={[styles.itemBodyFicha]}>
-                <Text style={[styles.dateFicha, styles.textItem]}>
-                  Productos Pesqueros
-                </Text>
-              </Left>
-              <Right>
-                <CheckBox color={Theme.COLORS.PRIMARY} checked={true} />
-              </Right>
-            </ListItem>
-          </List>
+          ))}
           <View
             style={{
               borderBottomWidth: 2,
               borderBottomColor: Theme.COLORS.PRIMARY,
               margin: 15,
+              marginBottom: 0,
             }}
           />
           <Button
             transparent
             style={[styles.masFiltrosBtn]}
-            onPress={() => {
-              this.setMasFiltros(true)
-            }}>
+            onPress={this.toggleAdvanced(true)}>
             <Text style={[styles.masFiltrosBtnText]}>Ver más filtros</Text>
           </Button>
-        </View>
+        </Block>
       </ModalC>
     )
   }
 
-  renderModal() {
+  renderCheckboxesItem(groupName, listaName, listaArray) {
     return (
-      <Modal
-        header="Filtros"
-        visible={this.state.masFiltros}
-        onRequestClose={() => {
-          this.setMasFiltros(!this.state.masFiltros)
-        }}>
-        <Content>
-          <View style={{ padding: 30 }}>
-            <List>
-              <ListItem style={[styles.listItem, { marginTop: 10 }]} first>
-                <Body style={[styles.itemBodyFicha]}>
-                  <Text style={[styles.itemTitle]} note>
-                    Sector
-                  </Text>
-                </Body>
-              </ListItem>
-              <ListItem style={[styles.listItem]}>
-                <Left style={[styles.itemBodyFicha]}>
-                  <Text style={[styles.dateFicha, styles.textItem]}>
-                    Agronegocios
-                  </Text>
-                </Left>
-                <Right>
-                  <CheckBox
+      <React.Fragment>
+        <Text style={[styles.itemTitle, { padding: Theme.SIZES.BASE }]}>
+          {groupName}
+        </Text>
+        {listaArray.map(lista => {
+          const isSelected = this.isValueChecked(listaName, lista.id)
+
+          return (
+            <ListItem
+              key={lista.id}
+              noBorder
+              selected={isSelected}
+              onPress={this.addToForm(listaName, lista.id)}>
+              <Body style={{ margin: 0, padding: 0 }}>
+                <Text style={[styles.dateFicha, styles.textItem]}>
+                  {lista.nombre}
+                </Text>
+              </Body>
+              <Right>
+                {this.isValueChecked(listaName, lista.id) && (
+                  <Icon
+                    type="FontAwesome5"
                     color={Theme.COLORS.PRIMARY}
-                    checked={this.state.selectCheck}
-                    onPress={this.selectCheckable}
+                    name="check"
                   />
-                </Right>
-              </ListItem>
-              <ListItem style={[styles.listItem]}>
-                <Left style={[styles.itemBodyFicha]}>
-                  <Text style={[styles.dateFicha, styles.textItem]}>
-                    Exportación de Servicios
-                  </Text>
-                </Left>
-                <Right>
-                  <CheckBox color={Theme.COLORS.PRIMARY} checked={true} />
-                </Right>
-              </ListItem>
-              <ListItem style={[styles.listItem]}>
-                <Left style={[styles.itemBodyFicha]}>
-                  <Text style={[styles.dateFicha, styles.textItem]}>
-                    Industria de la vestimenta y decoración
-                  </Text>
-                </Left>
-                <Right>
-                  <CheckBox color={Theme.COLORS.PRIMARY} checked={true} />
-                </Right>
-              </ListItem>
-              <ListItem style={[styles.listItem]}>
-                <Left style={[styles.itemBodyFicha]}>
-                  <Text style={[styles.dateFicha, styles.textItem]}>
-                    Manufacturas Diversas
-                  </Text>
-                </Left>
-                <Right>
-                  <CheckBox color={Theme.COLORS.PRIMARY} checked={true} />
-                </Right>
-              </ListItem>
-              <ListItem style={[styles.listItem]}>
-                <Left style={[styles.itemBodyFicha]}>
-                  <Text style={[styles.dateFicha, styles.textItem]}>
-                    Productos Pesqueros
-                  </Text>
-                </Left>
-                <Right>
-                  <CheckBox color={Theme.COLORS.PRIMARY} checked={true} />
-                </Right>
-              </ListItem>
-              <ListItem style={[styles.listItem, { marginTop: 10 }]}>
-                <Body style={[styles.itemBodyFicha]}>
-                  <Text style={[styles.itemTitle]} note>
-                    Tipo de Negocio
-                  </Text>
-                </Body>
-              </ListItem>
-              <ListItem style={[styles.listItem]}>
-                <Left style={[styles.itemBodyFicha]}>
-                  <Text style={[styles.dateFicha, styles.textItem]}>
-                    Tipo A
-                  </Text>
-                </Left>
-                <Right>
-                  <CheckBox
-                    color={Theme.COLORS.PRIMARY}
-                    checked={this.state.selectCheck}
-                    onPress={this.selectCheckable}
-                  />
-                </Right>
-              </ListItem>
-              <ListItem style={[styles.listItem]}>
-                <Left style={[styles.itemBodyFicha]}>
-                  <Text style={[styles.dateFicha, styles.textItem]}>
-                    Tipo B
-                  </Text>
-                </Left>
-                <Right>
-                  <CheckBox color={Theme.COLORS.PRIMARY} checked={true} />
-                </Right>
-              </ListItem>
-              <ListItem style={[styles.listItem]}>
-                <Left style={[styles.itemBodyFicha]}>
-                  <Text style={[styles.dateFicha, styles.textItem]}>
-                    Tipo C
-                  </Text>
-                </Left>
-                <Right>
-                  <CheckBox color={Theme.COLORS.PRIMARY} checked={true} />
-                </Right>
-              </ListItem>
-              <ListItem style={[styles.listItem, { marginTop: 10 }]}>
-                <Body style={[styles.itemBodyFicha]}>
-                  <Text style={[styles.itemTitle]} note>
-                    Tamaño
-                  </Text>
-                </Body>
-              </ListItem>
-              <ListItem style={[styles.listItem]}>
-                <Left style={[styles.itemBodyFicha]}>
-                  <Text style={[styles.dateFicha, styles.textItem]}>
-                    Pequeño
-                  </Text>
-                </Left>
-                <Right>
-                  <CheckBox
-                    color={Theme.COLORS.PRIMARY}
-                    checked={this.state.selectCheck}
-                    onPress={this.selectCheckable}
-                  />
-                </Right>
-              </ListItem>
-              <ListItem style={[styles.listItem]}>
-                <Left style={[styles.itemBodyFicha]}>
-                  <Text style={[styles.dateFicha, styles.textItem]}>
-                    Mediano
-                  </Text>
-                </Left>
-                <Right>
-                  <CheckBox color={Theme.COLORS.PRIMARY} checked={true} />
-                </Right>
-              </ListItem>
-              <ListItem style={[styles.listItem]}>
-                <Left style={[styles.itemBodyFicha]}>
-                  <Text style={[styles.dateFicha, styles.textItem]}>
-                    Grande
-                  </Text>
-                </Left>
-                <Right>
-                  <CheckBox color={Theme.COLORS.PRIMARY} checked={true} />
-                </Right>
-              </ListItem>
-              <ListItem style={[styles.listItem]}>
-                <Left style={[styles.itemBodyFicha]}>
-                  <Text style={[styles.dateFicha, styles.textItem]}>
-                    Extra Grande
-                  </Text>
-                </Left>
-                <Right>
-                  <CheckBox color={Theme.COLORS.PRIMARY} checked={true} />
-                </Right>
-              </ListItem>
-              <ListItem style={[styles.listItem, { marginTop: 10 }]}>
-                <Body style={[styles.itemBodyFicha]}>
-                  <Text style={[styles.itemTitle]} note>
-                    Ciudad
-                  </Text>
-                </Body>
-              </ListItem>
-              <ListItem style={[styles.listItem]}>
-                <View style={[styles.searchBarH]}>
-                  <Item style={{ borderBottomWidth: 0 }}>
-                    <Input
-                      style={{ height: 40, paddingTop: 0, paddingBottom: 0 }}
-                      placeholder="Busca Ciudad"
-                    />
-                    <Icon
-                      type="FontAwesome5"
-                      color={Theme.COLORS.PRIMARY}
-                      style={[styles.searchBarHIcon]}
-                      name="search"
-                    />
-                  </Item>
-                </View>
-              </ListItem>
-            </List>
-            <Button block small style={[styles.filtrarBtn, styles.borderBtn]}>
-              <Text style={[styles.filtrarBtnText]}>Filtrar</Text>
-            </Button>
-          </View>
-        </Content>
-      </Modal>
+                )}
+              </Right>
+            </ListItem>
+          )
+        })}
+      </React.Fragment>
     )
   }
 
-  renderModalCompradores() {
+  renderPicker(groupName, listaName, listaArray) {
+    return (
+      <React.Fragment>
+        <Text style={[styles.itemTitle, { padding: Theme.SIZES.BASE }]}>
+          {groupName}
+        </Text>
+        <Block style={{ paddingHorizontal: Theme.SIZES.BASE }}>
+          <Item picker>
+            <Picker
+              mode="dropdown"
+              iosIcon={<Icon name="arrow-down" />}
+              iosHeader={groupName}
+              placeholder={groupName}
+              placeholderStyle={{ color: '#BFC6EA', width: '100%' }}
+              selectedValue={this.state.form[listaName]}
+              onValueChange={this.setForm(listaName)}>
+              <Picker.Item label="Selecciona una opción" value={null} />
+              {listaArray.map(doc => (
+                <Picker.Item key={doc.id} label={doc.nombre} value={doc.id} />
+              ))}
+            </Picker>
+          </Item>
+        </Block>
+      </React.Fragment>
+    )
+  }
+
+  renderAdvancedFilter() {
+    const {
+      listaSectores = [],
+      listaTipoNegocio = [],
+      listaTamanio = [],
+      listaUbigeoExportador = [],
+      listaMediosContacto = [],
+      listaPaisComprador = [],
+    } = this.props.data
+    const esExportador = this.props.navigation.getParam('esExportador')
+
     return (
       <Modal
         header="Filtros"
-        visible={this.state.masFiltros}
-        onRequestClose={() => {
-          this.setMasFiltros(!this.state.masFiltros)
-        }}>
+        visible={this.state.advancedFilter}
+        onRequestClose={this.toggleAdvanced(false)}>
         <Content>
-          <View style={{ padding: 30 }}>
-            <List>
-              <ListItem style={[styles.listItem]} first>
-                <Body style={[styles.itemBodyFicha]}>
-                  <Text style={[styles.itemTitle]} note>
-                    Sector
-                  </Text>
-                </Body>
-              </ListItem>
-              <ListItem style={[styles.listItem]}>
-                <Left style={[styles.itemBodyFicha]}>
-                  <Text style={[styles.dateFicha, styles.textItem]}>
-                    Agronegocios
-                  </Text>
-                </Left>
-                <Right>
-                  <CheckBox
-                    color={Theme.COLORS.PRIMARY}
-                    checked={this.state.selectCheck}
-                    onPress={this.selectCheckable}
-                  />
-                </Right>
-              </ListItem>
-              <ListItem style={[styles.listItem]}>
-                <Left style={[styles.itemBodyFicha]}>
-                  <Text style={[styles.dateFicha, styles.textItem]}>
-                    Exportación de Servicios
-                  </Text>
-                </Left>
-                <Right>
-                  <CheckBox color={Theme.COLORS.PRIMARY} checked={true} />
-                </Right>
-              </ListItem>
-              <ListItem style={[styles.listItem]}>
-                <Left style={[styles.itemBodyFicha]}>
-                  <Text style={[styles.dateFicha, styles.textItem]}>
-                    Industria de la vestimenta y decoración
-                  </Text>
-                </Left>
-                <Right>
-                  <CheckBox color={Theme.COLORS.PRIMARY} checked={true} />
-                </Right>
-              </ListItem>
-              <ListItem style={[styles.listItem]}>
-                <Left style={[styles.itemBodyFicha]}>
-                  <Text style={[styles.dateFicha, styles.textItem]}>
-                    Manufacturas Diversas
-                  </Text>
-                </Left>
-                <Right>
-                  <CheckBox color={Theme.COLORS.PRIMARY} checked={true} />
-                </Right>
-              </ListItem>
-              <ListItem style={[styles.listItem]}>
-                <Left style={[styles.itemBodyFicha]}>
-                  <Text style={[styles.dateFicha, styles.textItem]}>
-                    Productos Pesqueros
-                  </Text>
-                </Left>
-                <Right>
-                  <CheckBox color={Theme.COLORS.PRIMARY} checked={true} />
-                </Right>
-              </ListItem>
-              <ListItem style={[styles.listItem, { marginTop: 10 }]}>
-                <Body style={[styles.itemBodyFicha]}>
-                  <Text style={[styles.itemTitle]} note>
-                    Alcance
-                  </Text>
-                </Body>
-              </ListItem>
-              <ListItem style={[styles.listItem]}>
-                <Left style={[styles.itemBodyFicha]}>
-                  <Text style={[styles.dateFicha, styles.textItem]}>
-                    Tipo A
-                  </Text>
-                </Left>
-                <Right>
-                  <CheckBox
-                    color={Theme.COLORS.PRIMARY}
-                    checked={this.state.selectCheck}
-                    onPress={this.selectCheckable}
-                  />
-                </Right>
-              </ListItem>
-              <ListItem style={[styles.listItem]}>
-                <Left style={[styles.itemBodyFicha]}>
-                  <Text style={[styles.dateFicha, styles.textItem]}>
-                    A nivel nacional
-                  </Text>
-                </Left>
-                <Right>
-                  <CheckBox color={Theme.COLORS.PRIMARY} checked={true} />
-                </Right>
-              </ListItem>
-              <ListItem style={[styles.listItem]}>
-                <Left style={[styles.itemBodyFicha]}>
-                  <Text style={[styles.dateFicha, styles.textItem]}>
-                    A Nivel Ciudad
-                  </Text>
-                </Left>
-                <Right>
-                  <CheckBox color={Theme.COLORS.PRIMARY} checked={true} />
-                </Right>
-              </ListItem>
-              <ListItem style={[styles.listItem]}>
-                <Left style={[styles.itemBodyFicha]}>
-                  <Text style={[styles.dateFicha, styles.textItem]}>
-                    A nivel internacional
-                  </Text>
-                </Left>
-                <Right>
-                  <CheckBox color={Theme.COLORS.PRIMARY} checked={true} />
-                </Right>
-              </ListItem>
-              <ListItem style={[styles.listItem]}>
-                <Left style={[styles.itemBodyFicha]}>
-                  <Text style={[styles.dateFicha, styles.textItem]}>
-                    A nivel región
-                  </Text>
-                </Left>
-                <Right>
-                  <CheckBox color={Theme.COLORS.PRIMARY} checked={true} />
-                </Right>
-              </ListItem>
-              <ListItem style={[styles.listItem, { marginTop: 10 }]}>
-                <Body style={[styles.itemBodyFicha]}>
-                  <Text style={[styles.itemTitle]} note>
-                    Tamaño
-                  </Text>
-                </Body>
-              </ListItem>
-              <ListItem style={[styles.listItem]}>
-                <Left style={[styles.itemBodyFicha]}>
-                  <Text style={[styles.dateFicha, styles.textItem]}>
-                    Pequeño
-                  </Text>
-                </Left>
-                <Right>
-                  <CheckBox
-                    color={Theme.COLORS.PRIMARY}
-                    checked={this.state.selectCheck}
-                    onPress={this.selectCheckable}
-                  />
-                </Right>
-              </ListItem>
-              <ListItem style={[styles.listItem]}>
-                <Left style={[styles.itemBodyFicha]}>
-                  <Text style={[styles.dateFicha, styles.textItem]}>
-                    Mediano
-                  </Text>
-                </Left>
-                <Right>
-                  <CheckBox color={Theme.COLORS.PRIMARY} checked={true} />
-                </Right>
-              </ListItem>
-              <ListItem style={[styles.listItem]}>
-                <Left style={[styles.itemBodyFicha]}>
-                  <Text style={[styles.dateFicha, styles.textItem]}>
-                    Grande
-                  </Text>
-                </Left>
-                <Right>
-                  <CheckBox color={Theme.COLORS.PRIMARY} checked={true} />
-                </Right>
-              </ListItem>
-              <ListItem style={[styles.listItem]}>
-                <Left style={[styles.itemBodyFicha]}>
-                  <Text style={[styles.dateFicha, styles.textItem]}>
-                    Extra Grande
-                  </Text>
-                </Left>
-                <Right>
-                  <CheckBox color={Theme.COLORS.PRIMARY} checked={true} />
-                </Right>
-              </ListItem>
-              <ListItem style={[styles.listItem, { marginTop: 10 }]}>
-                <Body style={[styles.itemBodyFicha]}>
-                  <Text style={[styles.itemTitle]} note>
-                    ¿Ha Importado del Perú?
-                  </Text>
-                </Body>
-              </ListItem>
-              <ListItem style={[styles.listItem]}>
-                <Left style={[styles.itemBodyFicha]}>
-                  <Text style={[styles.dateFicha, styles.textItem]}>Si</Text>
-                </Left>
-                <Right>
-                  <Radio
-                    selected={this.state.selectCheck}
-                    onPress={this.selectCheckable}
-                  />
-                </Right>
-              </ListItem>
-              <ListItem style={[styles.listItem]}>
-                <Left style={[styles.itemBodyFicha]}>
-                  <Text style={[styles.dateFicha, styles.textItem]}>No</Text>
-                </Left>
-                <Right>
-                  <Radio selected={false} />
-                </Right>
-              </ListItem>
-              <ListItem style={[styles.listItemFicha]}>
-                <Body style={[styles.itemBodyFicha]}>
-                  <Text style={[styles.tittleFicha]} note>
-                    Indicar: ¿A que medio realizo el contacto?
-                  </Text>
-                  <Button
-                    bordered
-                    iconRight
-                    style={[styles.btnPicker, styles.borderBtn]}
-                    onPress={this.MediosModal}>
-                    <Text
-                      style={[
-                        styles.dateFicha,
-                        styles.btnListFicha,
-                        styles.dateBtnListFichaSectores,
-                      ]}>
-                      Medio de Contacto
-                    </Text>
-                    <Icon type="FontAwesome" name="caret-down" />
-                  </Button>
-                </Body>
-              </ListItem>
-              <ListItem style={[styles.listItem, { marginTop: 10 }]}>
-                <Body style={[styles.itemBodyFicha]}>
-                  <Text style={[styles.itemTitle]} note>
-                    Pais
-                  </Text>
-                </Body>
-              </ListItem>
-              <ListItem style={[styles.listItem]}>
-                <View style={[styles.searchBarH]}>
-                  <Item style={{ borderBottomWidth: 0 }}>
-                    <Input
-                      style={{ height: 40, paddingTop: 0, paddingBottom: 0 }}
-                      placeholder="Busca Pais"
-                    />
-                    <Icon
-                      type="FontAwesome5"
-                      color={Theme.COLORS.PRIMARY}
-                      style={[styles.searchBarHIcon]}
-                      name="search"
-                    />
-                  </Item>
-                </View>
-              </ListItem>
-            </List>
-            <Button block small style={[styles.filtrarBtn, styles.borderBtn]}>
-              <Text style={[styles.filtrarBtnText]}>Filtrar</Text>
+          {this.renderCheckboxesItem(
+            'Sectores',
+            'listaSectores',
+            listaSectores
+          )}
+          {this.renderCheckboxesItem(
+            'Tipo de Negocio',
+            'listaTipoNegocio',
+            listaTipoNegocio
+          )}
+          {this.renderCheckboxesItem(
+            'Tipo de Negocio',
+            'listaTipoNegocio',
+            listaTipoNegocio
+          )}
+          {this.renderCheckboxesItem('Tamaño', 'listaTamanio', listaTamanio)}
+          {esExportador &&
+            this.renderPicker(
+              'Ciudad',
+              'listaUbigeoExportador',
+              listaUbigeoExportador
+            )}
+          {!esExportador &&
+            this.renderPicker(
+              'Medios de contacto',
+              'listaMediosContacto',
+              listaMediosContacto
+            )}
+          {!esExportador &&
+            this.renderPicker('País', 'listaPaisComprador', listaPaisComprador)}
+
+          <Block style={{ padding: Theme.SIZES.BASE }}>
+            <Button block rounded onPress={this.doAdvancedFilter}>
+              <Text style={[tt.cap]}>Filtrar</Text>
             </Button>
-          </View>
+          </Block>
         </Content>
       </Modal>
     )
@@ -626,10 +320,11 @@ export default class Empresa extends React.Component {
       <Segment>
         {optionsByType.map((option, index) => (
           <Button
+            key={option.value}
             first={index === 0}
             last={index === optionsByType.length - 1}
-            key={index}
-            active={option.active}>
+            active={option.value === this.state.textFilter.value}
+            onPress={this.onSegmentButton(option)}>
             <Text>{option.label}</Text>
           </Button>
         ))}
@@ -638,20 +333,26 @@ export default class Empresa extends React.Component {
   }
 
   renderSearch() {
+    const textFilter = this.state.textFilter
+
     return (
       <Block row style={{ padding: Theme.SIZES.BASE }}>
         <Content style={[styles.searchBarH]}>
           <Item style={{ borderBottomWidth: 0 }}>
             <Input
               style={{ height: 40, paddingTop: 0, paddingBottom: 0 }}
-              placeholder="Busca por empresa"
+              placeholder={`Busca por ${textFilter.value}`}
+              value={this.state.form[textFilter.param]}
+              onChangeText={this.setForm(textFilter.param)}
             />
-            <Icon
-              style={[styles.searchBarHIcon]}
-              color={Theme.COLORS.BLACK}
-              type="FontAwesome"
-              name="search"
-            />
+            <Touchable onPress={this.onTextFilterSearch}>
+              <Icon
+                style={[styles.searchBarHIcon]}
+                color={Theme.COLORS.BLACK}
+                type="FontAwesome"
+                name="search"
+              />
+            </Touchable>
           </Item>
         </Content>
         <Button
@@ -660,7 +361,7 @@ export default class Empresa extends React.Component {
             borderRadius: 9,
             marginLeft: 16,
           }}
-          onPress={this.sectorModal}>
+          onPress={this.toggleQuick(true)}>
           <Icon
             style={[styles.iconFilterH]}
             type="FontAwesome"
@@ -680,11 +381,19 @@ export default class Empresa extends React.Component {
         {this.renderSearch()}
         <Hbar />
         <Content style={{ flex: 1 }} contentContainerStyle={{ flex: 1 }}>
-          <EmpresaList esExportador={esExportador} />
+          <EmpresaList
+            ref={e => (this.list = e)}
+            filter={this.state.form}
+            esExportador={esExportador}
+          />
         </Content>
-        {this.renderModalSectores()}
-        {this.renderModal()}
+        {this.renderQuickFilter()}
+        {this.renderAdvancedFilter()}
       </Block>
     )
   }
 }
+
+export default connect(ctx => ({
+  data: ctx.context.data,
+}))(Empresa)

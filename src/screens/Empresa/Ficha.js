@@ -106,9 +106,8 @@ class Ficha extends Component {
   }
 
   render() {
-    const tipoCliente = this.props.navigation.getParam('esExportador', false)
-      ? 'Exportador'
-      : 'Comprador'
+    const esExportador = this.props.navigation.getParam('esExportador', false)
+    const tipoCliente = esExportador ? 'Exportador' : 'Comprador'
     const data = this.props.empresa
 
     return (
@@ -127,10 +126,12 @@ class Ficha extends Component {
               <FichaTitle>Razón Social</FichaTitle>
               <FichaDesc>{data.razonSocial}</FichaDesc>
             </Block>
-            <Block style={[styles.itemBodyFicha]}>
-              <FichaTitle>RUC</FichaTitle>
-              <FichaDesc>{data.ruc}</FichaDesc>
-            </Block>
+            {esExportador && (
+              <Block style={[styles.itemBodyFicha]}>
+                <FichaTitle>RUC</FichaTitle>
+                <FichaDesc>{data.ruc}</FichaDesc>
+              </Block>
+            )}
             <Block style={[styles.itemBodyFicha]}>
               <FichaTitle>Sectores</FichaTitle>
               <Button
@@ -151,6 +152,12 @@ class Ficha extends Component {
             </Block>
           </Block>
           {this.state.sector && this.renderProductos()}
+          {!esExportador && (
+            <Block style={[styles.itemBodyFicha]}>
+              <FichaTitle>País</FichaTitle>
+              <FichaDesc>{data.pais}</FichaDesc>
+            </Block>
+          )}
           <Block style={[styles.listFicha]}>
             <Block style={[styles.itemBodyFicha]}>
               <FichaTitle>Dirección</FichaTitle>

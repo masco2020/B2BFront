@@ -7,6 +7,7 @@ import moment from 'moment'
 import 'moment/locale/es'
 
 import MessageAudio from './Audio'
+import MessageDocument from './Document'
 import MessageLocation from './Location'
 import MessageImage from './Image'
 import Theme from 'themes/default'
@@ -38,6 +39,10 @@ export default function Message(props) {
     }
     case 'audio': {
       Content = <MessageAudio {...item} />
+      break
+    }
+    case 'documento': {
+      Content = <MessageDocument {...item} />
       break
     }
     default:

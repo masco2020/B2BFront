@@ -19,16 +19,24 @@ const Context = React.createContext(DEFAULT_STATE)
 export const connect = (mapContextToProps = data => data) =>
   function Wrapper(Child) {
     function ConnectContext(props) {
+      const { forwardedRef, ...rest } = props
       return (
         <Context.Consumer>
           {context => (
-            <Child {...mapContextToProps(context, props)} {...props} />
+            <Child
+              ref={forwardedRef}
+              {...mapContextToProps(context, rest)}
+              {...rest}
+            />
           )}
         </Context.Consumer>
       )
     }
 
-    return ConnectContext
+    // eslint-disable-next-line react/display-name
+    return React.forwardRef((props, ref) => (
+      <ConnectContext {...props} forwardedRef={ref} />
+    ))
   }
 
 export class AppProvider extends React.Component {
