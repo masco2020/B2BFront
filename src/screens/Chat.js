@@ -1,9 +1,10 @@
 import React from 'react'
-import { FlatList, KeyboardAvoidingView } from 'react-native'
+import { FlatList, KeyboardAvoidingView, Platform, Text } from 'react-native'
 import { ActionSheet } from 'native-base'
 
 import Actions from 'components/Button/Actions'
 import MessageInput from 'components/Button/Text'
+import Block from 'components/Block'
 import Message from 'components/Message'
 
 const actionButtons = [
@@ -17,6 +18,7 @@ class Chat extends React.Component {
   static defaultProps = {
     sendMessage() {},
     onLoadMore() {},
+    onFilter() {},
     conversation: [],
   }
 
@@ -52,10 +54,18 @@ class Chat extends React.Component {
     }
   }
 
+  renderEmpty = () => {
+    return (
+      <Block flex center middle>
+        <Text>No hay mensajes</Text>
+      </Block>
+    )
+  }
+
   render() {
     return (
       <KeyboardAvoidingView
-        behavior="padding"
+        behavior={Platform.OS !== 'android' && 'height'}
         style={{ flex: 1, backgroundColor: '#EBEBEB' }}>
         <FlatList
           ref={list => (this.messagesBox = list)}
@@ -69,11 +79,13 @@ class Chat extends React.Component {
           keyExtractor={(o, i) => `message_${i}`}
           data={this.props.conversation}
           renderItem={Message}
+          ListEmptyComponent={this.renderEmpty}
           onScroll={this.onScroll}
         />
         <MessageInput
           onPress={this.props.sendMessage}
           onMoreActions={this.onMoreActions}
+          onFilter={this.props.onFilter}
         />
       </KeyboardAvoidingView>
     )

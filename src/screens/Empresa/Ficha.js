@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { Text, Button, Icon, Content, ActionSheet } from 'native-base'
-import { Alert, Linking } from 'react-native'
+import { Alert, Linking, ToastAndroid } from 'react-native'
 
 import styles, { FichaDesc, FichaTitle } from 'styles/ficha'
+import { fz } from 'styles/styles'
 import Block from 'components/Block'
 import Actions from 'components/Button/Actions'
 import { connect } from 'components/AppProvider'
@@ -42,10 +43,25 @@ class Ficha extends Component {
     )
   }
 
-  saveLocation = () => {
+  confirmSaveLocation = () => {
+    Alert.alert(
+      'Actualizar ubicación',
+      'Al registrar una nueva ubicación la anterior será eliminada.',
+      [
+        { text: 'Guardar', onPress: () => this.saveLocation() },
+        {
+          text: 'Cancelar',
+          style: 'cancel',
+        },
+      ],
+      { cancelable: false }
+    )
+  }
+
+  saveLocation = async () => {
     try {
       this.props.dispatch({ type: 'APP_LOADING', payload: true })
-      Actions.getLocation(info => {
+      await Actions.getLocation(info => {
         const data = this.props.empresa
         this.props.dispatch({
           type: 'UPDATE_EMPRESA',
@@ -64,15 +80,21 @@ class Ficha extends Component {
       console.info(error)
     } finally {
       this.props.dispatch({ type: 'APP_LOADING', payload: false })
+      ToastAndroid.show(
+        'Ubicación registrada correctamente.',
+        ToastAndroid.SHORT
+      )
     }
   }
 
   showMap = () => {
     const { latitud, longitud } = this.props.empresa
     if (latitud && longitud) {
-      Linking.openURL(`https://www.google.com/maps/@${latitud},${longitud},16z`)
+      Linking.openURL(
+        `https://www.google.com/maps/search/?api=1&query=${latitud},${longitud}`
+      )
     } else {
-      Alert.alert('Error', 'Ingresa la ubicación')
+      Alert.alert('Error', 'Esta empresa no tiene una ubicación registrada.')
     }
   }
 
@@ -97,7 +119,7 @@ class Ficha extends Component {
                 ]}>
                 Ver Productos
               </Text>
-              <Icon type="FontAwesome" name="caret-down" />
+              <Icon type="FontAwesome" name="search" style={fz.n18} />
             </Button>
           )) || <Text>No tiene productos</Text>}
         </Block>
@@ -167,8 +189,8 @@ class Ficha extends Component {
               <Button
                 bordered
                 style={styles.fichaButton}
-                onPress={this.saveLocation}>
-                <Text>Ingresar Ubicación</Text>
+                onPress={this.confirmSaveLocation}>
+                <Text>Guardar Ubicación</Text>
               </Button>
               <Button style={styles.fichaButton} onPress={this.showMap}>
                 <Text>Ver Mapa</Text>

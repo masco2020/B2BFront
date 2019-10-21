@@ -50,7 +50,7 @@ const EmpresaStack = createStackNavigator(
     Help: {
       screen: Help,
       navigationOptions: getHeaderOptions({
-        title: 'Ayuda',
+        title: 'Leyenda',
         headerProps: { back: true },
       }),
     },

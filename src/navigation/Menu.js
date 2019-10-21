@@ -26,9 +26,9 @@ const Drawer = ({ user }) => {
             <Text numberOfLines={1} style={[fz.n20, fc.white, fw.bold]}>
               {user.nombre}
             </Text>
-            <Text numberOfLines={1} style={[fz.n16, fc.white, fw.bold]}>
+            {/* <Text numberOfLines={1} style={[fz.n16, fc.white, fw.bold]}>
               {user.cargo}
-            </Text>
+            </Text> */}
           </Block>
         </Header>
       )}
@@ -36,7 +36,7 @@ const Drawer = ({ user }) => {
         <ScrollView
           showsVerticalScrollIndicator={false}
           style={[{ flex: 1 }, bg.muted]}>
-          <Link title="Perfil" iconName="globe-americas" routeName="Perfil" />
+          <Link title="Inicio" iconName="home" routeName="Perfil" />
           <Link
             title="Compradores"
             iconName="globe-americas"
@@ -48,7 +48,7 @@ const Drawer = ({ user }) => {
             routeName="Exportador"
           />
           <Hbar color={Theme.COLORS.PRIMARY} style={{ marginHorizontal }} />
-          <Link title="Ayuda" iconName="question" routeName="Help" />
+          <Link title="Leyenda" iconName="question" routeName="Help" />
           <Web />
           <Hbar color={Theme.COLORS.PRIMARY} style={{ marginHorizontal }} />
           <Logout />

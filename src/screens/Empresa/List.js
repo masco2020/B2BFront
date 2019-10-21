@@ -1,10 +1,12 @@
 import React from 'react'
-import { ActivityIndicator, FlatList } from 'react-native'
+import { ActivityIndicator, FlatList, Text } from 'react-native'
 import produce from 'immer'
 import debounce from 'lodash/debounce'
 
-import EmpresaBox from 'components/EmpresaBox'
 import { connect } from 'components/AppProvider'
+import EmpresaBox from 'components/EmpresaBox'
+import Block from 'components/Block'
+import get from 'lodash/get'
 
 const MAX_PER_PAGE = 10
 
@@ -76,6 +78,24 @@ class EmpresaList extends React.Component {
     return <ActivityIndicator style={{ color: '#000' }} />
   }
 
+  renderEmpty = () => {
+    return (
+      <Block flex center middle>
+        <Text>No se encontraron resultados</Text>
+      </Block>
+    )
+  }
+
+  renderHeader = () => {
+    const empresas = this.state.empresas
+    if (empresas.length) {
+      const totalEmpresas = get(empresas, '[0].total')
+
+      return <Text>Resultado: {totalEmpresas}</Text>
+    }
+    return null
+  }
+
   render() {
     return (
       <FlatList
@@ -86,7 +106,9 @@ class EmpresaList extends React.Component {
           <EmpresaBox item={item} esExportador={this.props.esExportador} />
         )}
         keyExtractor={(item, index) => `${item.idEmpresa}_${index}`}
+        ListHeaderComponent={this.renderHeader}
         ListFooterComponent={this.renderFooter}
+        ListEmptyComponent={this.renderEmpty}
         onScroll={this.onScroll}
       />
     )

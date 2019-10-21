@@ -50,7 +50,7 @@ export default function Message(props) {
   }
 
   const fecha = moment(item.fechaRegistro).format('DD [de] MMMM')
-  const hora = moment(item.fechaRegistro).format('hh:mm A')
+  const hora = moment(item.fechaRegistro).format('hh:mm:ss A')
 
   return (
     <BubbleContainer {...item}>

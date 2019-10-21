@@ -1,5 +1,5 @@
 import React from 'react'
-import { FlatList } from 'react-native'
+import { FlatList, Linking } from 'react-native'
 import { Text, Button, View, Content } from 'native-base'
 
 import styles from 'styles/contactos'
@@ -9,6 +9,7 @@ import Block from 'components/Block'
 import Icon from 'components/Icon'
 import { Hbar } from 'components/styled'
 import { connect } from 'components/AppProvider'
+import Touchable from 'components/Touchable'
 
 class Contactos extends React.Component {
   static navigationOptions = {
@@ -35,8 +36,16 @@ class Contactos extends React.Component {
   render() {
     const data = this.props.empresa
     const info = [
-      { icon: 'phone', prop: 'telefono' },
-      { icon: 'envelope', prop: 'email' },
+      {
+        icon: 'phone',
+        prop: 'telefono',
+        link: () => Linking.openURL(`tel:${data.telefono}`),
+      },
+      {
+        icon: 'envelope',
+        prop: 'email',
+        link: () => Linking.openURL(`mailto:${data.email}`),
+      },
     ]
 
     return (
@@ -44,14 +53,16 @@ class Contactos extends React.Component {
         <Content style={[styles.contentContactos]}>
           <View style={{ marginVertical: 10 }}>
             {info.map(contact => (
-              <Block key={contact.icon} flex row style={[styles.infoContacto]}>
-                <Block middle>
-                  <Icon name={contact.icon} primary style={fz.n18} />
+              <Touchable key={contact.icon} onPress={info.link}>
+                <Block flex row style={[styles.infoContacto]}>
+                  <Block middle>
+                    <Icon name={contact.icon} primary style={fz.n18} />
+                  </Block>
+                  <Text selectable style={[styles.infoText]}>
+                    {data[contact.prop]}
+                  </Text>
                 </Block>
-                <Text selectable style={[styles.infoText]}>
-                  {data[contact.prop]}
-                </Text>
-              </Block>
+              </Touchable>
             ))}
           </View>
           <Hbar />
