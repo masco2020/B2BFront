@@ -30,7 +30,7 @@ export default class MessageInput extends React.Component {
 
   render() {
     return (
-      <Block row middle style={{ padding: 10, paddingTop: 0 }}>
+      <Block row middle style={{ height: 40, padding: 10, paddingTop: 0 }}>
         <Block flex>
           <Item regular style={{ backgroundColor: '#fff', marginRight: 8 }}>
             <Input
@@ -43,6 +43,9 @@ export default class MessageInput extends React.Component {
             <ButtonAudio onPress={this.props.onPress} />
             <Touchable onPress={this.props.onMoreActions}>
               <Icon name="paperclip" primary />
+            </Touchable>
+            <Touchable onPress={this.props.onFilter}>
+              <Icon name="search" primary />
             </Touchable>
           </Item>
         </Block>

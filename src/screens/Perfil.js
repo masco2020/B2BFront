@@ -45,14 +45,14 @@ class Perfil extends React.Component {
 
     return (
       <Container>
-        <Block flex={2} center middle>
+        <Block style={styles.centerMiddle} flex={3}>
           <Text style={[...textStyle, ta.center]}>
             <Text style={[...textStyle, fw.bold]}>Elige</Text> el tipo de{'\n'}
             empresa de tu interés
           </Text>
         </Block>
         {perfiles.map((perfil, index) => (
-          <Block key={index} flex={3} center>
+          <Block key={index} flex={4} center>
             <Touchable
               onPress={this.navigate(perfil.route)}
               style={styles.perfilButton}>

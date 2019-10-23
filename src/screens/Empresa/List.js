@@ -56,7 +56,7 @@ class EmpresaList extends React.Component {
         ...filter,
       })
 
-      if (res && res.data && res.data.length) {
+      if (res && res.success) {
         this.setState(
           produce(draft => {
             draft.page = Pagina + 1

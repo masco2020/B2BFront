@@ -200,26 +200,22 @@ class API {
       Accept: 'application/json',
     }
 
-    try {
-      const res = await request({
-        url,
-        method: 'POST',
-        headers,
-        params,
-        requiredParams,
-      })
+    const res = await request({
+      url,
+      method: 'POST',
+      headers,
+      params,
+      requiredParams,
+    })
 
-      if (res && res.success) {
-        this.privateHeaders = {
-          Authorization: 'Bearer ' + res.data.token,
-          ...headers,
-        }
-        this.token = res.data.token
+    if (res && res.success) {
+      this.privateHeaders = {
+        Authorization: 'Bearer ' + res.data.token,
+        ...headers,
       }
-      return res
-    } catch (error) {
-      console.info(error)
+      this.token = res.data.token
     }
+    return res
   }
 
   setToken(token) {

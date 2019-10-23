@@ -37,17 +37,22 @@ class Login extends Component {
       return Alert.alert('Error', 'Completa usuario y contraseña')
     }
 
-    this.props.dispatch({ type: 'APP_LOADING', payload: true })
+    try {
+      this.props.dispatch({ type: 'APP_LOADING', payload: true })
+      const { data, success } = await this.props.api.login({
+        usuario: user,
+        clave: pass,
+      })
 
-    const { data, success } = await this.props.api.login({
-      usuario: user,
-      clave: pass,
-    })
-    if (success) {
-      this.props.dispatch({ type: 'LOGIN', payload: data })
-      await AsyncStorage.setItem('user', JSON.stringify(data))
+      if (success) {
+        this.props.dispatch({ type: 'LOGIN', payload: data })
+        await AsyncStorage.setItem('user', JSON.stringify(data))
+        this.props.navigation.navigate('Perfil')
+      }
+    } catch (error) {
+      Alert.alert('Error', error.message)
+    } finally {
       this.props.dispatch({ type: 'APP_LOADING', payload: false })
-      this.props.navigation.navigate('Perfil')
     }
   }
 
@@ -64,7 +69,7 @@ class Login extends Component {
   renderContacto({ text, icon, info, url }) {
     const textStyle = [fc.primary, fz.n20]
     return (
-      <Block flex center middle>
+      <Block>
         <Block row middle style={{ marginBottom: Theme.SIZES.BASE / 2 }}>
           <Icon type="FontAwesome5" name={icon} style={textStyle} />
           <Text style={textStyle}>&nbsp;&nbsp;{text}</Text>
@@ -85,13 +90,7 @@ class Login extends Component {
         header="Contáctanos"
         visible={this.state.modalVisible}
         onRequestClose={this.setModalVisibility(false)}>
-        <Container padding={30}>
-          {/* {this.renderContacto({
-            text: 'Llamar a',
-            icon: 'phone',
-            info: '01 555 5555',
-          })}
-          <Hbar /> */}
+        <Container padding={30} style={styles.centerMiddle}>
           {this.renderContacto({
             text: 'Enviar correo a',
             icon: 'envelope',
@@ -113,8 +112,8 @@ class Login extends Component {
             <Title>B2B</Title>
           </Block>
         </Header>
-        <Container style={{ backgroundColor: '#EBEBEB'}}>
-          <Block flex={5} middle style={styles.block}>
+        <Container style={{ backgroundColor: '#EBEBEB' }}>
+          <Block flex={9} style={styles.block}>
             <Item floatingLabel last style={[styles.itemLogin]}>
               <Icon name="person" style={{ color: Theme.COLORS.PRIMARY }} />
               <Label>Usuario</Label>
@@ -137,12 +136,13 @@ class Login extends Component {
             </Item>
             <Button
               small
+              block
               style={styles.iniciarSesionBtn}
               onPress={this.onLogin}>
               <Text style={styles.iniciarSesionBtnText}>Iniciar</Text>
             </Button>
           </Block>
-          <Block flex>
+          <Block flex={1}>
             <Hbar color={Theme.COLORS.BLACK} />
             <Block flex center middle>
               <TouchableOpacity onPress={this.setModalVisibility(true)}>

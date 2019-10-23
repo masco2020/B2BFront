@@ -44,7 +44,7 @@ const Drawer = ({ user }) => {
           />
           <Link
             title="Exportadores"
-            iconName="globe-americas"
+            image={require('assets/icon-expo-sb.png')}
             routeName="Exportador"
           />
           <Hbar color={Theme.COLORS.PRIMARY} style={{ marginHorizontal }} />

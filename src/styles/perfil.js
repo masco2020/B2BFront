@@ -15,4 +15,8 @@ export default StyleSheet.create({
     width: 95,
     marginHorizontal: Theme.SIZES.BASE,
   },
+  centerMiddle: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 })

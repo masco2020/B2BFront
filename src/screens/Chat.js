@@ -1,11 +1,12 @@
 import React from 'react'
-import { FlatList, KeyboardAvoidingView, Platform, Text } from 'react-native'
+import { FlatList, Text } from 'react-native'
 import { ActionSheet } from 'native-base'
 
 import Actions from 'components/Button/Actions'
 import MessageInput from 'components/Button/Text'
 import Block from 'components/Block'
 import Message from 'components/Message'
+import KeyboardSpacer from 'components/KeyboardSpacer'
 
 const actionButtons = [
   { name: 'Cámara', action: Actions.takePhoto, icon: 'camera' },
@@ -64,9 +65,7 @@ class Chat extends React.Component {
 
   render() {
     return (
-      <KeyboardAvoidingView
-        behavior={Platform.OS !== 'android' && 'height'}
-        style={{ flex: 1, backgroundColor: '#EBEBEB' }}>
+      <Block flex style={{ backgroundColor: '#EBEBEB' }}>
         <FlatList
           ref={list => (this.messagesBox = list)}
           style={{
@@ -87,7 +86,8 @@ class Chat extends React.Component {
           onMoreActions={this.onMoreActions}
           onFilter={this.props.onFilter}
         />
-      </KeyboardAvoidingView>
+        <KeyboardSpacer />
+      </Block>
     )
   }
 }

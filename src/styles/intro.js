@@ -31,8 +31,10 @@ export default StyleSheet.create({
   },
   image: {
     marginLeft: 2,
-    height: 140,
-    width: 140,
+    marginBottom: 20,
+    marginTop: 60,
+    height: 120,
+    width: 120,
   },
   subtitle: {
     fontSize: 24,
@@ -42,8 +44,10 @@ export default StyleSheet.create({
     fontSize: 42,
     marginBottom: 5,
     fontWeight: 'bold',
+    height: 48,
   },
   text: {
     fontSize: 24,
+    height: 72,
   },
 })

@@ -73,6 +73,18 @@ class Historico extends Component {
     )
   }
 
+  cleanFilter = () => {
+    this.setState(
+      {
+        showFilter: false,
+        form: {},
+      },
+      () => {
+        this.loadMessages(true)
+      }
+    )
+  }
+
   loadMessages = async reset => {
     const data = this.props.navigation.getParam('data', {})
     const Pagina = reset ? 1 : this.state.page
@@ -180,13 +192,11 @@ class Historico extends Component {
                 </Text>
               </Body>
               <Right>
-                {this.isValueChecked(listaName, lista.id) && (
-                  <Icon
-                    type="FontAwesome5"
-                    color={Theme.COLORS.PRIMARY}
-                    name="check"
-                  />
-                )}
+                <Icon
+                  type="FontAwesome5"
+                  color={Theme.COLORS.PRIMARY}
+                  name={isSelected ? 'check-square' : 'square'}
+                />
               </Right>
             </ListItem>
           )
@@ -238,7 +248,7 @@ class Historico extends Component {
         <Content>
           {this.renderCheckboxesItem(
             'Tipo de archivo',
-            'tipoContenido',
+            'tipoContenidos',
             TIPO_CONTENIDO
           )}
           <Text style={[styles.itemTitle, { padding: Theme.SIZES.BASE }]}>
@@ -266,6 +276,9 @@ class Historico extends Component {
           <Block style={{ padding: Theme.SIZES.BASE }}>
             <Button block rounded onPress={this.doFilter}>
               <Text style={[tt.cap]}>Filtrar</Text>
+            </Button>
+            <Button block transparent onPress={this.cleanFilter}>
+              <Text style={[tt.cap]}>Limpiar filtros</Text>
             </Button>
           </Block>
         </Content>

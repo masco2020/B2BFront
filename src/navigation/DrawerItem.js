@@ -1,12 +1,12 @@
 import React from 'react'
-import { StyleSheet } from 'react-native'
+import { Image, StyleSheet } from 'react-native'
 import { View, Text } from 'native-base'
 import Theme from 'themes/default'
 import Icon from 'components/Icon'
 
 class DrawerItem extends React.Component {
   render() {
-    const { focused, title, iconName } = this.props
+    const { focused, title, iconName, image } = this.props
 
     const containerStyles = [
       styles.defaultStyle,
@@ -17,6 +17,7 @@ class DrawerItem extends React.Component {
       <View style={containerStyles}>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           {iconName && <Icon style={[styles.icon]} name={iconName} />}
+          {image && <Image source={image} style={styles.iconImage} />}
           <Text
             style={styles.textStyle}
             size={15}
@@ -55,6 +56,11 @@ const styles = StyleSheet.create({
     fontSize: Theme.SIZES.ROUND * 3,
     color: Theme.COLORS.PRIMARY,
     marginRight: Theme.SIZES.BASE,
+  },
+  iconImage: {
+    marginRight: Theme.SIZES.BASE,
+    height: 18,
+    width: 18,
   },
 })
 

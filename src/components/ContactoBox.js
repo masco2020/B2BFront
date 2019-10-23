@@ -28,7 +28,7 @@ export default class ContactoBox extends Component {
     return (
       <Card noShadow style={[styles.contactoCards]}>
         <CardItem bordered style={styles.boxTop}>
-          <Touchable onPress={this.openEditor}>
+          <Touchable style={styles.contactoCardsBody} onPress={this.openEditor}>
             <Block row>
               <Block>
                 <Icon size={18} name="user-alt" primary />
@@ -43,7 +43,7 @@ export default class ContactoBox extends Component {
                   {contact.tipoCargo.nombre}
                 </Text>
               </Block>
-              <Block>
+              <Block style={styles.editBtn}>
                 <Icon size={18} name="edit" primary />
               </Block>
             </Block>

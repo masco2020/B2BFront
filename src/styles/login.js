@@ -7,19 +7,21 @@ export default StyleSheet.create({
     fontSize: 24,
   },
   /* LOGIN */
-  block:{
-    backgroundColor: '#EFEFEF',
+  block: {
+    // backgroundColor: '#EFEFEF',
+    justifyContent: 'center',
+    alignItems: 'center',
     paddingHorizontal: 24,
   },
   iniciarSesionBtn: {
     marginTop: 40,
-    width: '100%',
-    alignSelf: 'center',
-    justifyContent: 'center',
+    // width: '100%',
+    // alignSelf: 'center',
+    // justifyContent: 'center',
     borderRadius: Theme.SIZES.RADIUS,
     height: 35,
   },
-  iniciarSesionBtnText:{
+  iniciarSesionBtnText: {
     textTransform: 'capitalize',
     fontSize: 18,
     fontWeight: 'bold',
@@ -27,6 +29,7 @@ export default StyleSheet.create({
   itemLogin: {
     borderColor: Theme.COLORS.PRIMARY,
     borderBottomWidth: 1.5,
+    marginTop: 10,
   },
   gestionTextLogin: {
     color: Theme.COLORS.BLACK,
@@ -36,6 +39,7 @@ export default StyleSheet.create({
   gestionButtonText: {
     color: Theme.COLORS.BLACK,
     fontSize: 20,
+    textTransform: 'none',
   },
 
   gestionButton: {
@@ -66,6 +70,10 @@ export default StyleSheet.create({
   },
   gestionEmailBtn: {
     borderColor: '#7e7e7d',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  centerMiddle: {
     justifyContent: 'center',
     alignItems: 'center',
   },

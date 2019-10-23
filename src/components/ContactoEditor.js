@@ -19,6 +19,7 @@ export class CustomPicker extends React.Component {
           placeholderStyle={{ color: '#BFC6EA', width: '100%' }}
           selectedValue={attributes.value}
           onValueChange={this.onValueChange}>
+          <Picker.Item label={attributes.label} value={null} />
           {attributes.options.map(doc => (
             <Picker.Item key={doc.id} label={doc.nombre} value={doc.id} />
           ))}

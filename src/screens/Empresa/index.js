@@ -150,27 +150,30 @@ class Empresa extends React.Component {
           <Text style={[styles.itemTitle, { padding: Theme.SIZES.BASE }]}>
             Sectores
           </Text>
-          {listaSectores.map(sector => (
-            <ListItem
-              key={sector.id}
-              noBorder
-              onPress={this.addToFormQuick('listaSectores', sector.id)}>
-              <Body style={{ margin: 0, padding: 0 }}>
-                <Text style={[styles.dateFicha, styles.textItem]}>
-                  {sector.nombre}
-                </Text>
-              </Body>
-              <Right>
-                {this.isValueChecked('listaSectores', sector.id) && (
+          {listaSectores.map(sector => {
+            const isSelected = this.isValueChecked('listaSectores', sector.id)
+
+            return (
+              <ListItem
+                key={sector.id}
+                noBorder
+                selected={isSelected}
+                onPress={this.addToFormQuick('listaSectores', sector.id)}>
+                <Body style={{ margin: 0, padding: 0 }}>
+                  <Text style={[styles.dateFicha, styles.textItem]}>
+                    {sector.nombre}
+                  </Text>
+                </Body>
+                <Right>
                   <Icon
                     type="FontAwesome5"
                     color={Theme.COLORS.PRIMARY}
-                    name="check"
+                    name={isSelected ? 'check-square' : 'square'}
                   />
-                )}
-              </Right>
-            </ListItem>
-          ))}
+                </Right>
+              </ListItem>
+            )
+          })}
           <View
             style={{
               borderBottomWidth: 2,
@@ -211,13 +214,11 @@ class Empresa extends React.Component {
                 </Text>
               </Body>
               <Right>
-                {this.isValueChecked(listaName, lista.id) && (
-                  <Icon
-                    type="FontAwesome5"
-                    color={Theme.COLORS.PRIMARY}
-                    name="check"
-                  />
-                )}
+                <Icon
+                  type="FontAwesome5"
+                  color={Theme.COLORS.PRIMARY}
+                  name={isSelected ? 'check-square' : 'square'}
+                />
               </Right>
             </ListItem>
           )

@@ -66,17 +66,18 @@ export default StyleSheet.create({
     textTransform: 'capitalize',
     marginLeft: 0,
   },
-  // boxBtnNewContact: {
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  //   marginBottom: 50,
-  // },
+  
   /* nuevo contacto */
   textBtnNewContact: {
     fontWeight: 'bold',
   },
   itemNewContact: {
     marginLeft: 0,
+  },
+  editBtn: {
+    position: 'absolute',
+    right: -10,
+    top: 8,
   },
 
   /* from estilos */
