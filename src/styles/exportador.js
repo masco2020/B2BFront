@@ -200,4 +200,7 @@ export default StyleSheet.create({
     marginRight: 13,
     fontSize: 26,
   },
+  mTop: {
+    marginTop: 14,
+  }
 })

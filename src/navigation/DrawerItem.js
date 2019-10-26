@@ -19,7 +19,7 @@ class DrawerItem extends React.Component {
           {iconName && <Icon style={[styles.icon]} name={iconName} />}
           {image && <Image source={image} style={styles.iconImage} />}
           <Text
-            style={styles.textStyle}
+            style={[styles.textStyle, focused ? styles.bolder : false]}
             size={15}
             bold={focused ? true : false}
             color={focused ? 'white' : 'rgba(0,0,0,0.5)'}>
@@ -35,10 +35,10 @@ const styles = StyleSheet.create({
   defaultStyle: {
     padding: Theme.SIZES.BASE,
   },
-  // activeStyle: {
-  //   backgroundColor: defaultTheme.primaryColor,
-  //   borderRadius: 4,
-  // },
+  bolder: {
+    fontWeight: 'bold',
+    fontSize: 20
+  },
   shadow: {
     shadowColor: '#000',
     shadowOffset: {

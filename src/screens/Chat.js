@@ -64,6 +64,10 @@ class Chat extends React.Component {
   }
 
   render() {
+    if (!this.props.conversation || !this.props.conversation.length) {
+      return this.renderEmpty()
+    }
+
     return (
       <Block flex style={{ backgroundColor: '#EBEBEB' }}>
         <FlatList
@@ -78,7 +82,6 @@ class Chat extends React.Component {
           keyExtractor={(o, i) => `message_${i}`}
           data={this.props.conversation}
           renderItem={Message}
-          ListEmptyComponent={this.renderEmpty}
           onScroll={this.onScroll}
         />
         <MessageInput

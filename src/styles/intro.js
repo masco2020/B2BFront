@@ -16,14 +16,13 @@ export default StyleSheet.create({
   whiteText: {
     color: '#fff',
     textShadowColor: 'rgba(0, 0, 0, 0.1)',
-    // textShadowOffset: { width: -1, height: 1 },
     textShadowRadius: 10,
   },
   welcomeBox: {
     alignContent: 'center',
     alignSelf: 'center',
     width: '75%',
-    marginTop: '25%',
+    marginTop: '20%',
   },
   welcome: {
     resizeMode: 'contain',
@@ -32,7 +31,7 @@ export default StyleSheet.create({
   image: {
     marginLeft: 2,
     marginBottom: 20,
-    marginTop: 60,
+    marginTop: 20,
     height: 120,
     width: 120,
   },
@@ -44,10 +43,10 @@ export default StyleSheet.create({
     fontSize: 42,
     marginBottom: 5,
     fontWeight: 'bold',
-    height: 48,
+    height: 54,
   },
   text: {
     fontSize: 24,
-    height: 72,
+    height: 140,
   },
 })

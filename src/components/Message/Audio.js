@@ -37,13 +37,22 @@ class MessageAudio extends React.Component {
 
   async componentDidMount() {
     this.soundObject = new Audio.Sound()
-    const uri = await this.props.api.historicoMedia({
+    const res = await this.props.api.historicoMedia({
       NombreArchivo: this.props.nombreArchivo,
     })
 
-    await this.soundObject.loadAsync({ uri })
-
-    this.soundObject.setOnPlaybackStatusUpdate(this.onPlaybackStatusUpdate)
+    // eslint-disable-next-line no-undef
+    const fileReaderInstance = new FileReader()
+    fileReaderInstance.readAsDataURL(res)
+    fileReaderInstance.onload = () => {
+      this.soundObject
+        .loadAsync({ uri: fileReaderInstance.result })
+        .then(() => {
+          this.soundObject.setOnPlaybackStatusUpdate(
+            this.onPlaybackStatusUpdate
+          )
+        })
+    }
   }
 
   onPlaybackStatusUpdate = status => {
@@ -53,7 +62,8 @@ class MessageAudio extends React.Component {
     }
 
     if (!totalDuration) {
-      changes.totalDuration = status.durationMillis
+      this.setState({ totalDuration: status.durationMillis })
+      // changes.totalDuration = status.durationMillis
     }
 
     if (status.didJustFinish) {

@@ -281,11 +281,6 @@ class Empresa extends React.Component {
             'listaTipoNegocio',
             listaTipoNegocio
           )}
-          {this.renderCheckboxesItem(
-            'Tipo de Negocio',
-            'listaTipoNegocio',
-            listaTipoNegocio
-          )}
           {this.renderCheckboxesItem('Tamaño', 'listaTamanio', listaTamanio)}
           {esExportador &&
             this.renderPicker(
@@ -318,7 +313,7 @@ class Empresa extends React.Component {
       : 'comprador'
     const optionsByType = options.filter(o => o.types.includes(type))
     return (
-      <Segment>
+      <Segment style={styles.mTop}>
         {optionsByType.map((option, index) => (
           <Button
             key={option.value}

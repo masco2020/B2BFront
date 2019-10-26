@@ -32,12 +32,12 @@ export default class MessageInput extends React.Component {
     return (
       <Block row middle style={{ height: 40, padding: 10, paddingTop: 0 }}>
         <Block flex>
-          <Item regular style={{ backgroundColor: '#fff', marginRight: 8 }}>
+          <Item regular style={{ backgroundColor: '#fff', marginRight: 8, borderColor: 'red', borderRadius: 8}}>
             <Input
               style={{ fontSize: 14, paddingVertical: 0 }}
               onChangeText={this.changeMessage}
               value={this.state.text}
-              placeholder="Escribe el mensaje"
+              placeholder="Escribe un mensaje"
               underlineColorAndroid="transparent"
             />
             <ButtonAudio onPress={this.props.onPress} />

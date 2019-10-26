@@ -23,7 +23,7 @@ function LogoutLink(props) {
   return (
     <Touchable onPress={logout}>
       <View style={{ paddingHorizontal: 12 }}>
-        <DrawerItem title="Cerrar Sesión" />
+        <DrawerItem focused title="Cerrar Sesión" />
       </View>
     </Touchable>
   )

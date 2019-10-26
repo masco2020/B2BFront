@@ -24,8 +24,8 @@ import { getDrawerOptions, getHeaderOptions, defaultStackConfig } from './utils'
 const EmpresaTabs = createMaterialTopTabNavigator(
   {
     Ficha,
-    Historico,
     Contactos,
+    Historico,
   },
   {
     lazy: true,

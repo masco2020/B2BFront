@@ -70,7 +70,7 @@ export const getFields = data => {
       required: true,
       name: 'idTipoDocumento',
       defaultValue: 502,
-      label: 'Tipo de Documento',
+      label: 'Seleccionar Tipo de Documento',
       options: data.listaTipoDocumento,
     },
     {
@@ -90,7 +90,7 @@ export const getFields = data => {
       type: 'customPicker',
       required: true,
       name: 'idTipoCargo',
-      label: 'Cargo',
+      label: 'Seleccionar Cargo',
       options: data.listaTipoCargo,
     },
     {
