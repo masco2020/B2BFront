@@ -20,6 +20,7 @@ import ContactoEditor from 'screens/Contacto/Editor'
 
 import Menu from './Menu'
 import { getDrawerOptions, getHeaderOptions, defaultStackConfig } from './utils'
+import Theme from 'themes/default'
 
 const EmpresaTabs = createMaterialTopTabNavigator(
   {
@@ -30,7 +31,9 @@ const EmpresaTabs = createMaterialTopTabNavigator(
   {
     lazy: true,
     tabBarOptions: {
-      style: { backgroundColor: '#6d6d6b' },
+      upperCaseLabel: false,
+      style: { backgroundColor: '#6d6d6b', borderColor: Theme.COLORS.BLACK },
+      labelStyle: { textTransform: 'capitalize' },
     },
   }
 )

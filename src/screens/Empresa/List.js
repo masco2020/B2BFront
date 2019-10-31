@@ -21,11 +21,6 @@ class EmpresaList extends React.Component {
     empresas: [],
   }
 
-  // TODO: No llamar en componentDidMount
-  componentDidMount() {
-    this.debouncedLoad()
-  }
-
   onScroll = event => {
     const convoBoxHeight = event.nativeEvent.layoutMeasurement.height
     const convoTotalHeight = event.nativeEvent.contentSize.height

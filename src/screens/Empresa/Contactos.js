@@ -74,7 +74,7 @@ class Contactos extends React.Component {
             keyExtractor={item => item.idContacto.toString()}
           />
           <Block center style={{ marginVertical: 32 }}>
-            <Button rounded onPress={this.createContact}>
+            <Button onPress={this.createContact}>
               <Text style={[{ textTransform: 'capitalize' }, fz.n20]}>
                 Nuevo Contacto
               </Text>

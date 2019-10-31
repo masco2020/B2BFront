@@ -14,7 +14,7 @@ const Theme = {
       },
       other: {
         background: '#FCFCFC',
-        usernameColor: 'rgb(176, 70, 50)',
+        usernameColor: '#d90112',
       },
     },
   },

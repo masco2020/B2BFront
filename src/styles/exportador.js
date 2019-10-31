@@ -27,7 +27,7 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   searchBarHIcon: {
-    // color: Theme.COLORS.BLACK,
+    color: Theme.COLORS.PRIMARY,
     fontSize: 20,
     marginRight: 5,
   },
@@ -202,5 +202,5 @@ export default StyleSheet.create({
   },
   mTop: {
     marginTop: 14,
-  }
+  },
 })

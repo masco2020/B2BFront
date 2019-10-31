@@ -131,6 +131,7 @@ class Ficha extends Component {
     const esExportador = this.props.navigation.getParam('esExportador', false)
     const tipoCliente = esExportador ? 'Exportador' : 'Comprador'
     const data = this.props.empresa
+    const sector = this.state.sector
 
     return (
       <Block flex>
@@ -167,7 +168,7 @@ class Ficha extends Component {
                     styles.btnListFicha,
                     styles.dateBtnListFichaSectores,
                   ]}>
-                  Ver Sectores
+                  {(sector && sector.nombre) || 'Ver Sectores'}
                 </Text>
                 <Icon type="FontAwesome" name="caret-down" />
               </Button>
@@ -190,10 +191,14 @@ class Ficha extends Component {
                 bordered
                 style={styles.fichaButton}
                 onPress={this.confirmSaveLocation}>
-                <Text>Guardar Ubicación</Text>
+                <Text style={[{ textTransform: 'uppercase' }, fz.n16]}>
+                  Guardar Ubicación
+                </Text>
               </Button>
               <Button style={styles.fichaButton} onPress={this.showMap}>
-                <Text>Ver Mapa</Text>
+                <Text style={[{ textTransform: 'uppercase' }, fz.n16]}>
+                  Ver Mapa
+                </Text>
               </Button>
             </Block>
           </Block>

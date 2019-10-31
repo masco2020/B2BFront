@@ -18,7 +18,7 @@ export default class MessageLocation extends React.Component {
 
     return (
       <Touchable onPress={this.showMap}>
-        <Image source={{ uri: source, width: 200, height: 100 }} />
+        <Image source={{ uri: source, width: '100%', height: 120 }} />
       </Touchable>
     )
   }

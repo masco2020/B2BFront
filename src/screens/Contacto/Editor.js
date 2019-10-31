@@ -88,7 +88,7 @@ class ContactoEditor extends React.PureComponent {
         </Block>
         <Block style={{ padding: Theme.SIZES.BASE * 2 }}>
           <Button block onPress={this.onSubmit}>
-            <Text>Guardar</Text>
+            <Text style={{ fontSize: 20 }}>Guardar</Text>
           </Button>
         </Block>
       </Content>

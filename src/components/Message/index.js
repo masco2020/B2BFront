@@ -57,7 +57,7 @@ export default function Message(props) {
       <Bubble {...item}>
         {!item.isUser && <MessageUser>{item.usuario.nombre}</MessageUser>}
         {Content}
-        <Block style={{ paddingTop: 4 }} row space="between">
+        <Block style={{ paddingTop: 6 }} row space="between">
           <MessageDate>{fecha}</MessageDate>
           <MessageDate>{hora}</MessageDate>
         </Block>
@@ -69,28 +69,30 @@ export default function Message(props) {
 const Bubble = styled(Block).attrs({
   flex: 1,
 })(props => ({
-  padding: 5,
+  padding: 15,
   backgroundColor:
     Theme.COLORS.MESSAGES[props.isUser ? 'user' : 'other'].background,
   borderWidth: 1,
   borderColor: '#c0c0c0',
-  borderRadius: 5,
-  width: width * 0.6,
+  borderRadius: 10,
+  width: width * 0.8,
+  margin: 'auto'
 }))
 
 const MessageUser = styled.Text({
   color: Theme.COLORS.MESSAGES.other.usernameColor,
-  fontSize: 12,
+  fontSize: 16,
+  marginBottom: 4,
 })
 
 const BubbleContainer = styled(Block).attrs(props => ({
   flex: 1,
   right: props.isUser,
 }))({
-  marginBottom: 5,
+  marginBottom: 10,
 })
 
 const MessageDate = styled.Text({
-  color: 'rgba(0,0,0,.45)',
+  color: 'rgba(0,0,0,.6)',
   fontSize: 11,
 })

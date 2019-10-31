@@ -68,8 +68,8 @@ class MessageImage extends React.Component {
         />
         <Touchable
           onPress={this.toggleModal}
-          style={{ width: 200, height: 100 }}>
-          <Image source={{ uri: this.state.uri, width: 200, height: 100 }} />
+          style={{ width: '100%', height: 140 }}>
+          <Image source={{ uri: this.state.uri, width: '100%', height: 140 }} />
         </Touchable>
       </Block>
     )

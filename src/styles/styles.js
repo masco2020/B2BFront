@@ -35,6 +35,8 @@ export const bg = StyleSheet.create({
 
 export const tt = StyleSheet.create({
   cap: { textTransform: 'capitalize' },
+  low: { textTransform: 'lowercase' },
+  upp: { textTransform: 'uppercase' },
 })
 
 export const br = StyleSheet.create({

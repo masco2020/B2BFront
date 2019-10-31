@@ -85,7 +85,12 @@ class Empresa extends React.Component {
   }
 
   onTextFilterSearch = () => {
-    this.list.debouncedLoad(true)
+    const textFilter = this.state.textFilter
+    const value = this.state.form[textFilter.param]
+
+    if (value) {
+      this.list.debouncedLoad(true)
+    }
   }
 
   addToForm = (key, value) => () => {
@@ -321,7 +326,7 @@ class Empresa extends React.Component {
             last={index === optionsByType.length - 1}
             active={option.value === this.state.textFilter.value}
             onPress={this.onSegmentButton(option)}>
-            <Text>{option.label}</Text>
+            <Text style={tt.cap}>{option.label}</Text>
           </Button>
         ))}
       </Segment>
@@ -330,6 +335,8 @@ class Empresa extends React.Component {
 
   renderSearch() {
     const textFilter = this.state.textFilter
+    const value = this.state.form[textFilter.param]
+    const hasValue = !!value && value.length > 0
 
     return (
       <Block row style={{ padding: Theme.SIZES.BASE }}>
@@ -338,17 +345,18 @@ class Empresa extends React.Component {
             <Input
               style={{ height: 40, paddingTop: 0, paddingBottom: 0 }}
               placeholder={`Busca por ${textFilter.value}`}
-              value={this.state.form[textFilter.param]}
+              value={value}
               onChangeText={this.setForm(textFilter.param)}
             />
-            <Touchable onPress={this.onTextFilterSearch}>
-              <Icon
-                style={[styles.searchBarHIcon]}
-                color={Theme.COLORS.BLACK}
-                type="FontAwesome"
-                name="search"
-              />
-            </Touchable>
+            {hasValue && (
+              <Touchable onPress={this.onTextFilterSearch}>
+                <Icon
+                  style={[styles.searchBarHIcon]}
+                  type="FontAwesome"
+                  name="search"
+                />
+              </Touchable>
+            )}
           </Item>
         </Content>
         <Button
