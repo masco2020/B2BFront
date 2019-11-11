@@ -106,7 +106,9 @@ class Empresa extends React.Component {
       produce(draft => {
         updateStateOnCheckbox(draft, key, value)
       }),
-      this.list.debouncedLoad
+      () => {
+        this.list.debouncedLoad(true)
+      }
     )
   }
 

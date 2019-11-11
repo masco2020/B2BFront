@@ -204,7 +204,7 @@ class Ficha extends Component {
           </Block>
           <Block style={[styles.listFicha]}>
             <Block style={[styles.itemBodyFicha]}>
-              <FichaTitle>Nº Telefonico Empresarial</FichaTitle>
+              <FichaTitle>Nº Telefónico Empresarial</FichaTitle>
               <FichaDesc>{data.telefono}</FichaDesc>
             </Block>
             <Block style={[styles.itemBodyFicha]}>

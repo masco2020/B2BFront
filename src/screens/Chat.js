@@ -64,26 +64,28 @@ class Chat extends React.Component {
   }
 
   render() {
-    if (!this.props.conversation || !this.props.conversation.length) {
-      return this.renderEmpty()
-    }
+    const hasMessages =
+      this.props.conversation && this.props.conversation.length
 
     return (
       <Block flex style={{ backgroundColor: '#EBEBEB' }}>
-        <FlatList
-          ref={list => (this.messagesBox = list)}
-          style={{
-            flex: 1,
-            marginBottom: 10,
-            marginTop: 20,
-            paddingHorizontal: 10,
-          }}
-          inverted={-1}
-          keyExtractor={(o, i) => `message_${i}`}
-          data={this.props.conversation}
-          renderItem={Message}
-          onScroll={this.onScroll}
-        />
+        {(hasMessages && (
+          <FlatList
+            ref={list => (this.messagesBox = list)}
+            style={{
+              flex: 1,
+              marginBottom: 10,
+              marginTop: 20,
+              paddingHorizontal: 10,
+            }}
+            inverted={-1}
+            keyExtractor={(o, i) => `message_${i}`}
+            data={this.props.conversation}
+            renderItem={Message}
+            onScroll={this.onScroll}
+          />
+        )) ||
+          this.renderEmpty()}
         <MessageInput
           onPress={this.props.sendMessage}
           onMoreActions={this.onMoreActions}

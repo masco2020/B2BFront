@@ -52,10 +52,17 @@ export const defaultStackConfig = {
 export const getHeaderOptions = ({ title, headerProps, ...props }) => ({
   navigation,
 }) => {
-  title = isFunction(title) ? title(navigation) : title
+  const detalleEmpresa = navigation.getParam('detalleEmpresa', false)
+
+  let headerTitle = isFunction(title) ? title(navigation) : title
+  if (detalleEmpresa) {
+    headerTitle = navigation.getParam('data', {}).nombreEmpresa
+  }
 
   return {
-    header: <Header {...headerProps} title={title} navigation={navigation} />,
+    header: (
+      <Header {...headerProps} title={headerTitle} navigation={navigation} />
+    ),
     ...props,
   }
 }

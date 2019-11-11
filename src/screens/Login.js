@@ -34,7 +34,7 @@ class Login extends Component {
   onLogin = async () => {
     const { user, pass } = this.state
     if (!user || !pass) {
-      return Alert.alert('Error', 'Completa usuario y contraseña')
+      return Alert.alert('Advertencia', 'Completa usuario y contraseña')
     }
 
     try {
@@ -50,7 +50,7 @@ class Login extends Component {
         this.props.navigation.navigate('Perfil')
       }
     } catch (error) {
-      Alert.alert('Error', error.message)
+      Alert.alert('Advertencia', error.message)
     } finally {
       this.props.dispatch({ type: 'APP_LOADING', payload: false })
     }

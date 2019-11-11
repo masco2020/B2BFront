@@ -26,6 +26,7 @@ class EmpresaBox extends React.PureComponent {
     this.props.dispatch({ type: 'SET_EMPRESA', payload: item })
     this.props.navigation.navigate('EmpresaDetalle', {
       data: item,
+      detalleEmpresa: true,
       esExportador: this.props.esExportador,
     })
   }
