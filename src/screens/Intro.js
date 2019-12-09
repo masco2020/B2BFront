@@ -39,15 +39,11 @@ const slides = [
 ]
 
 export default class IntroApp extends React.Component {
-  state = {
-    showRealApp: false,
-  }
-
   _onDone = () => {
     this.props.navigation.navigate('Login')
   }
 
-  _renderItem = ({ item }) => {
+  _renderItem = ({ item, index }) => {
     return (
       <Block flex>
         <ImageBackground
@@ -56,7 +52,9 @@ export default class IntroApp extends React.Component {
           <View style={{ padding: 16 }}>
             <View style={[styles.boxBtnRight]}>
               <Button transparent onPress={this._onDone}>
-                <Text style={[styles.btnRight, styles.whiteText]}>Saltar</Text>
+                <Text style={[styles.btnRight, styles.whiteText]}>
+                  {index < 3 ? 'Saltar' : 'Ingresar'}
+                </Text>
               </Button>
             </View>
             <Block flex={6}>

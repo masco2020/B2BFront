@@ -102,7 +102,7 @@ class EmpresaList extends React.Component {
         )}
         keyExtractor={(item, index) => `${item.idEmpresa}_${index}`}
         ListHeaderComponent={this.renderHeader}
-        ListFooterComponent={this.renderFooter}
+        // ListFooterComponent={this.renderFooter}
         ListEmptyComponent={this.renderEmpty}
         onScroll={this.onScroll}
       />

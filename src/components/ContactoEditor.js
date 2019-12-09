@@ -44,6 +44,7 @@ export class CustomInput extends React.Component {
           placeholder={attributes.label}
           onChangeText={this.onValueChange}
           keyboardType={attributes.textType}
+          maxLength= {attributes.max}
         />
       </Item>
     )
@@ -99,6 +100,7 @@ export const getFields = data => {
       name: 'celular',
       textType: 'phone-pad',
       label: 'Nº de Celular',
+      max: 20,
     },
     {
       type: 'customInput',

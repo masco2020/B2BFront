@@ -338,7 +338,7 @@ class Empresa extends React.Component {
   renderSearch() {
     const textFilter = this.state.textFilter
     const value = this.state.form[textFilter.param]
-    const hasValue = !!value && value.length > 0
+    const hasValue = !!value && value.length > 2
 
     return (
       <Block row style={{ padding: Theme.SIZES.BASE }}>

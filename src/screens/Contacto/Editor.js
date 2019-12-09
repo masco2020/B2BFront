@@ -15,11 +15,15 @@ class ContactoEditor extends React.PureComponent {
     const idEmpresa = this.props.navigation.getParam('idEmpresa')
 
     if (!idEmpresa || !type) {
-      return Alert.alert('Error', 'Faltan datos')
+      return Alert.alert('Advertencia', 'Datos incompletos.')
     }
 
     const formData = this.formGenerator.getValues()
     const method = type === 'create' ? 'contactoCreate' : 'contactoUpdate'
+
+    if (!this.validateEmail(formData.email)) {
+      return Alert.alert('Advertencia', 'Correo electrónico incorrecto.')
+    }
 
     try {
       this.props.dispatch({ type: 'APP_LOADING', payload: true })
@@ -32,7 +36,7 @@ class ContactoEditor extends React.PureComponent {
       })
 
       if (!response || !response.success) {
-        Alert.alert('Error', 'Error al guardar datos')
+        Alert.alert('Error', 'No se pudo hacer el registro, revisar campos.')
       } else {
         // Update en local
         const empresa = this.props.empresa
@@ -55,7 +59,7 @@ class ContactoEditor extends React.PureComponent {
         this.props.navigation.goBack()
       }
     } catch (error) {
-      Alert.alert('Error', 'Error al guardar datos')
+      Alert.alert('Error', 'No se pudo hacer el registro, revisar campos.')
     } finally {
       this.props.dispatch({ type: 'APP_LOADING', payload: false })
     }
@@ -68,6 +72,11 @@ class ContactoEditor extends React.PureComponent {
       idTipoDocumento: tipoDocumento.id,
       idTipoCargo: tipoCargo.id,
     }
+  }
+
+  validateEmail(email) {
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    return re.test(String(email).toLowerCase())
   }
 
   render() {

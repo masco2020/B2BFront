@@ -10,27 +10,34 @@ import material from 'native-base-theme/variables/material'
 import Block from 'components/Block'
 import AppProvider, { connect } from 'components/AppProvider'
 import Screens from 'navigation/Screens'
+import Theme from 'themes/default'
 import OrientationLoadingOverlay from 'react-native-orientation-loading-overlay'
 
 useScreens()
 
-const App = props => {
-  return (
-    <StyleProvider style={getTheme(material)}>
-      <Root>
-        <Block flex style={{ paddingTop: StatusBar.currentHeight }}>
-          <Screens />
-        </Block>
-        <OrientationLoadingOverlay
-          visible={props.loading}
-          color="white"
-          indicatorSize="large"
-          messageFontSize={24}
-          message="Cargando"
-        />
-      </Root>
-    </StyleProvider>
-  )
+class App extends Component {
+  render() {
+    return (
+      <StyleProvider style={getTheme(material)}>
+        <Root>
+          <Block flex style={{ paddingTop: StatusBar.currentHeight }}>
+            <StatusBar
+              backgroundColor={Theme.COLORS.PRIMARY}
+              barStyle="dark-content"
+            />
+            <Screens />
+          </Block>
+          <OrientationLoadingOverlay
+            visible={this.props.loading}
+            color="white"
+            indicatorSize="large"
+            messageFontSize={24}
+            message="Cargando"
+          />
+        </Root>
+      </StyleProvider>
+    )
+  }
 }
 
 const AppData = connect(({ context }) => ({

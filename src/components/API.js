@@ -197,8 +197,11 @@ class API {
     const requiredParams = ['usuario', 'clave']
     const headers = {
       'Content-Type': 'application/json',
+      'API_KEY_B2B': 'D9CB0B69-5121-4895-90E2-BA4243CC0425',
       Accept: 'application/json',
     }
+
+    console.warn({'API_KEY_B2B': 'D9CB0B69-5121-4895-90E2-BA4243CC0425'})
 
     const res = await request({
       url,

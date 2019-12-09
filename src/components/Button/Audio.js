@@ -33,31 +33,33 @@ export default class ButtonAudio extends React.Component {
       })
 
       await this.recording.prepareToRecordAsync(
-        Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY
+        Audio.RECORDING_OPTIONS_PRESET_LOW_QUALITY
       )
       await this.recording.startAsync()
       this.setState({ icon: 'stop', recording: true })
     } catch (error) {
       Alert.alert('Error', error.message)
+      console.info('Error Start', error.message)
     }
   }
 
   stopRecording = async () => {
     try {
       await this.recording.stopAndUnloadAsync()
+      await Audio.setAudioModeAsync({
+        allowsRecordingIOS: false,
+        interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+        playsInSilentModeIOS: true,
+        playsInSilentLockedModeIOS: true,
+        shouldDuckAndroid: true,
+        interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
+        playThroughEarpieceAndroid: false,
+        staysActiveInBackground: true,
+      })
     } catch (error) {
       Alert.alert('Error', error.message)
+      console.info('Error Stop', error.message)
     }
-    await Audio.setAudioModeAsync({
-      allowsRecordingIOS: false,
-      interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
-      playsInSilentModeIOS: true,
-      playsInSilentLockedModeIOS: true,
-      shouldDuckAndroid: true,
-      interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
-      playThroughEarpieceAndroid: false,
-      staysActiveInBackground: true,
-    })
 
     const fileUrl = this.recording.getURI()
 
