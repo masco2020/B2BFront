@@ -9,6 +9,7 @@ import { msToStr } from './utils'
 import Theme from 'themes/default'
 import Touchable from 'components/Touchable'
 import { connect } from 'components/AppProvider'
+import debounce from 'lodash/debounce'
 
 const Button = styled(Touchable)({
   display: 'flex',
@@ -19,6 +20,16 @@ const Button = styled(Touchable)({
   width: 30,
 })
 
+function FileReaderPromise(file) {
+  return new Promise((resolve, reject) => {
+    // eslint-disable-next-line no-undef
+    var fr = new FileReader()
+    fr.onload = () => resolve(fr.result)
+    fr.onerror = reject
+    fr.readAsDataURL(file)
+  })
+}
+
 function AudioButton(props) {
   return (
     <Button onPress={props.onPress}>
@@ -28,85 +39,112 @@ function AudioButton(props) {
 }
 
 class MessageAudio extends React.Component {
+  sound = null
+
   state = {
+    isLoaded: false,
+    isLoading: false,
     isPlaying: false,
     finished: false,
-    currentPosition: 0,
-    totalDuration: 0,
+    currentPosition: null,
+    totalDuration: null,
+    isPlaybackAllowed: false,
   }
 
-  async componentDidMount() {
-    this.soundObject = new Audio.Sound()
-    const res = await this.props.api.historicoMedia({
-      NombreArchivo: this.props.nombreArchivo,
-    })
+  shouldComponentUpdate(nextProps, nextState) {
+    return this.state !== nextState
+  }
 
-    // eslint-disable-next-line no-undef
-    const fileReaderInstance = new FileReader()
-    fileReaderInstance.readAsDataURL(res)
-    fileReaderInstance.onload = () => {
-      this.soundObject
-        .loadAsync({ uri: fileReaderInstance.result })
-        .then(() => {
-          this.soundObject.setOnPlaybackStatusUpdate(
-            this.onPlaybackStatusUpdate
-          )
+  loadSound = debounce(async () => {
+    if (!this.state.isLoaded) {
+      const res = await this.props.api
+        .historicoMedia({
+          NombreArchivo: this.props.nombreArchivo,
         })
+        .catch(err => console.info('historicoMedia', err))
+
+      const result = await FileReaderPromise(res)
+      const { sound /* , status */ } = await Audio.Sound.createAsync(
+        { uri: result },
+        {
+          isLooping: true,
+        },
+        this.onPlaybackStatusUpdate
+      )
+      // console.info('onload', status)
+      this.soundObject = sound
     }
-  }
+  }, 1000)
 
   onPlaybackStatusUpdate = status => {
-    const totalDuration = this.state.totalDuration
-    let changes = {
-      currentPosition: status.positionMillis,
-    }
+    // console.info('pbs', status)
+    let changes = {}
 
-    if (!totalDuration) {
-      this.setState({ totalDuration: status.durationMillis })
-      // changes.totalDuration = status.durationMillis
-    }
+    if (status.isLoaded) {
+      changes.isPlaybackAllowed = true
+      changes.totalDuration = status.durationMillis
+      changes.isPlaying = status.isPlaying
+      changes.isLoaded = status.isLoaded
 
-    if (status.didJustFinish) {
-      changes.isPlaying = false
-      changes.finished = true
+      if (status.isPlaying) {
+        changes.currentPosition = status.positionMillis
+      }
+      // if (status.didJustFinish) {
+      //   changes.finished = true
+      //   changes.currentPosition = status.positionMillis
+      // }
+    } else {
+      changes.totalDuration = 0
+      changes.currentPosition = 0
+      if (status.error) {
+        console.info(`FATAL PLAYER ERROR: ${status.error}`)
+      }
     }
-    if (!status.isPlaying && !status.didJustFinish) {
-      return
-    }
+    // console.info('status pbs', changes)
 
     this.setState(changes)
   }
 
   toggleAudio = async () => {
-    const isPlaying = this.state.isPlaying
-    const finished = this.state.finished
+    const { isPlaying } = this.state
+
     let changes = { isPlaying: !isPlaying }
 
-    if (isPlaying) {
-      await this.soundObject.pauseAsync()
+    if (!isPlaying) {
+      // if (!isLoaded) {
+      //   await this.loadSound()
+      // }
+
+      // if (finished) {
+      //   await this.soundObject.stopAsync()
+      //   changes.finished = false
+      // } else {
+      //if (isPlaybackAllowed) {
+      await this.soundObject.playAsync()
+      // }
     } else {
-      if (finished) {
-        changes.finished = false
-        await this.soundObject.playFromPositionAsync(0)
-      } else {
-        await this.soundObject.playAsync()
-      }
+      await this.soundObject.pauseAsync()
     }
 
     this.setState(changes)
   }
 
   render() {
-    const { isPlaying, currentPosition, totalDuration } = this.state
+    const { isPlaying, isLoaded, currentPosition, totalDuration } = this.state
+    const text = isLoaded
+      ? `${msToStr(currentPosition)} / ${msToStr(totalDuration)}`
+      : 'Descargar'
+    const icon = isLoaded
+      ? !isPlaying
+        ? 'play'
+        : 'pause'
+      : 'cloud-download-alt'
+    const fn = isLoaded ? this.toggleAudio : this.loadSound
+
     return (
       <Block row>
-        <AudioButton
-          onPress={this.toggleAudio}
-          icon={!isPlaying ? 'play' : 'pause'}
-        />
-        <Text style={{ lineHeight: 30 }}>
-          {msToStr(currentPosition)} / {msToStr(totalDuration)}
-        </Text>
+        <AudioButton onPress={fn} icon={icon} />
+        <Text style={{ lineHeight: 30 }}>{text}</Text>
       </Block>
     )
   }

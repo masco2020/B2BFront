@@ -4,7 +4,8 @@ import * as FileSystem from 'expo-file-system'
 import { CameraRoll } from 'react-native'
 import qs from 'qs'
 
-const urlAPI = 'http://190.117.249.6/Rutex/api'
+// const urlAPI = 'http://190.117.249.6/Rutex/api'
+const urlAPI = 'http://192.168.1.60:8008/api'
 const paths = {
   contacto: '/contacto/',
   empresa: '/empresa/',
@@ -197,16 +198,18 @@ class API {
     const requiredParams = ['usuario', 'clave']
     const headers = {
       'Content-Type': 'application/json',
+      Accept: 'application/json',
+    }
+    const headersAuth = {
+      'Content-Type': 'application/json',
       'API_KEY_B2B': 'D9CB0B69-5121-4895-90E2-BA4243CC0425',
       Accept: 'application/json',
     }
 
-    console.warn({'API_KEY_B2B': 'D9CB0B69-5121-4895-90E2-BA4243CC0425'})
-
     const res = await request({
       url,
       method: 'POST',
-      headers,
+      headers: headersAuth,
       params,
       requiredParams,
     })

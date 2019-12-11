@@ -33,7 +33,7 @@ export default class ButtonAudio extends React.Component {
       })
 
       await this.recording.prepareToRecordAsync(
-        Audio.RECORDING_OPTIONS_PRESET_LOW_QUALITY
+        Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY
       )
       await this.recording.startAsync()
       this.setState({ icon: 'stop', recording: true })
