@@ -65,12 +65,16 @@ class MessageAudio extends React.Component {
 
       const result = await FileReaderPromise(res)
       const { sound /* , status */ } = await Audio.Sound.createAsync(
-        { uri: result },
+        { uri: result, overrideFileExtensionAndroid: 'mp3' },
         {
           isLooping: true,
         },
         this.onPlaybackStatusUpdate
-      )
+      ).catch(err => {
+        console.info('Error al crear sonido', this.props.nombreArchivo)
+        console.info(result)
+        console.info(err)
+      })
       // console.info('onload', status)
       this.soundObject = sound
     }

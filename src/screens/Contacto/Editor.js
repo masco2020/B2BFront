@@ -43,7 +43,7 @@ class ContactoEditor extends React.PureComponent {
         let contactos = this.props.empresa.listaContactos
 
         if (type === 'create') {
-          contactos.push(response.data)
+          contactos = [response.data, ...contactos]
         } else {
           contactos = contactos.map(c => {
             return c.idContacto === data.idContacto ? response.data : c
@@ -60,6 +60,7 @@ class ContactoEditor extends React.PureComponent {
       }
     } catch (error) {
       Alert.alert('Error', 'No se pudo hacer el registro, revisar campos.')
+      console.info('reg', error)
     } finally {
       this.props.dispatch({ type: 'APP_LOADING', payload: false })
     }

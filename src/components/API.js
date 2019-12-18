@@ -4,8 +4,8 @@ import * as FileSystem from 'expo-file-system'
 import { CameraRoll } from 'react-native'
 import qs from 'qs'
 
-// const urlAPI = 'http://190.117.249.6/Rutex/api'
-const urlAPI = 'http://192.168.1.60:8008/api'
+const urlAPI = 'http://190.117.249.6/Rutex/api'
+// const urlAPI = 'http://192.168.1.60:8008/api'
 const paths = {
   contacto: '/contacto/',
   empresa: '/empresa/',

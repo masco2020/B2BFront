@@ -39,7 +39,7 @@ export default class ContactoBox extends Component {
                 </Text>
                 <Text
                   style={[styles.textBox, styles.cargoBox]}
-                  numberOfLines={1}>
+                  numberOfLines={3}>
                   {contact.tipoCargo.nombre}
                 </Text>
               </Block>
