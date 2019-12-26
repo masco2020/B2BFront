@@ -7,17 +7,21 @@ import { connect } from 'components/AppProvider'
 
 function LogoutLink(props) {
   async function logout() {
-    try {
-      props.dispatch({ type: 'APP_LOADING', payload: true })
-      await props.api.logout({ IdUsuario: props.user.idUsuario })
-    } catch (error) {
-      console.info('Error en logout', error)
-    } finally {
-      props.dispatch({ type: 'LOGOUT' })
-      await AsyncStorage.setItem('user', '')
-      props.dispatch({ type: 'APP_LOADING', payload: false })
-      props.navigation.navigate('Intro')
-    }
+    // try {
+    //   props.dispatch({ type: 'APP_LOADING', payload: true })
+    //   await props.api.logout({ IdUsuario: props.user.idUsuario })
+    // } catch (error) {
+    //   console.info('Error en logout', error)
+    // } finally {
+    //   props.dispatch({ type: 'LOGOUT' })
+    //   await AsyncStorage.setItem('user', '')
+    //   props.dispatch({ type: 'APP_LOADING', payload: false })
+    //   props.navigation.navigate('Intro')
+    // }
+    props.dispatch({ type: 'LOGOUT' })
+    await AsyncStorage.setItem('user', '')
+    props.dispatch({ type: 'APP_LOADING', payload: false })
+    props.navigation.navigate('Intro')
   }
 
   return (

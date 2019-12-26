@@ -67,7 +67,7 @@ class MessageAudio extends React.Component {
       const { sound /* , status */ } = await Audio.Sound.createAsync(
         { uri: result, overrideFileExtensionAndroid: 'mp3' },
         {
-          isLooping: true,
+          isLooping: false,
         },
         this.onPlaybackStatusUpdate
       ).catch(err => {

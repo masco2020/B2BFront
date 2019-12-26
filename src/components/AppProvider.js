@@ -95,6 +95,12 @@ export class AppProvider extends React.Component {
             draft.empresa = merge(draft.empresa, payload)
           })
         )
+      case 'RECORD_STATUS':
+        return this.setState(
+          produce(draft => {
+            draft.record = payload || false
+          })
+        )
       default:
     }
   }

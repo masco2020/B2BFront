@@ -52,7 +52,7 @@ const MAX_PER_PAGE = 20
 
 class Historico extends Component {
   static navigationOptions = {
-    tabBarLabel: 'Historico',
+    tabBarLabel: 'Histórico',
   }
 
   state = {

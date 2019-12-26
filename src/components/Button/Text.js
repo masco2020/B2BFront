@@ -6,8 +6,9 @@ import Touchable from 'components/Touchable'
 import RoundedButton from 'components/RoundedButton'
 import { CONTENIDO } from './Actions'
 import ButtonAudio from './Audio'
+import { connect } from 'components/AppProvider'
 
-export default class MessageInput extends React.Component {
+class MessageInput extends React.Component {
   state = {
     text: null,
   }
@@ -37,7 +38,7 @@ export default class MessageInput extends React.Component {
               style={{ fontSize: 14, paddingVertical: 0 }}
               onChangeText={this.changeMessage}
               value={this.state.text}
-              placeholder="Escribe un mensaje"
+              placeholder= {this.props.record ? 'Grabando...' : 'Escribe un mensaje'}
               underlineColorAndroid="transparent"
             />
             <ButtonAudio onPress={this.props.onPress} />
@@ -54,3 +55,7 @@ export default class MessageInput extends React.Component {
     )
   }
 }
+
+export default connect(ctx => ({
+  record: ctx.context.record,
+}))(MessageInput)

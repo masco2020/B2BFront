@@ -5,8 +5,9 @@ import * as Permissions from 'expo-permissions'
 import Icon from 'components/Icon'
 import Touchable from 'components/Touchable'
 import { CONTENIDO } from './Actions'
+import { connect } from 'components/AppProvider'
 
-export default class ButtonAudio extends React.Component {
+class ButtonAudio extends React.Component {
   recording = new Audio.Recording()
 
   state = {
@@ -21,6 +22,11 @@ export default class ButtonAudio extends React.Component {
       return
     }
 
+    this.props.dispatch({
+      type: 'RECORD_STATUS',
+      payload: true,
+    })
+
     try {
       await Audio.setAudioModeAsync({
         allowsRecordingIOS: true,
@@ -33,7 +39,8 @@ export default class ButtonAudio extends React.Component {
       })
 
       await this.recording.prepareToRecordAsync(
-        Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY
+        // Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY
+        Audio.RECORDING_OPTIONS_PRESET_LOW_QUALITY
       )
       await this.recording.startAsync()
       this.setState({ icon: 'stop', recording: true })
@@ -66,6 +73,11 @@ export default class ButtonAudio extends React.Component {
     this.setState({ recording: false, fileUrl, icon: 'microphone' })
     this.recording = new Audio.Recording()
 
+    this.props.dispatch({
+      type: 'RECORD_STATUS',
+      payload: false,
+    })
+
     this.props.onPress({
       file: fileUrl,
       type: CONTENIDO.audio,
@@ -89,3 +101,8 @@ export default class ButtonAudio extends React.Component {
     )
   }
 }
+
+export default connect(ctx => ({
+  api: ctx.api,
+  dispatch: ctx.dispatch,
+}))(ButtonAudio)
