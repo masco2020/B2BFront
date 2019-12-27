@@ -5,7 +5,7 @@ import { CameraRoll } from 'react-native'
 import qs from 'qs'
 
 const urlAPI = 'http://190.117.249.6/Rutex/api'
-// const urlAPI = 'http://192.168.1.60:8008/api'
+// const urlAPI = 'http://192.168.251.150:16653/api'
 const paths = {
   contacto: '/contacto/',
   empresa: '/empresa/',
@@ -245,6 +245,13 @@ class API {
   empresasList(params) {
     const url = this.baseUrl + paths.empresa + 'listarEmpresa'
     const requiredParams = ['Pagina', 'Cantidad', 'EsExportador']
+
+    return this.signedRequest({ url, params, requiredParams })
+  }
+
+  detalleEmpresa(params) {
+    const url = this.baseUrl + paths.empresa + 'obtenerEmpresa'
+    const requiredParams = ['idEmpresa']
 
     return this.signedRequest({ url, params, requiredParams })
   }

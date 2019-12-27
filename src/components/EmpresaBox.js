@@ -23,12 +23,41 @@ class EmpresaBox extends React.PureComponent {
   }
 
   navigateEmpresa = item => () => {
-    this.props.dispatch({ type: 'SET_EMPRESA', payload: item })
-    this.props.navigation.navigate('EmpresaDetalle', {
-      data: item,
-      detalleEmpresa: true,
-      esExportador: this.props.esExportador,
-    })
+    // =======
+    (async () => {
+      this.props.dispatch({
+        type: 'SET_EMPRESA',
+        payload: await this.loadDetalleEmpresa(item.idEmpresa)
+      })
+      this.props.navigation.navigate('EmpresaDetalle', {
+        data: item,
+        detalleEmpresa: true,
+        esExportador: this.props.esExportador,
+      })
+    })()
+    // =======
+  }
+
+  loadDetalleEmpresa = async idEmpresa => {
+    let res = {}
+
+    if (this.props.loading) {
+      return
+    }
+    this.props.dispatch({ type: 'APP_LOADING', payload: true })
+
+    try {
+      res = await this.props.api.detalleEmpresa({
+        idEmpresa,
+      })
+
+    } catch (error) {
+      console.error('ERROR', error)
+    } finally {
+      this.props.dispatch({ type: 'APP_LOADING', payload: false })
+    }
+
+    return res.data
   }
 
   render() {
@@ -65,5 +94,6 @@ class EmpresaBox extends React.PureComponent {
 }
 
 export default connect(ctx => ({
+  api: ctx.api,
   dispatch: ctx.dispatch,
 }))(withNavigation(EmpresaBox))
