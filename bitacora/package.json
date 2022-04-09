@@ -15,7 +15,7 @@
     "expo-image-picker": "~6.0.0",
     "galio-framework": "^0.5.4",
     "immer": "^3.2.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "react": "16.8.3",
     "react-dom": "^16.8.6",
     "react-native": "https://github.com/expo/react-native/archive/sdk-34.0.0.tar.gz",
